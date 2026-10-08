@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harsha Pakki Portfolio</title>
+<meta name="description" content="Harsha Prakash Pakki, software engineer and forward deployed engineer. Python, C# and .NET, React, Kubernetes, AWS, and production systems shipped end to end.">
+<meta name="author" content="Harsha Prakash Pakki">
+<meta property="og:title" content="Harsha Pakki Portfolio">
+<meta property="og:description" content="I build it, deploy it, and stay for the hard part.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://harshapakki.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23070b12'/%3E%3Cpath d='M9 23V9M9 16h8M17 9v14' stroke='%234cc9f0' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+html,body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.128.0/three.min.js"></script>
+<style>
+/* Layout: layered dark canvas world up top, measured content column below */
+:root{
+  --bg:#070b12; --bg2:#0c1320; --panel:#111a28; --line:#1e2a3c;
+  --fg:#eaf0f8; --fg-soft:#93a3b8;
+  --c1:#4cc9f0; --c2:#7b61ff; --c3:#f7b267; --good:#51cf8d;
+  --display:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f5f7fb; --bg2:#eceff6; --panel:#ffffff; --line:#d9dfea;
+  --fg:#111a28; --fg-soft:#5b6b80;
+  --c1:#0b7fa8; --c2:#5841d8; --c3:#a85f12; --good:#1f7a4d;
+  color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#f5f7fb; --bg2:#eceff6; --panel:#ffffff; --line:#d9dfea;
+  --fg:#111a28; --fg-soft:#5b6b80;
+  --c1:#0b7fa8; --c2:#5841d8; --c3:#a85f12; --good:#1f7a4d;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:16px; line-height:1.6; overflow-x:hidden}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:20px}
+h1,h2,h3,h4{font-family:var(--display); margin:0; text-wrap:balance; letter-spacing:-.02em}
+h1{font-size:clamp(2.3rem,7vw,4.4rem); line-height:1}
+h2{font-size:clamp(1.5rem,3.4vw,2.2rem); font-weight:600}
+h3{font-size:1.1rem; font-weight:600}
+p{margin:0}
+a{color:var(--c1)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--fg-soft)}
+button{font:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--c1); outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- layered hero ---------- */
+.hero{position:relative; min-height:clamp(560px,86vh,860px); display:grid; align-content:center; isolation:isolate}
+#scene{position:absolute; inset:0; z-index:0}
+.glow{position:absolute; z-index:1; border-radius:50%; filter:blur(70px); opacity:.5; pointer-events:none}
+.glow.a{width:46vw; height:46vw; background:var(--c2); top:-12vw; right:-8vw}
+.glow.b{width:38vw; height:38vw; background:var(--c1); bottom:-14vw; left:-10vw; opacity:.35}
+.hero-in{position:relative; z-index:2; padding-block:clamp(60px,12vh,120px)}
+.hero h1{max-width:19ch}
+.hero h1 b{display:block; background:linear-gradient(100deg,var(--c1),var(--c2) 60%,var(--c3)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:700}
+.hero .sub{margin-top:20px; max-width:56ch; color:var(--fg-soft); font-size:1.08rem}
+.roles{display:flex; gap:8px; flex-wrap:wrap; margin-top:22px}
+.pill{font-family:var(--mono); font-size:.74rem; letter-spacing:.06em; border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 70%,transparent);
+  padding:6px 12px; border-radius:999px; color:var(--fg-soft)}
+.pill b{color:var(--fg); font-weight:500}
+.scroll-cue{margin-top:34px; font-family:var(--mono); font-size:.72rem; color:var(--fg-soft); display:flex; align-items:center; gap:9px}
+.scroll-cue i{display:block; width:28px; height:1px; background:var(--c1)}
+
+/* ---------- shared section chrome ---------- */
+section{position:relative; padding-block:clamp(52px,8vw,96px)}
+.sec-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+.sec-head .n{font-family:var(--mono); font-size:.74rem; color:var(--c1); letter-spacing:.12em}
+.sec-sub{color:var(--fg-soft); max-width:64ch; margin-top:10px}
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; min-width:0}
+.soft{background:linear-gradient(180deg,color-mix(in srgb,var(--bg2) 92%,transparent),transparent)}
+
+/* ---------- identity cards ---------- */
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px; margin-top:26px}
+.idcard{position:relative; overflow:hidden}
+.idcard::after{content:""; position:absolute; inset:auto -30% -60% auto; width:70%; aspect-ratio:1; border-radius:50%;
+  background:var(--c2); opacity:.14; filter:blur(36px)}
+.idcard.fde::after{background:var(--c1)}
+.idcard h3{display:flex; align-items:center; gap:10px}
+.idcard .tag{font-family:var(--mono); font-size:.68rem; border:1px solid var(--line); padding:2px 8px; border-radius:999px; color:var(--fg-soft)}
+.idcard ul{margin:14px 0 0; padding-left:18px; display:grid; gap:8px; color:var(--fg-soft); font-size:.95rem}
+.idcard ul b{color:var(--fg); font-weight:500}
+
+/* ---------- skill constellation ---------- */
+.skills-lab{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,300px); gap:18px; margin-top:26px; align-items:start}
+@media (max-width:860px){.skills-lab{grid-template-columns:1fr}}
+.cloud{display:flex; flex-wrap:wrap; gap:8px}
+.sk{border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 80%,transparent); color:var(--fg-soft);
+  border-radius:8px; padding:7px 12px; font-family:var(--mono); font-size:.78rem; transition:transform .16s, border-color .16s, color .16s}
+.sk:hover{transform:translateY(-2px); color:var(--fg); border-color:var(--c1)}
+.sk[aria-pressed="true"]{background:var(--c1); border-color:var(--c1); color:#04121a; font-weight:500}
+.sk .lvl{opacity:.6; margin-left:7px}
+.proof{position:sticky; top:20px}
+.proof .k{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-soft)}
+.proof h4{font-size:1.05rem; margin:8px 0 10px}
+.proof ul{margin:0; padding-left:18px; display:grid; gap:8px; font-size:.92rem; color:var(--fg-soft)}
+
+/* ---------- metrics strip ---------- */
+.strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:26px}
+.metric{padding:18px; border-radius:14px; border:1px solid var(--line); background:
+  radial-gradient(120% 120% at 100% 0%,color-mix(in srgb,var(--c2) 16%,transparent),transparent 60%),var(--panel)}
+.metric .big{font-family:var(--display); font-size:1.9rem; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.1}
+.metric .big em{font-style:normal; color:var(--c1)}
+.metric .k{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-soft); margin-bottom:8px}
+.metric .n{color:var(--fg-soft); font-size:.86rem; margin-top:6px}
+
+/* ---------- control demo ---------- */
+.lab{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:18px; margin-top:26px; align-items:start}
+@media (max-width:820px){.lab{grid-template-columns:1fr}}
+canvas.chart{width:100%; display:block; touch-action:none; border-radius:10px}
+.readout{font-family:var(--mono); font-size:.8rem; display:grid; gap:7px}
+.readout div{display:flex; justify-content:space-between; gap:12px; border-bottom:1px dotted var(--line); padding-bottom:6px}
+.readout b{font-variant-numeric:tabular-nums}
+.verdict{margin-top:14px; padding:10px 12px; border-radius:10px; font-family:var(--mono); font-size:.76rem;
+  border-left:3px solid var(--c1); background:color-mix(in srgb,var(--c1) 12%,transparent)}
+.verdict[data-state="hold"]{border-color:var(--good); background:color-mix(in srgb,var(--good) 12%,transparent)}
+.verdict[data-state="clamp"]{border-color:var(--c3); background:color-mix(in srgb,var(--c3) 14%,transparent)}
+label.ctl{display:block; font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-soft); margin:16px 0 8px}
+input[type=range]{width:100%; accent-color:var(--c1)}
+
+/* ---------- ladder ---------- */
+.ladder{display:grid; gap:10px; margin-top:26px}
+.rung{display:grid; grid-template-columns:46px minmax(0,1fr) auto; gap:14px; align-items:center; text-align:left; width:100%;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; color:inherit}
+.rung:hover{border-color:var(--c1)}
+.rung[aria-expanded="true"]{border-color:var(--c1)}
+.rung .t{font-family:var(--display); font-size:1.2rem; font-weight:700; color:var(--c1)}
+.rung .c{font-family:var(--mono); font-size:.74rem; color:var(--fg-soft); text-align:right}
+.rung .bar{height:5px; border-radius:99px; background:var(--line); margin-top:8px; overflow:hidden}
+.rung .bar i{display:block; height:100%; background:linear-gradient(90deg,var(--c1),var(--c2))}
+.rung-body{margin:-4px 0 0; padding:0 16px 4px 76px; color:var(--fg-soft); font-size:.92rem}
+
+/* ---------- timeline ---------- */
+.tl{margin-top:26px; display:grid; gap:14px}
+.job{display:grid; grid-template-columns:150px minmax(0,1fr); gap:18px; background:var(--panel); border:1px solid var(--line);
+  border-radius:14px; padding:18px}
+@media (max-width:760px){.job{grid-template-columns:1fr; gap:8px}}
+.job .when{font-family:var(--mono); font-size:.76rem; color:var(--fg-soft)}
+.job .when b{display:block; color:var(--fg); font-weight:500}
+.job h3 small{display:block; font-family:var(--body); font-weight:400; font-size:.9rem; color:var(--fg-soft); margin-top:2px}
+.job ul{margin:12px 0 0; padding-left:18px; display:grid; gap:7px; font-size:.94rem; color:var(--fg-soft)}
+.job ul b{color:var(--fg); font-weight:500}
+
+/* ---------- projects ---------- */
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(252px,1fr)); gap:14px; margin-top:26px}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; display:grid; gap:9px; align-content:start;
+  min-width:0; transition:transform .18s, border-color .18s}
+.card:hover{transform:translateY(-3px); border-color:var(--c2)}
+.card .m{font-family:var(--mono); font-size:.74rem; color:var(--c1)}
+.card p{font-size:.9rem; color:var(--fg-soft)}
+.tags{display:flex; gap:6px; flex-wrap:wrap}
+.tags span{font-family:var(--mono); font-size:.66rem; color:var(--fg-soft); border:1px solid var(--line); border-radius:6px; padding:2px 7px}
+
+/* ---------- footer ---------- */
+footer{padding-block:40px 60px; border-top:1px solid var(--line); margin-top:40px}
+.contact{display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-family:var(--mono); font-size:.86rem}
+.contact code{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:7px 11px}
+.ghost{background:none; border:1px solid var(--line); color:var(--fg-soft); border-radius:8px; padding:7px 11px;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase}
+.ghost:hover{border-color:var(--c1); color:var(--fg)}
+.toast{font-family:var(--mono); font-size:.72rem; color:var(--good)}
+.topbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; backdrop-filter:blur(10px);
+  background:color-mix(in srgb,var(--bg) 78%,transparent); border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1080px; margin:0 auto; padding:10px 20px; display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+.topbar .sig{font-family:var(--display); font-weight:600}
+.topbar nav{display:flex; gap:14px; margin-left:auto; flex-wrap:wrap}
+.topbar nav a{font-family:var(--mono); font-size:.76rem; color:var(--fg-soft); text-decoration:none}
+.topbar nav a:hover{color:var(--fg)}
+</style>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <span class="sig">Harsha Prakash Pakki</span>
+    <nav>
+      <a href="#role">SDE &amp; FDE</a>
+      <a href="#skills">Skills</a>
+      <a href="#control">Control demo</a>
+      <a href="#economics">AI economics</a>
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+    </nav>
+    <button class="ghost" id="theme">Theme</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div id="scene" aria-hidden="true"></div>
+  <div class="glow a" aria-hidden="true"></div>
+  <div class="glow b" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Software engineer &middot; Forward deployed</p>
+    <h1>I build it, deploy it, <b>and stay for the hard part.</b></h1>
+    <p class="sub">Six years across product engineering and on-site delivery. Python and C# on the backend, React and TypeScript on the front, Kubernetes and AWS underneath, and a habit of owning the part after launch where most projects quietly fail.</p>
+    <div class="roles">
+      <span class="pill"><b>Backend</b> Python &middot; FastAPI &middot; C# / .NET</span>
+      <span class="pill"><b>Front end</b> React &middot; Next.js &middot; React Native</span>
+      <span class="pill"><b>Platform</b> Kubernetes &middot; AWS &middot; CI/CD</span>
+      <span class="pill"><b>AI</b> MCP &middot; vision pipelines &middot; local models</span>
+    </div>
+    <div class="scroll-cue"><i></i> drag the scene, then keep scrolling</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="role" class="soft">
+    <div class="sec-head"><span class="n">01</span><h2>Two jobs, one engineer</h2></div>
+    <p class="sec-sub">I started as a product engineer shipping features inside a team, and now I am the engineer a customer gets handed. The two need different instincts and I use both every week.</p>
+    <div class="two">
+      <div class="panel idcard">
+        <h3>As an SDE <span class="tag">2018 &ndash; 2026</span></h3>
+        <ul>
+          <li><b>Ship inside a team.</b> Feature work through enterprise code review, with versioned releases other teams depend on.</li>
+          <li><b>Own the quality bar.</b> 68 tests on a mobile app I authored alone, 111 on a platform tool, plus PR audits and incident write-ups.</li>
+          <li><b>Build the paved road.</b> Dev containers, release pipelines to an artifact registry, and browser-reachable VMs that killed multi-day environment setup.</li>
+          <li><b>Modernise what exists.</b> ETL off on-premises SQL Server onto Spark with managed hosting, and high availability that holds under failover tests.</li>
+        </ul>
+      </div>
+      <div class="panel idcard fde">
+        <h3>As an FDE <span class="tag">2026 &ndash; now</span></h3>
+        <ul>
+          <li><b>Learn the domain first.</b> Sit with the people doing the work, model what they actually do, then write code against that.</li>
+          <li><b>Be the whole team.</b> Requirements, build, auth, CI/CD, containers, monitoring, and the 2 a.m. question, all mine.</li>
+          <li><b>Make legacy usable.</b> Wrap a decades-old ERP in an API so people who never saw a green screen can self-serve.</li>
+          <li><b>Leave it runnable.</b> Runbooks, status pages and one-click paths so the customer's own staff keep going without me.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="strip">
+      <div class="metric"><div class="k">Systems in production</div><div class="big">8<em>+</em></div><div class="n">shipped as the only engineer on site</div></div>
+      <div class="metric"><div class="k">Quote turnaround</div><div class="big">2-3d <em>&rarr;</em> 1d</div><div class="n">about 40% more estimates produced</div></div>
+      <div class="metric"><div class="k">Scrap on enabled cells</div><div class="big">4-5% <em>&rarr;</em> 1-2%</div><div class="n">closed-loop correction, measured per part</div></div>
+      <div class="metric"><div class="k">Environment setup</div><div class="big">days <em>&rarr;</em> login</div><div class="n">prebuilt images, provisioned on demand</div></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="n">02</span><h2>What I actually know</h2></div>
+    <p class="sec-sub">Tap anything. The panel shows where I used it and what came out of it, so you can check the claim instead of taking my word for it.</p>
+    <div class="skills-lab">
+      <div class="cloud" id="cloud"></div>
+      <div class="panel proof" id="proof"></div>
+    </div>
+  </section>
+
+  <section id="control" class="soft">
+    <div class="sec-head"><span class="n">03</span><h2>Control engineering, live</h2></div>
+    <p class="sec-sub">A controller I wrote reads a gauge and writes corrections back to a CNC tool register. Drag the measurement. In-spec noise is ignored, corrections are clamped, and nothing can chase a bad reading. This is the same math, running in your browser.</p>
+    <div class="lab">
+      <div class="panel">
+        <canvas class="chart" id="loopCanvas" height="300" aria-label="Tolerance band with measured value and the applied correction"></canvas>
+        <label class="ctl" for="measured">Measured diameter, millimetres</label>
+        <input type="range" id="measured" min="24.80" max="25.20" step="0.001" value="25.062">
+      </div>
+      <div class="panel">
+        <div class="readout">
+          <div><span>Nominal</span><b id="r-nom">25.000</b></div>
+          <div><span>Tolerance</span><b id="r-tol">24.950 / 25.050</b></div>
+          <div><span>Deadband</span><b id="r-dead">24.985 / 25.015</b></div>
+          <div><span>Deviation</span><b id="r-dev">+0.062</b></div>
+          <div><span>Raw correction, gain 0.6</span><b id="r-raw">-0.037</b></div>
+          <div><span>Per-step clamp</span><b id="r-clamp">0.030</b></div>
+          <div><span>Written to register</span><b id="r-out">-0.030</b></div>
+        </div>
+        <div class="verdict" id="verdict" data-state="correct"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="economics">
+    <div class="sec-head"><span class="n">04</span><h2>Making AI cheap enough to use</h2></div>
+    <p class="sec-sub">1,800 scanned engineering drawings, 97 part families, one catalogue of legal values. Sending everything to the best model costs about $99.50 a pass. This ladder did the whole job for roughly $150 including the failures, by escalating only on evidence. Expand a rung.</p>
+    <div class="ladder" id="ladder"></div>
+  </section>
+
+  <section id="work" class="soft">
+    <div class="sec-head"><span class="n">05</span><h2>Where I have done it</h2></div>
+    <div class="tl">
+      <article class="job">
+        <div class="when"><b>03/2026 &ndash; now</b>Quadyster, embedded with a manufacturing customer</div>
+        <div>
+          <h3>Forward Deployed Engineer<small>Sole engineer on site, 8+ production systems</small></h3>
+          <ul>
+            <li><b>Quoting platform</b> in FastAPI, PostgreSQL and React that replaced a spreadsheet, cutting turnaround from 2-3 days to about a day.</li>
+            <li><b>Vision pipeline</b> that digitised 1,800 drawings in 3 days for about $150, scoring confidence from physics rather than the model's own opinion.</li>
+            <li><b>Closed-loop CNC control</b> in C# and .NET that cut scrap from 4-5% to 1-2% on enabled cells.</li>
+            <li><b>Delivery platform</b> from zero: Gitea, push-to-deploy, about 20 containerised services on Docker and Kubernetes, monitoring and status pages.</li>
+            <li><b>Automation across 12+ teams</b>, roughly 120 users, so an order moves itself from entry to invoicing.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="when"><b>01/2025 &ndash; 03/2026</b>Quadyster, John Deere and internal products</div>
+        <div>
+          <h3>Software Engineer<small>Client front ends, micro frontends, internal platform</small></h3>
+          <ul>
+            <li><b>Two publishable micro frontends</b>, 38 of 40 commits mine, released through semantic-release to an artifact registry.</li>
+            <li><b>GraphQL schema explorer</b> that translated 51 entities into business language for non-technical users.</li>
+            <li><b>Mobile app</b> in React Native for iOS and Android, sole author, 68 tests, silent token renewal.</li>
+            <li><b>Internal platform</b>: dev containers and browser-reachable VMs that took environment setup from days to first login.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="when"><b>02/2023 &ndash; 12/2024</b>Cornerstone OnDemand</div>
+        <div>
+          <h3>Software Engineer, Product R&amp;D<small>C# and .NET, SQL Server, Spark on AWS</small></h3>
+          <ul>
+            <li><b>Owned the deployment surface</b>: a .NET installer that made every client install repeatable instead of hand-configured.</li>
+            <li><b>Moved ETL off on-premises SQL Server onto Spark</b>, with RDS and S3 behind it for high availability.</li>
+            <li><b>99.99% uptime</b> through availability groups and failover testing, with 65% faster queries and 45% less memory after tuning.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="when"><b>2018 &ndash; 2022</b>Deloitte, then CloudPeritus</div>
+        <div>
+          <h3>Data Analyst, then Data Engineering Intern<small>Where the data habits came from</small></h3>
+          <ul>
+            <li><b>SSIS pipelines at 10M+ records a day</b>, and dashboard loads cut from 45 seconds to under 5.</li>
+            <li><b>PySpark on EMR and Glue</b> with least-privilege IAM, turning raw leads into queryable profiles.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="n">06</span><h2>Things I built because I wanted to</h2></div>
+    <p class="sec-sub">Sole author on all of these, outside work hours.</p>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Contact</p>
+    <div class="contact" style="margin-top:12px">
+      <code id="mail">harshapakki@gmail.com</code>
+      <button class="ghost" id="copy">Copy</button>
+      <span class="toast" id="toast" hidden>Copied</span>
+      <span style="color:var(--fg-soft)">Bettendorf, Iowa &middot; MS Computer Science, University of Florida &middot; PG Diploma in ML and AI, IIIT Bangalore</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ============ theme ============ */
+const root = document.documentElement;
+try { const t = localStorage.getItem("hp-theme"); if (t) root.dataset.theme = t; } catch (e) {}
+const isDark = () => getComputedStyle(root).getPropertyValue("color-scheme").trim() === "dark";
+document.getElementById("theme").addEventListener("click", () => {
+  const next = isDark() ? "light" : "dark";
+  root.dataset.theme = next;
+  try { localStorage.setItem("hp-theme", next); } catch (e) {}
+  themeScene(); drawLoop();
+});
+const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+
+/* ============ hero: layered 3D stack ============ */
+let renderer, scene, cam, layers = [], links, dots, dragging = false, drag = {x:0,y:0}, target = {x:.35,y:-.2}, cur = {x:.35,y:-.2};
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const host = document.getElementById("scene");
+
+function buildScene() {
+  if (typeof THREE === "undefined") { host.style.background = "radial-gradient(60% 60% at 70% 20%, color-mix(in srgb,var(--c2) 30%, transparent), transparent)"; return; }
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  renderer.setSize(host.clientWidth, host.clientHeight);
+  host.appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+  cam = new THREE.PerspectiveCamera(42, host.clientWidth / host.clientHeight, 0.1, 100);
+  cam.position.set(0, 0, 13);
+
+  const defs = [
+    { y:  3.4, s: 7.0, label: "interface" },
+    { y:  1.7, s: 6.2, label: "services" },
+    { y:  0.0, s: 5.4, label: "data" },
+    { y: -1.7, s: 4.6, label: "platform" },
+    { y: -3.4, s: 3.8, label: "machines" }
+  ];
+  const group = new THREE.Group();
+  defs.forEach((d, i) => {
+    const geo = new THREE.PlaneGeometry(d.s, d.s, 6, 6);
+    const mat = new THREE.MeshBasicMaterial({ wireframe: true, transparent: true, opacity: 0.5 });
+    const plane = new THREE.Mesh(geo, mat);
+    plane.rotation.x = -Math.PI / 2.1;
+    plane.position.y = d.y;
+    plane.userData.i = i;
+    group.add(plane);
+    layers.push(plane);
+  });
+
+  /* nodes sitting on the layers */
+  const pts = [];
+  defs.forEach((d, i) => {
+    const count = 5 - Math.abs(i - 2);
+    for (let k = 0; k < count + 3; k++) {
+      pts.push(new THREE.Vector3((Math.random() - .5) * d.s * .8, d.y + .08, (Math.random() - .5) * d.s * .45));
+    }
+  });
+  const dg = new THREE.BufferGeometry().setFromPoints(pts);
+  dots = new THREE.Points(dg, new THREE.PointsMaterial({ size: .13, transparent: true, opacity: .95 }));
+  group.add(dots);
+
+  /* links climbing the stack */
+  const lp = [];
+  for (let i = 0; i < 26; i++) {
+    const a = pts[Math.floor(Math.random() * pts.length)];
+    const b = pts[Math.floor(Math.random() * pts.length)];
+    if (Math.abs(a.y - b.y) > 1.2 && Math.abs(a.y - b.y) < 3.8) { lp.push(a, b); }
+  }
+  links = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(lp),
+    new THREE.LineBasicMaterial({ transparent: true, opacity: .35 }));
+  group.add(links);
+
+  scene.add(group);
+  scene.userData.group = group;
+  themeScene();
+  render();
+}
+
+function themeScene() {
+  if (!renderer) return;
+  const c1 = new THREE.Color(css("--c1")), c2 = new THREE.Color(css("--c2")), c3 = new THREE.Color(css("--c3"));
+  layers.forEach((p, i) => { p.material.color = [c1, c2, c1, c2, c3][i] || c1; p.material.opacity = isDark() ? .5 : .65; });
+  if (dots) dots.material.color = c3;
+  if (links) { links.material.color = c1; links.material.opacity = isDark() ? .35 : .5; }
+}
+
+function render() {
+  if (!renderer) return;
+  const g = scene.userData.group;
+  cur.x += (target.x - cur.x) * .06;
+  cur.y += (target.y - cur.y) * .06;
+  g.rotation.y = cur.x;
+  g.rotation.x = cur.y * .4;
+  if (!reduce && !dragging) target.x += .0016;
+  if (!reduce) {
+    const t = performance.now() / 1000;
+    layers.forEach((p, i) => { p.position.y += Math.sin(t * .7 + i) * .0016; });
+  }
+  renderer.render(scene, cam);
+  requestAnimationFrame(render);
+}
+
+host.addEventListener("pointerdown", e => { dragging = true; drag.x = e.clientX; drag.y = e.clientY; host.setPointerCapture(e.pointerId); });
+host.addEventListener("pointermove", e => {
+  if (!dragging) { target.y = -.2 + (e.clientY / innerHeight - .5) * .5; return; }
+  target.x += (e.clientX - drag.x) * .006;
+  target.y += (e.clientY - drag.y) * .004;
+  drag.x = e.clientX; drag.y = e.clientY;
+});
+host.addEventListener("pointerup", e => { dragging = false; });
+window.addEventListener("resize", () => {
+  if (!renderer) return;
+  renderer.setSize(host.clientWidth, host.clientHeight);
+  cam.aspect = host.clientWidth / host.clientHeight; cam.updateProjectionMatrix();
+});
+buildScene();
+
+/* ============ skills with proof ============ */
+const skills = [
+  { k: "Python", l: "daily", w: ["Quoting platform in FastAPI with async SQLAlchemy and PostgreSQL", "AS/400 data service exposing DB2 for i as JSON", "Extraction pipeline with deterministic confidence scoring"] },
+  { k: "C# / .NET", l: "4 yrs", w: ["Closed-loop CNC controller on .NET 4.8, scrap 4-5% to 1-2%", "Windows installer with WiX that made client installs repeatable", "Database automation with SMO and failover testing"] },
+  { k: "React", l: "daily", w: ["Quoting front end in React 19 and Vite", "Two publishable micro frontends, 38 of 40 commits", "GraphQL schema explorer with a React Flow visualiser"] },
+  { k: "TypeScript", l: "daily", w: ["Micro frontends with typed host contracts and mock drivers", "Next.js dashboard with live control limits", "React Native app, about 5.3K lines"] },
+  { k: "React Native", l: "shipped", w: ["Sole author of a time-tracking app on iOS and Android", "68 tests with Jest and MSW", "Silent token renewal and optimistic clock in and out"] },
+  { k: "Kubernetes", l: "operates", w: ["About 20 containerised services across Docker and Kubernetes", "Manifests and Helm charts with per-site config externalised", "Cloud-ready packaging so a new site runs the same release"] },
+  { k: "AWS", l: "builds on", w: ["ETL onto Spark with RDS and S3 for high availability", "PySpark on EMR and Glue, orchestrated with Step Functions", "AppSync and ECS on client front ends"] },
+  { k: "Spark", l: "migrated to", w: ["Moved ETL off on-premises SQL Server onto Spark", "Batch transformations reading and writing through S3"] },
+  { k: "SQL Server", l: "4 yrs", w: ["Always On availability groups, 99.99% uptime, zero data loss", "Plan and index tuning, 65% faster queries", "SSIS pipelines at 10M+ records a day"] },
+  { k: "PostgreSQL", l: "daily", w: ["Recursive cost roll-up with cycle guards", "Read-only roles for shop-floor dashboards", "Schema migrations and attachment storage moves"] },
+  { k: "DB2 for i", l: "integrates", w: ["Live ERP pricing and stock through a material-code proxy", "Catalog snapshots and work-order routes over ODBC", "One-click access provisioning that replaced manual toggling"] },
+  { k: "Power Automate", l: "automates", w: ["Order lifecycle across 12+ teams, roughly 120 users", "CMS and order management into SharePoint lists", "Change-driven Exchange notifications to the owning team"] },
+  { k: "AI pipelines", l: "designs", w: ["Four-tier escalation ladder, 1,800 drawings for about $150", "Confidence from geometry and mass checks, not self-reports", "Shared rate limiter across five agent instances"] },
+  { k: "MCP servers", l: "built", w: ["Deterministic MCP server over tree-sitter and Neo4j, 16 tools", "111 automated tests across 6 deployment topologies", "Knowledge graph across 14 repositories"] },
+  { k: "Local models", l: "runs", w: ["Qwen coder models under a 4 GB cap through Ollama", "Escalation to a premium model only past a complexity gate", "80% local resolution target across 50 laptops"] },
+  { k: "CI/CD", l: "owns", w: ["Push-to-deploy webhook across about 11 services", "semantic-release to an artifact registry with versioned contracts", "Build and test on dedicated instances, images to a registry"] },
+  { k: "Industrial OT", l: "field", w: ["Keyence TM-X gauges and Siemens 828D cells", "OPC status snapshots on a live dashboard", "USB HID barcode flows for inspection"] },
+  { k: "Networking", l: "administers", w: ["Plant LAN and a Sophos XGS firewall, documented for handover", "WireGuard and Tailscale for remote access", "noVNC browser access to VMs, no exposed desktop ports"] }
+];
+const cloud = document.getElementById("cloud"), proof = document.getElementById("proof");
+cloud.innerHTML = skills.map((s, i) =>
+  '<button class="sk" data-i="' + i + '" aria-pressed="' + (i === 0) + '">' + s.k + '<span class="lvl">' + s.l + '</span></button>'
+).join("");
+function showSkill(i) {
+  const s = skills[i];
+  proof.innerHTML = '<div class="k">Where it shows up</div><h4>' + s.k + '</h4><ul>' + s.w.map(x => "<li>" + x + "</li>").join("") + "</ul>";
+  cloud.querySelectorAll(".sk").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.i === i)));
+}
+cloud.addEventListener("click", e => { const b = e.target.closest(".sk"); if (b) showSkill(+b.dataset.i); });
+showSkill(0);
+
+/* ============ control demo ============ */
+const NOM = 25.000, HALF = 0.050, DEAD = 0.3 * HALF, GAIN = 0.6, CLAMP = 0.030;
+const cv = document.getElementById("loopCanvas"), ctx = cv.getContext("2d"), slider = document.getElementById("measured");
+let LW = 640, LH = 300;
+const sgn = (n, d = 3) => (n > 0 ? "+" : n < 0 ? "-" : "") + Math.abs(n).toFixed(d);
+function compute(m) {
+  const dev = m - NOM;
+  if (Math.abs(dev) <= DEAD) return { dev, raw: 0, out: 0, state: "hold" };
+  const raw = -dev * GAIN, out = Math.max(-CLAMP, Math.min(CLAMP, raw));
+  return { dev, raw, out, state: Math.abs(raw) > CLAMP ? "clamp" : "correct" };
+}
+function drawLoop() {
+  const w = LW, h = LH, pad = 44, mid = h / 2;
+  const m = parseFloat(slider.value), r = compute(m);
+  const lo = NOM - HALF * 1.7, hi = NOM + HALF * 1.7, x = v => pad + ((v - lo) / (hi - lo)) * (w - pad * 2);
+  ctx.clearRect(0, 0, w, h);
+  ctx.lineWidth = 1;
+  ctx.fillStyle = css("--line"); ctx.globalAlpha = .55;
+  ctx.fillRect(x(NOM - HALF), mid - 44, x(NOM + HALF) - x(NOM - HALF), 88);
+  ctx.globalAlpha = .9;
+  ctx.fillStyle = css("--panel");
+  ctx.fillRect(x(NOM - DEAD), mid - 44, x(NOM + DEAD) - x(NOM - DEAD), 88);
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = css("--line");
+  ctx.beginPath(); ctx.moveTo(pad, mid + 44); ctx.lineTo(w - pad, mid + 44); ctx.stroke();
+  ctx.font = "11px 'IBM Plex Mono', monospace"; ctx.fillStyle = css("--fg-soft"); ctx.textAlign = "center";
+  [NOM - HALF, NOM - DEAD, NOM, NOM + DEAD, NOM + HALF].forEach(v => {
+    ctx.beginPath(); ctx.moveTo(x(v), mid + 44); ctx.lineTo(x(v), mid + 50); ctx.stroke();
+    ctx.fillText(v.toFixed(3), x(v), mid + 64);
+  });
+  ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = css("--fg-soft");
+  ctx.beginPath(); ctx.moveTo(x(NOM), mid - 54); ctx.lineTo(x(NOM), mid + 44); ctx.stroke(); ctx.restore();
+  ctx.textAlign = "left"; ctx.fillText("NOMINAL", x(NOM) + 6, mid - 58);
+  const mx = x(m);
+  ctx.strokeStyle = r.state === "hold" ? css("--good") : css("--c3"); ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(mx, mid - 44); ctx.lineTo(mx, mid + 44); ctx.stroke();
+  ctx.fillStyle = ctx.strokeStyle;
+  ctx.beginPath(); ctx.arc(mx, mid, 5, 0, Math.PI * 2); ctx.fill();
+  ctx.textAlign = mx > w - 120 ? "right" : "left";
+  ctx.fillText("MEASURED " + m.toFixed(3), mx + (mx > w - 120 ? -8 : 8), mid - 52);
+  if (r.out !== 0) {
+    const tx = x(m + r.out);
+    ctx.strokeStyle = css("--c1"); ctx.fillStyle = css("--c1"); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(mx, mid + 24); ctx.lineTo(tx, mid + 24); ctx.stroke();
+    const dir = Math.sign(tx - mx) || 1;
+    ctx.beginPath(); ctx.moveTo(tx, mid + 24); ctx.lineTo(tx - 7 * dir, mid + 20); ctx.lineTo(tx - 7 * dir, mid + 28); ctx.closePath(); ctx.fill();
+    ctx.textAlign = dir > 0 ? "left" : "right";
+    ctx.fillText("OFFSET " + sgn(r.out), tx + 9 * dir, mid + 14);
+  }
+  document.getElementById("r-dev").textContent = sgn(r.dev);
+  document.getElementById("r-raw").textContent = r.state === "hold" ? "0.000" : sgn(r.raw);
+  document.getElementById("r-out").textContent = sgn(r.out);
+  const v = document.getElementById("verdict");
+  v.dataset.state = r.state;
+  v.textContent = r.state === "hold"
+    ? "Inside the deadband. Nothing is written, so in-spec noise never moves the machine."
+    : r.state === "clamp"
+      ? "Correction exceeds the per-step limit, so it is clamped. The cell walks back to nominal across parts instead of overshooting on one."
+      : "Within limits. The correction is applied to the offset register and the next part lands closer to nominal.";
+}
+function sizeChart() {
+  LW = Math.max(300, Math.min(cv.parentElement.clientWidth - 40, 760));
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  cv.width = Math.round(LW * dpr); cv.height = Math.round(LH * dpr);
+  cv.style.width = "100%"; cv.style.height = LH + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  drawLoop();
+}
+slider.addEventListener("input", drawLoop);
+window.addEventListener("resize", sizeChart);
+sizeChart();
+
+/* ============ escalation ladder ============ */
+const rungs = [
+  { t: "A", n: "Parse the text layer", c: "no model call", s: 12, b: "About 12% of drawings carry a real text layer. Parsing those is free and exact, so they never reach a model at all." },
+  { t: "B", n: "One vision read, checked against OCR", c: "85% on a golden set", s: 55, b: "A single read per drawing, cross-checked against local OCR. Numbers the OCR cannot corroborate lower the confidence score instead of passing silently." },
+  { t: "C", n: "Second read and adjudication", c: "capped at 35% of drawings", s: 28, b: "Only rows that fail validation or score below 0.80 get a second independent read, with core fields verified at about 90%. Caching and batching cut a full premium pass from $99.50 to $42.60." },
+  { t: "D", n: "Human review", c: "flagged with a reason", s: 5, b: "Anything still uncertain ships flagged with the reason attached, so a person checks a short list instead of re-reading 1,800 drawings." }
+];
+document.getElementById("ladder").innerHTML = rungs.map((r, i) =>
+  '<button class="rung" data-i="' + i + '" aria-expanded="' + (i === 0) + '"><span class="t">' + r.t + '</span>'
+  + '<span><strong>' + r.n + '</strong><span class="bar"><i style="width:' + r.s + '%"></i></span></span>'
+  + '<span class="c">' + r.c + '</span></button>'
+  + '<p class="rung-body" id="rb' + i + '"' + (i === 0 ? "" : " hidden") + '>' + r.b + '</p>'
+).join("");
+document.getElementById("ladder").addEventListener("click", e => {
+  const b = e.target.closest(".rung"); if (!b) return;
+  const body = document.getElementById("rb" + b.dataset.i), open = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!open)); body.hidden = open;
+});
+
+/* ============ projects ============ */
+const projects = [
+  { n: "Unified Knowledge Graph", m: "14 repos, 1,515 entities", d: "Per-developer code graphs syncing into one shared graph, with a deterministic MCP server over tree-sitter and Neo4j so AI tools get compact context instead of raw files.", t: ["Python", "Neo4j", "MCP"] },
+  { n: "Model escalation harness", m: "$99.50 to $42.60 a pass", d: "Small local models take routine work and a premium model is called only past a complexity gate with budget left, behind one shared rate limiter.", t: ["Ollama", "Qwen", "FastAPI"] },
+  { n: "DSA practice arena", m: "runs in 250 MB", d: "A zero-distraction practice box on a rooted 1 GB Android phone, reachable through a browser terminal, where AI answers questions but never writes the code.", t: ["Termux", "tmux", "ttyd"] },
+  { n: "AI Mode chat bridge", m: "about 7s a turn", d: "A REST chat service driving a headless browser session for terminal and low-power clients, with an isolated container workspace for file writes.", t: ["Python", "CDP"] },
+  { n: "Melody voice agent", m: "hands-free build mode", d: "Speech streamed over WebSockets, transcribed with faster-whisper, answered with synthesised speech.", t: ["WebSockets", "Whisper"] },
+  { n: "myOS", m: "browser desktop", d: "A desktop environment in the browser with its own app shell: admin roles, per-user app visibility, linked notes and tasks.", t: ["Python", "JS"] },
+  { n: "Android pocket server", m: "7,651 restarts fixed", d: "A rooted phone running as a Tailscale-connected server, with single-instance boot guards that ended a duplicate-daemon restart loop.", t: ["Magisk", "Tailscale"] },
+  { n: "tex2resume", m: "13 unit tests", d: "A LaTeX to Word converter packaged for pip, plus a resume toolkit with templates and a reviewer scorecard.", t: ["Python", "python-docx"] }
+];
+document.getElementById("cards").innerHTML = projects.map(p =>
+  '<article class="card"><h3>' + p.n + '</h3><p class="m">' + p.m + '</p><p>' + p.d + '</p><div class="tags">'
+  + p.t.map(t => "<span>" + t + "</span>").join("") + "</div></article>"
+).join("");
+
+/* ============ copy ============ */
+document.getElementById("copy").addEventListener("click", async () => {
+  const toast = document.getElementById("toast");
+  try {
+    await navigator.clipboard.writeText(document.getElementById("mail").textContent.trim());
+    toast.hidden = false; setTimeout(() => { toast.hidden = true; }, 1600);
+  } catch (e) {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById("mail"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+});
+</script>
+
+</body>
+</html>
