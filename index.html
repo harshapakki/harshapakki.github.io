@@ -192,6 +192,7 @@ footer{padding-block:40px 60px; border-top:1px solid var(--line); margin-top:40p
       <a href="#economics">AI economics</a>
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
     </nav>
     <button class="ghost" id="theme">Theme</button>
   </div>
@@ -343,6 +344,13 @@ footer{padding-block:40px 60px; border-top:1px solid var(--line); margin-top:40p
     <div class="sec-head"><span class="n">06</span><h2>Things I built because I wanted to</h2></div>
     <p class="sec-sub">Sole author on all of these, outside work hours.</p>
     <div class="grid" id="cards"></div>
+  </section>
+
+
+  <section id="research" class="soft">
+    <div class="sec-head"><span class="n">07</span><h2>Research and coursework</h2></div>
+    <p class="sec-sub">Graduate work at the University of Florida and the PG diploma in machine learning at IIIT Bangalore. Notebooks and models, not slide decks.</p>
+    <div class="grid" id="researchCards"></div>
   </section>
 
   <footer>
@@ -607,6 +615,18 @@ const projects = [
   { n: "tex2resume", m: "13 unit tests", d: "A LaTeX to Word converter packaged for pip, plus a resume toolkit with templates and a reviewer scorecard.", t: ["Python", "python-docx"] }
 ];
 document.getElementById("cards").innerHTML = projects.map(p =>
+  '<article class="card"><h3>' + p.n + '</h3><p class="m">' + p.m + '</p><p>' + p.d + '</p><div class="tags">'
+  + p.t.map(t => "<span>" + t + "</span>").join("") + "</div></article>"
+).join("");
+
+/* ============ research and coursework ============ */
+const research = [
+  { n: "ResNet from scratch", m: "PyTorch, deep learning course project", d: "Residual network written from the block up rather than imported: configurable block counts and channel widths, a learning-rate schedule, seeded deterministic training, and confusion-matrix evaluation on a held-out set. The trained model ships with the repo so the evaluation is reproducible.", t: ["PyTorch", "ResNet", "CUDA"] },
+  { n: "Credit-risk EDA", m: "Lending Club loan book", d: "Exploratory analysis of a consumer loan portfolio to find the attributes that separate borrowers who default from borrowers who pay, framed as the lender's decision rather than a classification score.", t: ["pandas", "EDA", "risk"] },
+  { n: "Regularised regression", m: "ridge and lasso, optimal lambda", d: "Price prediction on a housing data set with ridge and lasso, including the lambda search and an argument about which variables actually carry the signal.", t: ["scikit-learn", "regression"] },
+  { n: "Investment analysis", m: "global funding trends", d: "Where an asset manager should put money, answered from funding-round data by sector, stage and country, with the recommendation stated as a decision rather than a chart dump.", t: ["pandas", "analysis"] }
+];
+document.getElementById("researchCards").innerHTML = research.map(p =>
   '<article class="card"><h3>' + p.n + '</h3><p class="m">' + p.m + '</p><p>' + p.d + '</p><div class="tags">'
   + p.t.map(t => "<span>" + t + "</span>").join("") + "</div></article>"
 ).join("");
