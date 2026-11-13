@@ -2,23 +2,25 @@
 
 Personal portfolio site, served at <https://harshapakki.github.io/>.
 
-A single self-contained `index.html`: no build step, no dependencies to install.
-Three.js is loaded from a CDN for the hero scene, everything else (styles, the
-control-loop demo, the skills panel) is inline.
+A single self-contained `index.html`: no build step, no dependencies to install,
+no external scripts. Fonts come from Google Fonts; everything else is inline.
 
 ## Editing
 
-Open `index.html` and edit in place. The content lives in three places:
+Open `index.html` and edit in place. Most content lives in plain markup; the
+interactive parts are driven by small data arrays in the script:
 
-- the markup, for the hero, the SDE and FDE cards, and the work history
-- the `skills` array in the script, for the skills panel and its proof points
-- the `projects` array, for the project cards
+- `tiers` for the system design architecture explorer
+- `hops` for the network trace (noVNC → nginx → websockify → VNC → firewall)
+- `stages` for the deployment pipeline demo
+- `skills` for the skills panel and its proof points
+- the project and research card arrays
 
 Push to `main` and GitHub Pages redeploys.
 
 ## Notes
 
-- Light and dark themes are both defined as CSS tokens, with a manual toggle
-  that persists in `localStorage`
-- Respects `prefers-reduced-motion` by holding the 3D scene still
+- Light and dark themes are both defined as CSS tokens, with a manual toggle that persists in `localStorage`
+- Respects `prefers-reduced-motion`: demos render their final state instead of animating
 - No analytics, no trackers, no cookies
+- The previous engineering page is parked in `_engineering/` and is not linked from the site
