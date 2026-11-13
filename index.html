@@ -962,14 +962,17 @@ function loopDemo(el, btn, cycle, gap){
     g.beginPath(); g.moveTo(x(NOM), mid - 52); g.lineTo(x(NOM), mid + 40); g.stroke(); g.setLineDash([]);
     g.strokeStyle = css("--ink"); g.beginPath(); g.moveTo(pad, mid + 40); g.lineTo(W - pad, mid + 40); g.stroke();
     g.fillStyle = css("--dim"); g.textAlign = "center";
-    (W < 460 ? [NOM - HALF, NOM, NOM + HALF] : [NOM - HALF, NOM - DEAD, NOM, NOM + DEAD, NOM + HALF]).forEach(v => { g.beginPath(); g.moveTo(x(v), mid + 40); g.lineTo(x(v), mid + 46); g.stroke(); g.fillText(v.toFixed(3), x(v), mid + 60); });
-    g.fillText("tolerance", x(NOM - HALF * .64), mid - 46); g.fillText("deadband", x(NOM), mid + 76);
+    [NOM - HALF, NOM, NOM + HALF].forEach(v => { g.beginPath(); g.moveTo(x(v), mid + 40); g.lineTo(x(v), mid + 46); g.stroke(); g.fillText(v.toFixed(3), x(v), mid + 60); });
+    g.fillText("tolerance", x(NOM - HALF * .64), mid - 46); g.fillText("deadband ±" + DEAD.toFixed(3), x(NOM), mid + 78);
     const mx = x(m), col = r.state === "hold" ? css("--ok") : css("--red");
     g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2; g.beginPath(); g.moveTo(mx, mid - 40); g.lineTo(mx, mid + 40); g.stroke(); g.beginPath(); g.arc(mx, mid - 8, 4.5, 0, 6.283); g.fill();
-    const right = mx > W - 130; g.textAlign = right ? "right" : "left"; g.fillText("measured " + m.toFixed(3), mx + (right ? -8 : 8), mid - 26);
+    const right = mx > W - 130, lx = mx + (right ? -9 : 9); g.textAlign = right ? "right" : "left";
+    g.fillStyle = css("--card"); g.globalAlpha = .9; g.fillRect(right ? lx - 104 : lx - 3, mid - 37, 107, r.out !== 0 ? 30 : 15); g.globalAlpha = 1;
+    g.fillStyle = col; g.fillText("measured " + m.toFixed(3), lx, mid - 26);
+    if (r.out !== 0) { g.fillStyle = css("--ink"); g.fillText("offset " + sgn(r.out), lx, mid - 12); }
     if (r.out !== 0) { const tx = x(m + r.out), d = Math.sign(tx - mx) || 1; g.strokeStyle = css("--ink"); g.fillStyle = css("--ink"); g.lineWidth = 1.5;
       g.beginPath(); g.moveTo(mx, mid + 20); g.lineTo(tx, mid + 20); g.stroke(); g.beginPath(); g.moveTo(tx, mid + 20); g.lineTo(tx - 7 * d, mid + 16); g.lineTo(tx - 7 * d, mid + 24); g.closePath(); g.fill();
-      g.textAlign = d > 0 ? "left" : "right"; g.fillText("offset " + sgn(r.out), tx + 8 * d, mid + 11); }
+      }
     $("mVal").textContent = m.toFixed(3); $("r-dev").textContent = sgn(r.dev); $("r-raw").textContent = r.state === "hold" ? "0.000" : sgn(r.raw); $("r-out").textContent = sgn(r.out);
     const v = $("verdict"); v.dataset.state = r.state;
     v.textContent = r.state === "hold" ? "Inside the deadband. Nothing is written, so in-spec noise never moves the machine."
