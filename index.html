@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Applied AI","System design","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
+{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Applied AI","System design","Cybersecurity","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
 </script>
 <style>
 /* Drafting paper in light, blueprint in dark. Sharp corners, ink lines, redline results. */
@@ -227,6 +227,34 @@ input[type=range]{width:100%; accent-color:var(--red)}
 .facts b{display:block; font-family:var(--head); font-size:1.15rem}
 .facts span{font-size:.84rem; color:var(--soft)}
 
+/* ---------- sub heads, business, security, trade-offs ---------- */
+.sub-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin:44px 0 6px}
+.sub-h h3{font-size:clamp(1.2rem,2.2vw,1.5rem)}
+.sub-p{color:var(--soft); max-width:66ch; margin-bottom:16px}
+.grid4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--ink); background:var(--card)}
+.grid3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--ink); background:var(--card)}
+@media (max-width:900px){.grid4,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.grid4,.grid3{grid-template-columns:1fr}}
+.cell{padding:15px 16px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 -1px -1px 0}
+.cell .k{font-family:var(--mono); font-size:.66rem; color:var(--red); letter-spacing:.06em}
+.cell h4{font-family:var(--head); font-size:1rem; font-weight:600; margin:4px 0 5px; line-height:1.25}
+.cell p{font-size:.88rem; color:var(--soft)}
+.trade{width:100%; border-collapse:collapse; background:var(--card); font-size:.88rem}
+.trade th,.trade td{border:1px solid var(--ink); padding:9px 11px; text-align:left; vertical-align:top}
+.trade th{font-family:var(--cond); font-weight:600; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+.trade td:first-child{font-weight:500; width:21%}
+.trade td:nth-child(2){width:24%}
+.trade td{color:var(--soft)} .trade td:first-child,.trade td:nth-child(2){color:var(--ink)}
+.trade .no{font-family:var(--mono); font-size:.66rem; color:var(--red); display:block}
+@media (max-width:760px){
+  .trade,.trade tbody,.trade tr,.trade td{display:block; width:auto!important}
+  .trade thead{display:none}
+  .trade tr{border:1px solid var(--ink); margin-bottom:10px}
+  .trade td{border:0; border-top:1px solid var(--line); padding:8px 11px}
+  .trade td:first-child{border-top:0}
+  .trade td[data-l]::before{content:attr(data-l); display:block; font-family:var(--cond); font-weight:600; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+}
+
 /* ---------- architecture ---------- */
 .arch{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,330px); gap:18px; align-items:start}
 @media (max-width:900px){.arch{grid-template-columns:1fr}}
@@ -305,7 +333,7 @@ footer .tblock{font-size:.68rem}
     <a class="brand" href="#top"><i>HP</i>Harsha Pakki</a>
     <nav id="nav" aria-label="Sections">
       <a href="#work">Case studies</a>
-      <a href="#platform">Platform</a>
+      <a href="#platform">Platform &amp; security</a>
       <a href="#system">System design</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
@@ -342,6 +370,8 @@ footer .tblock{font-size:.68rem}
       <tr><td>Field</td><td>Manufacturing · legacy to AI</td></tr>
       <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
       <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
+      <tr><td>Depth</td><td>System design · security · networking</td></tr>
+      <tr><td>Lens</td><td>Business case first</td></tr>
       <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
     </table>
   </div>
@@ -470,6 +500,15 @@ footer .tblock{font-size:.68rem}
         </div>
       </div>
     </article>
+
+    <div class="sub-h"><span class="lbl">The business side</span><h3>How I decide what is worth building</h3></div>
+    <p class="sub-p">I moved from engineering into product ownership and back to the field, so I read a P&amp;L as readily as a stack trace. Every system above was justified in the customer's own unit before a line of code was written.</p>
+    <div class="grid4 reveal">
+      <div class="cell"><div class="k">01</div><h4>Start with the operator, not the ticket</h4><p>The bottleneck is rarely the one named in the meeting. On one product it turned out to be hand-configured installs, not the software.</p></div>
+      <div class="cell"><div class="k">02</div><h4>Agree the number before the work</h4><p>Accept and stop thresholds are set up front. Two roadmap items were retired for missing theirs, with the reasoning written down.</p></div>
+      <div class="cell"><div class="k">03</div><h4>Price AI by what it costs to run</h4><p>Credits sized against measured cost to serve, the paywall placed after first value, and work priced per unit instead of per project.</p></div>
+      <div class="cell"><div class="k">04</div><h4>Payback over novelty</h4><p>Days per quote, scrap percentage, dollars per drawing. If a system cannot move a number the business already tracks, it does not get built.</p></div>
+    </div>
   </div>
 </section>
 
@@ -501,6 +540,17 @@ footer .tblock{font-size:.68rem}
       <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
       <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
     </div>
+
+    <div class="sub-h" id="security"><span class="lbl">Cybersecurity</span><h3>Defence in depth, from the firewall to the agent</h3></div>
+    <p class="sub-p">Connecting AI to an ERP and to machines that cut metal raises the stakes. Security is designed in at every layer, so one failure never reaches a system of record.</p>
+    <div class="grid3 reveal">
+      <div class="cell"><div class="k">PERIMETER</div><h4>One door in</h4><p>Sophos XGS firewall, a single HTTPS entry point, direct IP and port access blocked. Administration only over WireGuard or Tailscale.</p></div>
+      <div class="cell"><div class="k">TRANSPORT</div><h4>Encrypted everywhere</h4><p>TLS on every app through nginx, with a wildcard certificate from an internal certificate authority and a documented renewal procedure.</p></div>
+      <div class="cell"><div class="k">IDENTITY</div><h4>Single sign-on, short-lived tokens</h4><p>SAML and OIDC for every app. Access is granted and revoked once, at the identity layer, instead of in each system.</p></div>
+      <div class="cell"><div class="k">DATA</div><h4>Least privilege by default</h4><p>Read-only database roles for dashboards, least-privilege IAM per cloud job, and writes only through narrow, audited endpoints.</p></div>
+      <div class="cell"><div class="k">AI</div><h4>Agents on a short leash</h4><p>Typed tools instead of raw SQL, local models so sensitive data stays on site, and one shared rate limiter and budget for every agent.</p></div>
+      <div class="cell"><div class="k">MACHINES</div><h4>Software cannot overdrive hardware</h4><p>Machine writes go through one control service with a deadband and a per-step clamp, so no single command can overdrive a tool. Remote access to cells is VPN only.</p></div>
+    </div>
   </div>
 </section>
 
@@ -509,7 +559,7 @@ footer .tblock{font-size:.68rem}
   <div class="wrap">
     <div class="sheet-h"><span class="no">03 / 05</span><span class="lbl">System design</span><span class="rule"></span></div>
     <h2>The architecture I deploy into a plant</h2>
-    <p class="intro">Five layers, each replaceable on its own. Select a component to see what it does, the decision behind it, and what it talks to.</p>
+    <p class="intro">Five layers, each replaceable on its own. Select a component to see what it does, the decision behind it, and what it talks to. The trade-offs behind the design are recorded below it.</p>
     <div class="arch reveal" style="margin-top:24px">
       <div class="tiers" id="tiers"></div>
       <aside class="box detail" id="archDetail" aria-live="polite"></aside>
@@ -522,6 +572,22 @@ footer .tblock{font-size:.68rem}
       <li><b>Read-only until proven otherwise.</b> Writes go through narrow endpoints with an owner.</li>
       <li><b>Leave it runnable.</b> Runbooks and status pages, so the customer's team carries on without me.</li>
     </ol>
+
+    <div class="sub-h" id="tradeoffs"><span class="lbl">Decision record</span><h3>Trade-offs I made, and what each one cost</h3></div>
+    <p class="sub-p">Every design choice gives something up. These are the ones that shaped the system, with the price stated.</p>
+    <table class="trade reveal">
+      <thead><tr><th>Decision</th><th>Chose</th><th>Gave up</th><th>Why it was right here</th></tr></thead>
+      <tbody>
+        <tr><td><span class="no">D-01</span>Modernise the ERP</td><td data-l="Chose">Wrap it in a read API</td><td data-l="Gave up">A clean data model; the legacy system stays a dependency</td><td data-l="Why">Value in weeks instead of a multi-year migration, with zero disruption to a system the business trusts. The API also becomes the seam for replacing it later.</td></tr>
+        <tr><td><span class="no">D-02</span>Where the pipeline runs</td><td data-l="Chose">Self-hosted Git and webhooks on site</td><td data-l="Gave up">Managed CI convenience; I own the upkeep</td><td data-l="Why">A plant network cannot depend on an outbound connection to ship a fix, and source and data stay inside the building.</td></tr>
+        <tr><td><span class="no">D-03</span>Which model does the work</td><td data-l="Chose">Local first, premium only on evidence</td><td data-l="Gave up">Peak accuracy on the first pass; a more complex pipeline</td><td data-l="Why">Cost falls by more than half and most data never leaves the site. The accuracy is recovered by escalating only the uncertain rows.</td></tr>
+        <tr><td><span class="no">D-04</span>How to trust AI output</td><td data-l="Chose">Deterministic checks against physics</td><td data-l="Gave up">Generality; each document type needs its own checks</td><td data-l="Why">A model's own confidence score is not calibrated. Geometry and mass either agree with the drawing or they do not.</td></tr>
+        <tr><td><span class="no">D-05</span>How hard the controller corrects</td><td data-l="Chose">Deadband and a per-step clamp</td><td data-l="Gave up">Speed; it takes several parts to return to nominal</td><td data-l="Why">One bad gauge reading can never scrap a part or crash a tool. Slow and bounded beats fast and occasionally wrong.</td></tr>
+        <tr><td><span class="no">D-06</span>Database availability</td><td data-l="Chose">Availability groups tuned for zero data loss</td><td data-l="Gave up">Some write latency and extra hardware</td><td data-l="Why">For a system of record, losing a committed transaction costs far more than a few milliseconds per write. Failover was tested, not assumed.</td></tr>
+        <tr><td><span class="no">D-07</span>Remote desktops</td><td data-l="Chose">Browser access over one HTTPS port</td><td data-l="Gave up">Native-client performance</td><td data-l="Why">Nothing to install on any laptop, one port to secure and audit, and no desktop port ever exposed to the network.</td></tr>
+        <tr><td><span class="no">D-08</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single plant</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -581,9 +647,11 @@ footer .tblock{font-size:.68rem}
           <tr><td>03</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
           <tr><td>04</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, monitoring</td></tr>
           <tr><td>05</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
-          <tr><td>06</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
-          <tr><td>07</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
-          <tr><td>08</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
+          <tr><td>06</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
+          <tr><td>07</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
+          <tr><td>08</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
+          <tr><td>09</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
+          <tr><td>10</td><td>Business</td><td>Operator discovery, unit economics, pricing and packaging, experiment design</td></tr>
         </table>
         <div class="side">
           <span class="lbl">Built on my own time</span>
