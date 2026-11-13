@@ -370,7 +370,7 @@ footer .tblock{font-size:.68rem}
       <tr><td>Field</td><td>Manufacturing · legacy to AI</td></tr>
       <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
       <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
-      <tr><td>Depth</td><td>System design · security · networking</td></tr>
+      <tr><td>Depth</td><td>Development · system design · DSA · security · networking</td></tr>
       <tr><td>Lens</td><td>Business case first</td></tr>
       <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
     </table>
@@ -584,8 +584,9 @@ footer .tblock{font-size:.68rem}
         <tr><td><span class="no">D-04</span>How to trust AI output</td><td data-l="Chose">Deterministic checks against physics</td><td data-l="Gave up">Generality; each document type needs its own checks</td><td data-l="Why">A model's own confidence score is not calibrated. Geometry and mass either agree with the drawing or they do not.</td></tr>
         <tr><td><span class="no">D-05</span>How hard the controller corrects</td><td data-l="Chose">Deadband and a per-step clamp</td><td data-l="Gave up">Speed; it takes several parts to return to nominal</td><td data-l="Why">One bad gauge reading can never scrap a part or crash a tool. Slow and bounded beats fast and occasionally wrong.</td></tr>
         <tr><td><span class="no">D-06</span>Database availability</td><td data-l="Chose">Availability groups tuned for zero data loss</td><td data-l="Gave up">Some write latency and extra hardware</td><td data-l="Why">For a system of record, losing a committed transaction costs far more than a few milliseconds per write. Failover was tested, not assumed.</td></tr>
-        <tr><td><span class="no">D-07</span>Remote desktops</td><td data-l="Chose">Browser access over one HTTPS port</td><td data-l="Gave up">Native-client performance</td><td data-l="Why">Nothing to install on any laptop, one port to secure and audit, and no desktop port ever exposed to the network.</td></tr>
-        <tr><td><span class="no">D-08</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single plant</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
+        <tr><td><span class="no">D-07</span>Rolling up quote costs</td><td data-l="Chose">One recursive query over the parts graph, with cycle guards</td><td data-l="Gave up">Simplicity; recursive SQL is harder to read than a loop in application code</td><td data-l="Why">A nested bill of materials is a graph. Walking it in the database is one round trip instead of one query per part, and the cycle guard stops a bad parent link from looping forever.</td></tr>
+        <tr><td><span class="no">D-08</span>Remote desktops</td><td data-l="Chose">Browser access over one HTTPS port</td><td data-l="Gave up">Native-client performance</td><td data-l="Why">Nothing to install on any laptop, one port to secure and audit, and no desktop port ever exposed to the network.</td></tr>
+        <tr><td><span class="no">D-09</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single plant</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
       </tbody>
     </table>
   </div>
@@ -643,15 +644,17 @@ footer .tblock{font-size:.68rem}
           <caption class="lbl">Bill of materials</caption>
           <tr><th>#</th><th>Part</th><th>What I use</th></tr>
           <tr><td>01</td><td>AI</td><td>Agents and MCP servers, vision pipelines, model routing, local models (Ollama), eval sets</td></tr>
-          <tr><td>02</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
-          <tr><td>03</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
-          <tr><td>04</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, monitoring</td></tr>
-          <tr><td>05</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
-          <tr><td>06</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
-          <tr><td>07</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
-          <tr><td>08</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
-          <tr><td>09</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
-          <tr><td>10</td><td>Business</td><td>Operator discovery, unit economics, pricing and packaging, experiment design</td></tr>
+          <tr><td>02</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
+          <tr><td>03</td><td>Algorithms</td><td>Data structures chosen for the workload: graph traversal with cycle guards for cost roll-ups, syntax trees and code graphs, index and query-plan tuning, caching, rate limiting</td></tr>
+          <tr><td>04</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
+          <tr><td>05</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
+          <tr><td>06</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, monitoring</td></tr>
+          <tr><td>07</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
+          <tr><td>08</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
+          <tr><td>09</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
+          <tr><td>10</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
+          <tr><td>11</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
+          <tr><td>12</td><td>Business</td><td>Operator discovery, unit economics, pricing and packaging, experiment design</td></tr>
         </table>
         <div class="side">
           <span class="lbl">Built on my own time</span>
@@ -659,6 +662,7 @@ footer .tblock{font-size:.68rem}
             <li><b>Unified knowledge graph.</b> 14 repositories in Neo4j behind a deterministic MCP server, so AI tools get structure instead of raw files.</li>
             <li><b>Model escalation harness.</b> Local models take routine work; a premium model is called only past a complexity gate.</li>
             <li><b>Melody.</b> A voice agent streaming speech over WebSockets into faster-whisper.</li>
+            <li><b>DSA practice arena.</b> A zero-distraction box for algorithm practice that runs in 250 MB, where AI answers questions but never writes the code.</li>
             <li><b>Pocket server.</b> A rooted Android phone running as a Tailscale-connected server.</li>
           </ul>
         </div>
