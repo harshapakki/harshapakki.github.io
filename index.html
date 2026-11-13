@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Applied AI","System design","Cybersecurity","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
+{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Agentic engineering","Applied AI","System design","Cybersecurity","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
 </script>
 <style>
 /* Drafting paper in light, blueprint in dark. Sharp corners, ink lines, redline results. */
@@ -357,7 +357,7 @@ footer .tblock{font-size:.68rem}
     <div>
       <span class="role">AI Forward Deployed Engineer</span>
       <h1>I connect the systems a business already runs on <em>to the AI it wants to use.</em></h1>
-      <p class="lede">I wrap legacy ERPs, databases and machines in modern APIs, put AI on top where it pays for itself, and ship it on deployment pipelines I build and run. Currently embedded with a manufacturer, with 8+ systems in production.</p>
+      <p class="lede">I wrap legacy ERPs, databases and machines in modern APIs, put AI agents on top where they pay for themselves, and ship it on deployment pipelines I build and run. Currently embedded with a manufacturer, with 8+ systems in production.</p>
       <div class="cta">
         <a class="btn pri" href="#work">Read the case studies</a>
         <a class="btn" href="mailto:harshapakki@gmail.com">Email me</a>
@@ -370,6 +370,7 @@ footer .tblock{font-size:.68rem}
       <tr><td>Field</td><td>Manufacturing · legacy to AI</td></tr>
       <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
       <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
+      <tr><td>AI</td><td>Agentic engineering · MCP · vision · routing</td></tr>
       <tr><td>Depth</td><td>Development · system design · DSA · security · networking</td></tr>
       <tr><td>Lens</td><td>Business case first</td></tr>
       <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
@@ -500,6 +501,15 @@ footer .tblock{font-size:.68rem}
         </div>
       </div>
     </article>
+
+    <div class="sub-h" id="agentic"><span class="lbl">Agentic engineering</span><h3>Agents that can be trusted with real systems</h3></div>
+    <p class="sub-p">An agent is only as good as the tools, context and limits it is given. I engineer all three, so an agent can act on an ERP or a codebase without being able to damage either.</p>
+    <div class="grid4 reveal">
+      <div class="cell"><div class="k">TOOLS</div><h4>Typed tools, not open prompts</h4><p>A deterministic MCP server with 16 narrow tools, covered by 111 automated tests across 6 deployment topologies. Agents call functions; they never write raw SQL.</p></div>
+      <div class="cell"><div class="k">CONTEXT</div><h4>Structure instead of raw files</h4><p>A knowledge graph of code and data, built with tree-sitter and Neo4j, gives an agent compact, exact context, which means cheaper prompts and answers that cite their source.</p></div>
+      <div class="cell"><div class="k">ORCHESTRATION</div><h4>Many agents, one budget</h4><p>Several agent instances share one rate limiter and spend cap. Routine steps run on local models, and a premium model is called only past a complexity gate.</p></div>
+      <div class="cell"><div class="k">GUARDRAILS</div><h4>Verified, then trusted</h4><p>Golden-set evaluations, confidence from deterministic checks, read-only access by default, and a person in the loop for anything still uncertain.</p></div>
+    </div>
 
     <div class="sub-h"><span class="lbl">The business side</span><h3>How I decide what is worth building</h3></div>
     <p class="sub-p">I moved from engineering into product ownership and back to the field, so I read a P&amp;L as readily as a stack trace. Every system above was justified in the customer's own unit before a line of code was written.</p>
@@ -643,7 +653,7 @@ footer .tblock{font-size:.68rem}
         <table class="bom">
           <caption class="lbl">Bill of materials</caption>
           <tr><th>#</th><th>Part</th><th>What I use</th></tr>
-          <tr><td>01</td><td>AI</td><td>Agents and MCP servers, vision pipelines, model routing, local models (Ollama), eval sets</td></tr>
+          <tr><td>01</td><td>AI</td><td>Agentic engineering: agents, MCP servers and tool design, context graphs, multi-agent budgets. Vision pipelines, model routing, local models (Ollama), eval sets</td></tr>
           <tr><td>02</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>03</td><td>Algorithms</td><td>Data structures chosen for the workload: graph traversal with cycle guards for cost roll-ups, syntax trees and code graphs, index and query-plan tuning, caching, rate limiting</td></tr>
           <tr><td>04</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
