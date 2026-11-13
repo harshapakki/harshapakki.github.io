@@ -12,9 +12,10 @@ platform, system design, experience and contact. Most content is plain markup;
 the interactive figures are driven by small data arrays in the script:
 
 - `screen`, `json`, `convo` for the legacy → API → agent loop (Fig. 1)
-- `stages` for the deploy pipeline (Fig. 2)
-- `rungs` for the escalation ladder (Fig. 4)
-- `hops` for the network trace (Fig. 6)
+- `queries` and `names` for the knowledge graph (Fig. 2)
+- `stages` for the deploy pipeline (Fig. 3)
+- `rungs` for the escalation ladder (Fig. 5)
+- `hops` for the network trace (Fig. 7)
 - `tiers` for the system design explorer
 
 Push to `main` and GitHub Pages redeploys.

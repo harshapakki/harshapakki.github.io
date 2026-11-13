@@ -402,17 +402,8 @@ footer .tblock{font-size:.68rem}
     </div>
   </div>
 
-  <div class="fig" id="deployFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 2</span><span class="cap"><span class="mono">git push origin main</span>, and it is in production. Nobody logs in to a server.</span>
-      <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
-    <div class="fig-b">
-      <div class="pipe" id="pipe"></div>
-      <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
-    </div>
-  </div>
-
   <div class="fig" id="kgFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
+    <div class="fig-h"><span class="lbl">Fig. 2</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
       <button class="btn sm" id="runKg" aria-pressed="false">❚❚ Pause</button></div>
     <div class="fig-b">
       <div class="kg">
@@ -427,6 +418,15 @@ footer .tblock{font-size:.68rem}
         </div>
       </div>
       <p class="fnote">Per-developer graphs built with tree-sitter sync into one shared Neo4j graph. A deterministic MCP server answers from structure, so the same question always returns the same slice. Repository names here are illustrative.</p>
+    </div>
+  </div>
+
+  <div class="fig" id="deployFig" style="margin-top:18px">
+    <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap"><span class="mono">git push origin main</span>, and it is in production. Nobody logs in to a server.</span>
+      <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
+    <div class="fig-b">
+      <div class="pipe" id="pipe"></div>
+      <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
     </div>
   </div>
 </div>
@@ -853,7 +853,7 @@ function loopDemo(el, btn, cycle, gap){
   $("runLegacy").addEventListener("click", loop.toggle);
 })();
 
-/* ---------- Fig. 3: unified knowledge graph ---------- */
+/* ---------- Fig. 2: unified knowledge graph ---------- */
 (function(){
   const cv = $("kgCanvas"), g = cv.getContext("2d"), log = $("kgLog"); let W = 600; const H = 300;
   const names = ["quoting-api", "erp-data-service", "shop-dashboard", "mobile-app", "identity", "deployer", "vision-pipeline", "cnc-control", "mcp-server", "workflows", "frontend-orders", "frontend-parts", "schema-explorer", "infra"];
@@ -981,7 +981,7 @@ function loopDemo(el, btn, cycle, gap){
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
 })();
 
-/* ---------- Fig. 2: deploy pipeline, Fig. 7: network trace ---------- */
+/* ---------- Fig. 3: deploy pipeline, Fig. 7: network trace ---------- */
 (function(){
   const stages = [
     ["Push", "gitea webhook", [["c", "remote: webhook → deployer (main@a41f9c2)"]]],
