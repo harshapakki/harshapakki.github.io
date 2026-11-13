@@ -7,20 +7,21 @@ no external scripts. Fonts come from Google Fonts; everything else is inline.
 
 ## Editing
 
-Open `index.html` and edit in place. Most content lives in plain markup; the
-interactive parts are driven by small data arrays in the script:
+Open `index.html` and edit in place. The page is five sheets: case studies,
+platform, system design, experience and contact. Most content is plain markup;
+the interactive figures are driven by small data arrays in the script:
 
-- `tiers` for the system design architecture explorer
-- `hops` for the network trace (noVNC → nginx → websockify → VNC → firewall)
-- `stages` for the deployment pipeline demo
-- `skills` for the skills panel and its proof points
-- the project and research card arrays
+- `screen`, `json`, `convo` for the legacy → API → agent loop (Fig. 1)
+- `stages` for the deploy pipeline (Fig. 2)
+- `rungs` for the escalation ladder (Fig. 4)
+- `hops` for the network trace (Fig. 6)
+- `tiers` for the system design explorer
 
 Push to `main` and GitHub Pages redeploys.
 
 ## Notes
 
-- Light and dark themes are both defined as CSS tokens, with a manual toggle that persists in `localStorage`
-- Respects `prefers-reduced-motion`: demos render their final state instead of animating
+- Two themes, drafting paper (light) and blueprint (dark), defined as CSS tokens with a toggle that persists in `localStorage`
+- Respects `prefers-reduced-motion`: demos step through without typing effects
 - No analytics, no trackers, no cookies
 - The previous engineering page is parked in `_engineering/` and is not linked from the site

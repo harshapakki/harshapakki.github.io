@@ -4,386 +4,292 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Harsha Pakki — AI Forward Deployed Engineer</title>
-<meta name="description" content="Harsha Prakash Pakki, AI Forward Deployed Engineer. I wrap legacy ERPs, databases and machines in modern APIs, put AI on top where it pays for itself, and ship it through deployment pipelines I build and run.">
+<meta name="description" content="Harsha Prakash Pakki, AI Forward Deployed Engineer. I wrap legacy ERPs, databases and machines in modern APIs, put AI on top where it pays for itself, and ship it on deployment pipelines I build and run.">
 <meta name="author" content="Harsha Prakash Pakki">
-<meta name="theme-color" content="#06090f">
+<meta name="theme-color" content="#f3f0e8">
 <meta property="og:title" content="Harsha Pakki — AI Forward Deployed Engineer">
-<meta property="og:description" content="Legacy systems in, AI-powered operations out. System design, APIs, applied AI, CI/CD and the business case, end to end.">
+<meta property="og:description" content="Legacy systems in, AI-powered operations out. Three case studies, a system design, and the platform underneath.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harshapakki.github.io/">
 <meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://harshapakki.github.io/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306090f'/%3E%3Cpath d='M9 23V9M9 16h8M17 9v14' stroke='%234cc9f0' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='23.5' cy='10' r='2.4' fill='%238b7bff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b2545'/%3E%3Cpath d='M4 4h24v24H4z' fill='none' stroke='%237cc8ff' stroke-width='1'/%3E%3Cpath d='M10 22V10M10 16h7M17 10v12' stroke='%23ffffff' stroke-width='2.4' fill='none' stroke-linecap='square'/%3E%3Ccircle cx='23' cy='10.5' r='2' fill='%23ffb35c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Applied AI","System design","Legacy modernization","API design","CI/CD","Kubernetes","Python","C#/.NET","React"]}
+{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Applied AI","System design","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
 </script>
 <style>
+/* Drafting paper in light, blueprint in dark. Sharp corners, ink lines, redline results. */
 :root{
-  --bg:#06090f; --bg2:#0a101b; --panel:#0e1623; --panel2:#121c2c; --line:#1d2a3d; --line2:#2a3a52;
-  --fg:#eaf0f8; --fg-soft:#94a4ba; --fg-dim:#62728a;
-  --c1:#4cc9f0; --c2:#8b7bff; --c3:#f7b267; --good:#51cf8d; --bad:#ff6b6b;
-  --display:"Sora",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --r:14px; --max:1140px;
-  color-scheme:dark;
+  --paper:#f3f0e8; --card:#fbfaf6; --ink:#12203a; --soft:#46546c; --dim:#7a8597; --line:#cdc6b6; --grid:rgba(18,32,58,.05);
+  --blue:#1447b8; --red:#c4351d; --ok:#1a7a4c; --fill:rgba(20,71,184,.08); --term:#06110a;
+  --head:"Barlow",-apple-system,"Segoe UI",sans-serif; --cond:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --max:1120px; color-scheme:light;
 }
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --bg:#f6f8fc; --bg2:#edf1f8; --panel:#ffffff; --panel2:#f3f6fb; --line:#dbe2ee; --line2:#c5d0e0;
-  --fg:#0f1826; --fg-soft:#53647b; --fg-dim:#7d8ca1;
-  --c1:#0a7ea6; --c2:#5a43db; --c3:#a65d0e; --good:#1c7a4b; --bad:#c0392b;
-  color-scheme:light;
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0b2545; --card:#0f2d54; --ink:#eaf3ff; --soft:#b0c6e2; --dim:#7f9cc0; --line:#2e5082; --grid:rgba(255,255,255,.045);
+  --blue:#7cc8ff; --red:#ffb35c; --ok:#6fe0a4; --fill:rgba(124,200,255,.1); color-scheme:dark;
 }}
-:root[data-theme="light"]{
-  --bg:#f6f8fc; --bg2:#edf1f8; --panel:#ffffff; --panel2:#f3f6fb; --line:#dbe2ee; --line2:#c5d0e0;
-  --fg:#0f1826; --fg-soft:#53647b; --fg-dim:#7d8ca1;
-  --c1:#0a7ea6; --c2:#5a43db; --c3:#a65d0e; --good:#1c7a4b; --bad:#c0392b;
-  color-scheme:light;
+:root[data-theme="dark"]{
+  --paper:#0b2545; --card:#0f2d54; --ink:#eaf3ff; --soft:#b0c6e2; --dim:#7f9cc0; --line:#2e5082; --grid:rgba(255,255,255,.045);
+  --blue:#7cc8ff; --red:#ffb35c; --ok:#6fe0a4; --fill:rgba(124,200,255,.1); color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth; scroll-padding-top:70px}
+html{scroll-behavior:smooth; scroll-padding-top:64px}
 html,body{margin:0}
-body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:16px; line-height:1.6; overflow-x:hidden;
-  -webkit-font-smoothing:antialiased; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right)}
-img{max-width:100%}
+body{color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right)}
 [hidden]{display:none!important}
-h1,h2,h3,h4{font-family:var(--display); margin:0; letter-spacing:-.02em; text-wrap:balance}
-h1{font-size:clamp(2.1rem,4.6vw,3.5rem); line-height:1.06}
-h2{font-size:clamp(1.6rem,3.6vw,2.4rem); font-weight:600; line-height:1.15}
-h3{font-size:1.08rem; font-weight:600; line-height:1.3}
+h1,h2,h3{font-family:var(--head); margin:0; letter-spacing:-.015em; text-wrap:balance}
+h1{font-size:clamp(2.2rem,5.2vw,3.9rem); font-weight:700; line-height:1.03}
+h2{font-size:clamp(1.55rem,3.2vw,2.3rem); font-weight:600; line-height:1.12}
+h3{font-size:1.05rem; font-weight:600; line-height:1.3}
 p{margin:0}
-a{color:var(--c1)}
+a{color:var(--blue)}
 button{font:inherit; color:inherit; cursor:pointer}
-:focus-visible{outline:2px solid var(--c1); outline-offset:3px; border-radius:6px}
+:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
 .wrap{max-width:var(--max); margin:0 auto; padding-inline:20px}
+.lbl{font-family:var(--cond); font-weight:600; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--dim)}
 .mono{font-family:var(--mono)}
-.eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--c1)}
-.skip{position:absolute; left:-999px; top:8px; background:var(--panel); padding:8px 12px; border-radius:8px; z-index:100}
+.skip{position:absolute; left:-999px; top:8px; background:var(--card); padding:8px 12px; z-index:100}
 .skip:focus{left:8px}
-.grad{background:linear-gradient(100deg,var(--c1),var(--c2) 58%,var(--c3)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.box{background:var(--card); border:1px solid var(--ink); min-width:0}
+.red{color:var(--red)}
 
-/* ---------- topbar ---------- */
-.topbar{position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--line)}
-.topbar-in{max-width:var(--max); margin:0 auto; padding:10px 20px; display:flex; gap:16px; align-items:center}
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); font-family:var(--display); font-weight:600; white-space:nowrap}
-.brand i{width:28px; height:28px; border-radius:8px; display:grid; place-items:center; font-style:normal; font-size:.78rem; color:#04121a;
-  background:linear-gradient(135deg,var(--c1),var(--c2))}
-.topbar nav{display:flex; gap:18px; margin-left:auto}
-.topbar nav a{font-family:var(--mono); font-size:.76rem; color:var(--fg-soft); text-decoration:none; white-space:nowrap}
-.topbar nav a:hover,.topbar nav a.on{color:var(--fg)}
-.tb-actions{display:flex; gap:8px; align-items:center}
-.icon-btn{background:none; border:1px solid var(--line); border-radius:9px; width:36px; height:36px; display:grid; place-items:center; color:var(--fg-soft)}
-.icon-btn:hover{border-color:var(--c1); color:var(--fg)}
-.menu-btn{display:none}
-@media (max-width:1240px){
-  .topbar nav{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
-    background:var(--bg); border-bottom:1px solid var(--line); padding:6px 20px 14px}
-  .topbar nav.open{display:flex}
-  .topbar nav a{padding:10px 0; font-size:.85rem; border-bottom:1px solid var(--line)}
-  .menu-btn{display:grid}
-  .tb-actions{margin-left:auto}
+/* ---------- top bar ---------- */
+.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--paper) 88%,transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--ink)}
+.top-in{max-width:var(--max); margin:0 auto; padding:9px 20px; display:flex; align-items:center; gap:18px}
+.brand{font-family:var(--head); font-weight:700; color:var(--ink); text-decoration:none; display:flex; align-items:center; gap:10px; white-space:nowrap}
+.brand i{font-style:normal; font-family:var(--mono); font-size:.68rem; font-weight:500; border:1px solid var(--ink); padding:3px 6px}
+.top nav{display:flex; gap:22px; margin-left:auto}
+.top nav a{font-family:var(--cond); font-weight:600; font-size:.86rem; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); text-decoration:none}
+.top nav a:hover,.top nav a.on{color:var(--ink); box-shadow:0 2px 0 var(--red)}
+.tb{display:flex; gap:8px; align-items:center}
+.ib{background:none; border:1px solid var(--ink); width:34px; height:34px; display:grid; place-items:center}
+.ib:hover{background:var(--fill)}
+#menu{display:none}
+@media (max-width:820px){
+  .top nav{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; background:var(--paper); border-bottom:1px solid var(--ink); padding:4px 20px 12px}
+  .top nav.open{display:flex}
+  .top nav a{padding:11px 0; border-bottom:1px solid var(--line)}
+  #menu{display:grid} .tb{margin-left:auto}
 }
-#prog{position:fixed; top:0; left:0; height:2px; width:0; z-index:60; background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3))}
-
-/* ---------- buttons ---------- */
-.btn{display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:11px; border:1px solid var(--line2);
-  background:var(--panel); color:var(--fg); text-decoration:none; font-size:.92rem; font-weight:500; transition:transform .18s, border-color .18s, background .18s}
-.btn:hover{transform:translateY(-2px); border-color:var(--c1)}
-.btn.solid{background:linear-gradient(100deg,var(--c1),var(--c2)); color:#04121a; border:0; font-weight:600}
-.btn.sm{padding:8px 13px; font-size:.82rem; border-radius:9px}
+.btn{display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border:1px solid var(--ink); background:var(--card); color:var(--ink); text-decoration:none;
+  font-family:var(--cond); font-weight:600; font-size:.9rem; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px); box-shadow:3px 3px 0 var(--ink)}
+.btn.pri{background:var(--ink); color:var(--paper)}
+.btn.pri:hover{box-shadow:3px 3px 0 var(--red)}
+.btn.sm{padding:6px 12px; font-size:.78rem}
 
 /* ---------- hero ---------- */
-.hero{position:relative; overflow:hidden; isolation:isolate}
-.hero::before{content:""; position:absolute; inset:0; z-index:-1;
-  background:radial-gradient(900px 480px at 12% 8%,color-mix(in srgb,var(--c1) 16%,transparent),transparent 62%),
-             radial-gradient(800px 520px at 92% 70%,color-mix(in srgb,var(--c2) 18%,transparent),transparent 62%)}
-.hero::after{content:""; position:absolute; inset:0; z-index:-1; opacity:.5;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:44px 44px; -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 72%); mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 72%)}
-.hero-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:40px; align-items:center; padding-block:clamp(56px,10vh,110px) clamp(40px,7vh,80px)}
-@media (max-width:940px){.hero-grid{grid-template-columns:1fr; gap:34px}}
-.badge{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.74rem; color:var(--fg-soft);
-  border:1px solid var(--line2); border-radius:999px; padding:6px 13px 6px 9px; background:color-mix(in srgb,var(--panel) 70%,transparent)}
-.badge .dot{width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 22%,transparent)}
-.hero h1{margin-top:20px}
-.hero .lede{margin-top:20px; color:var(--fg-soft); font-size:clamp(1rem,1.6vw,1.12rem); max-width:58ch}
-.caps{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px}
-.cap{font-family:var(--mono); font-size:.74rem; border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 75%,transparent);
-  padding:6px 11px; border-radius:999px; color:var(--fg-soft)}
-.cap b{color:var(--fg); font-weight:500}
-.cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:30px}
+.hero{padding-block:clamp(44px,8vh,84px) clamp(36px,6vh,64px)}
+.hero-top{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,300px); gap:40px; align-items:end}
+@media (max-width:900px){.hero-top{grid-template-columns:1fr; gap:26px}}
+.role{display:inline-block; font-family:var(--cond); font-weight:600; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem; color:var(--red); border:1px solid var(--red); padding:4px 10px; margin-bottom:20px}
+.hero h1 em{font-style:normal; color:var(--blue)}
+.hero .lede{margin-top:20px; font-size:clamp(1.02rem,1.5vw,1.14rem); color:var(--soft); max-width:60ch}
+.cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
+.tblock{font-family:var(--mono); font-size:.72rem; border-collapse:collapse; width:100%; background:var(--card)}
+.tblock td{border:1px solid var(--ink); padding:6px 9px; vertical-align:top}
+.tblock td:first-child{font-family:var(--cond); font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); width:1%; white-space:nowrap; font-size:.72rem}
+.tblock b{font-weight:500}
 
-/* hero flow visual */
-.flow{position:relative; border:1px solid var(--line); border-radius:18px; background:color-mix(in srgb,var(--panel) 82%,transparent);
-  padding:18px 14px 16px; box-shadow:0 30px 80px -40px color-mix(in srgb,var(--c2) 60%,transparent)}
-.flow-head{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:.7rem; color:var(--fg-dim); padding:0 4px 12px}
-.flow-head .live{display:flex; align-items:center; gap:6px; color:var(--good)}
-.flow-head .live::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--good); animation:pulse 1.6s infinite}
-@keyframes pulse{50%{opacity:.25}}
-.flow-cols{position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(22px,5vw,54px); z-index:2}
-.flow-col h4{font-family:var(--mono); font-size:.64rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-dim); margin-bottom:10px; text-align:center}
-.flow-col{display:flex; flex-direction:column; gap:9px; justify-content:space-around}
-.fn{position:relative; border:1px solid var(--line2); background:var(--panel); border-radius:10px; padding:7px 9px; font-size:.76rem; line-height:1.25;
-  text-align:center; transition:border-color .2s, box-shadow .2s, transform .2s; cursor:default}
-.fn small{display:block; font-family:var(--mono); font-size:.62rem; color:var(--fg-dim); margin-top:2px}
-.fn[data-g="0"]{border-left:3px solid var(--c3)}
-.fn[data-g="1"]{border-left:3px solid var(--c1)}
-.fn[data-g="2"]{border-left:3px solid var(--c2)}
-.fn.hot{border-color:var(--c1); box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 20%,transparent); transform:translateY(-1px)}
-#flowCanvas{position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none}
-.flow-foot{margin-top:14px; font-family:var(--mono); font-size:.68rem; color:var(--fg-dim); text-align:center}
+/* ---------- figures ---------- */
+.fig{margin-top:34px}
+.fig-h{display:flex; align-items:center; gap:12px; flex-wrap:wrap; border:1px solid var(--ink); border-bottom:0; background:var(--card); padding:8px 12px}
+.fig-h .lbl{color:var(--ink)}
+.fig-h .cap{font-size:.84rem; color:var(--soft)}
+.fig-h .btn{margin-left:auto}
+.fig-b{border:1px solid var(--ink); background:var(--card); padding:14px}
 
-/* ---------- metrics ---------- */
-.metrics{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px; padding-bottom:20px}
-@media (max-width:1000px){.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:560px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.metric{border:1px solid var(--line); background:var(--panel); border-radius:var(--r); padding:16px; position:relative; overflow:hidden}
-.metric::before{content:""; position:absolute; inset:0 0 auto; height:2px; background:linear-gradient(90deg,var(--c1),var(--c2))}
-.metric .big{font-family:var(--display); font-size:clamp(1.3rem,2.4vw,1.65rem); font-weight:700; line-height:1.1; font-variant-numeric:tabular-nums}
-.metric .big em{font-style:normal; color:var(--c1)}
-.metric .n{color:var(--fg-soft); font-size:.8rem; margin-top:6px; line-height:1.4}
+/* legacy demo */
+.legacy{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px}
+@media (max-width:920px){.legacy{grid-template-columns:1fr}}
+.pane{border:1px solid var(--line); display:flex; flex-direction:column; min-width:0; transition:border-color .25s, box-shadow .25s}
+.pane.active{border-color:var(--red); box-shadow:3px 3px 0 var(--red)}
+.pane-h{display:flex; align-items:center; gap:8px; padding:7px 10px; border-bottom:1px solid var(--line); font-family:var(--mono); font-size:.68rem; color:var(--soft)}
+.pane-h .st{margin-left:auto; color:var(--dim)}
+.bal{width:20px; height:20px; border:1px solid var(--ink); border-radius:50%; display:grid; place-items:center; font-family:var(--mono); font-size:.64rem; color:var(--ink); flex:none}
+.pane.active .bal{background:var(--red); border-color:var(--red); color:var(--card)}
+.green,.code,.chat{min-height:252px}
+.green{background:var(--term); color:#3dff72; font-family:var(--mono); font-size:.7rem; line-height:1.55; padding:12px; margin:0; flex:1; white-space:pre; overflow-x:auto}
+.green .hl{background:#3dff72; color:var(--term)} .green .dm{color:#1f9c40}
+.code{font-family:var(--mono); font-size:.7rem; line-height:1.55; padding:12px; margin:0; flex:1; white-space:pre; overflow-x:auto; color:var(--soft)}
+.code .k{color:var(--blue)} .code .s{color:var(--ok)} .code .n{color:var(--red)} .code .d{color:var(--dim)}
+.chat{padding:12px; display:flex; flex-direction:column; gap:8px; flex:1; font-size:.84rem}
+.msg{max-width:94%; padding:7px 10px; line-height:1.45; border:1px solid var(--line)}
+.msg.u{align-self:flex-end; background:var(--fill); border-color:var(--blue)}
+.msg.a{align-self:flex-start; border-color:var(--ink)}
+.msg.t{align-self:flex-start; font-family:var(--mono); font-size:.66rem; color:var(--dim); border-style:dashed}
+.caret::after{content:"▋"; animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
 
-/* ---------- sections ---------- */
-section{padding-block:clamp(60px,9vw,108px); position:relative}
-.band{background:linear-gradient(180deg,transparent,var(--bg2) 10%,var(--bg2) 90%,transparent)}
-.sec-head{max-width:72ch; margin-bottom:34px}
-.sec-head .n{font-family:var(--mono); font-size:.74rem; color:var(--c1); letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px}
-.sec-head p{color:var(--fg-soft); margin-top:12px}
-.panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:20px; min-width:0}
-.reveal{opacity:0; transform:translateY(20px); transition:opacity .7s cubic-bezier(.22,.9,.3,1), transform .7s cubic-bezier(.22,.9,.3,1)}
-.reveal.in{opacity:1; transform:none}
+/* ---------- sheets ---------- */
+section{padding-block:clamp(52px,8vw,92px)}
+.sheet-h{display:flex; align-items:center; gap:14px; border-top:2px solid var(--ink); padding-top:12px; margin-bottom:26px}
+.sheet-h .no{font-family:var(--mono); font-size:.72rem; border:1px solid var(--ink); padding:3px 8px; background:var(--card)}
+.sheet-h .rule{flex:1; height:1px; background:var(--line)}
+.intro{max-width:66ch; color:var(--soft); margin-top:12px}
 
-/* ---------- capabilities ---------- */
-.caps-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
-@media (max-width:960px){.caps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.caps-grid{grid-template-columns:1fr}}
-.capc{position:relative; overflow:hidden; transition:transform .2s, border-color .2s}
-.capc:hover{transform:translateY(-3px); border-color:var(--c1)}
-.capc .ic{width:38px; height:38px; border-radius:10px; display:grid; place-items:center; margin-bottom:14px;
-  background:color-mix(in srgb,var(--c1) 14%,transparent); color:var(--c1)}
-.capc:nth-child(3n+2) .ic{background:color-mix(in srgb,var(--c2) 16%,transparent); color:var(--c2)}
-.capc:nth-child(3n) .ic{background:color-mix(in srgb,var(--c3) 16%,transparent); color:var(--c3)}
-.capc ul{margin:12px 0 0; padding-left:18px; display:grid; gap:7px; color:var(--fg-soft); font-size:.9rem}
-.capc ul b{color:var(--fg); font-weight:500}
-.capc .k{font-family:var(--mono); font-size:.68rem; color:var(--fg-dim); letter-spacing:.1em; text-transform:uppercase; margin-top:14px}
+/* case studies */
+.cs{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:34px; align-items:start; padding-block:34px; border-top:1px dashed var(--line)}
+.cs:first-of-type{border-top:0; padding-top:10px}
+@media (max-width:920px){.cs{grid-template-columns:1fr; gap:20px}}
+.cs .tag{font-family:var(--mono); font-size:.72rem; color:var(--red)}
+.cs h3{font-size:clamp(1.3rem,2.4vw,1.7rem); margin:6px 0 16px}
+.pbr{display:grid; grid-template-columns:74px minmax(0,1fr); gap:6px 14px; font-size:.94rem}
+.pbr dt{font-family:var(--cond); font-weight:600; letter-spacing:.14em; text-transform:uppercase; font-size:.78rem; color:var(--dim); padding-top:3px}
+.pbr dd{margin:0 0 10px; color:var(--soft); min-width:0}
+.pbr dd b{color:var(--ink); font-weight:500}
+.dim{display:flex; align-items:center; gap:10px; color:var(--red); font-family:var(--mono); font-size:.86rem; font-weight:500; margin-top:8px; text-align:center; min-width:0}
+.dim::before,.dim::after{content:""; flex:1; min-width:14px; height:9px; background:linear-gradient(currentColor,currentColor) center/100% 1px no-repeat}
+.dim::before{border-left:1px solid currentColor} .dim::after{border-right:1px solid currentColor}
+.stack{font-family:var(--mono); font-size:.7rem; color:var(--dim); margin-top:14px}
+
+/* flow diagram (case 1) */
+.flowd{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); gap:10px; align-items:center}
+.flowd .col{display:grid; gap:8px}
+.nd{border:1px solid var(--ink); padding:8px 10px; font-size:.82rem; line-height:1.25; background:var(--paper)}
+.nd small{display:block; font-family:var(--mono); font-size:.62rem; color:var(--dim); margin-top:2px}
+.nd.key{background:var(--ink); color:var(--paper)} .nd.key small{color:inherit; opacity:.7}
+.nd.old{border-style:dashed}
+.arr{font-family:var(--mono); color:var(--red); font-size:1.1rem}
+@media (max-width:560px){.flowd{grid-template-columns:1fr} .arr{text-align:center; transform:rotate(90deg)}}
+.fnote{font-size:.84rem; color:var(--soft); margin-top:12px; border-left:2px solid var(--red); padding-left:10px}
+
+/* charts */
+canvas.chart{display:block; width:100%; touch-action:pan-y}
+label.ctl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:.72rem; color:var(--soft); margin:12px 0 6px}
+input[type=range]{width:100%; accent-color:var(--red)}
+.readrow{display:flex; gap:22px; flex-wrap:wrap; margin-top:12px}
+.readrow span{display:block; font-family:var(--cond); font-weight:600; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+.readrow b{font-family:var(--head); font-size:1.4rem; font-variant-numeric:tabular-nums}
+.ladder{display:grid; gap:0; margin-top:14px; border:1px solid var(--line)}
+.rung{display:grid; grid-template-columns:28px minmax(0,1fr) auto; gap:10px; align-items:center; text-align:left; width:100%; background:none; border:0; border-top:1px solid var(--line); padding:9px 11px}
+.rung:first-child{border-top:0}
+.rung:hover{background:var(--fill)}
+.rung .t{font-family:var(--head); font-weight:700; color:var(--blue)}
+.rung strong{font-size:.86rem; font-weight:500}
+.rung .c{font-family:var(--mono); font-size:.64rem; color:var(--dim); text-align:right}
+.rung-body{padding:0 11px 10px 49px; color:var(--soft); font-size:.86rem}
+.readout{font-family:var(--mono); font-size:.76rem; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 18px; margin-top:12px}
+@media (max-width:480px){.readout{grid-template-columns:1fr}}
+.readout div{display:flex; justify-content:space-between; gap:10px; border-bottom:1px dotted var(--line); padding-bottom:4px}
+.readout b{font-weight:500; font-variant-numeric:tabular-nums}
+.verdict{margin-top:12px; padding:9px 11px; font-size:.86rem; border-left:3px solid var(--blue); background:var(--fill); min-height:4.4em}
+.verdict[data-state="hold"]{border-color:var(--ok)} .verdict[data-state="clamp"]{border-color:var(--red)}
+
+/* ---------- platform ---------- */
+.tabs{display:flex; gap:0; margin-left:auto}
+.tabs button{font-family:var(--cond); font-weight:600; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; border:1px solid var(--ink); background:none; padding:5px 12px; margin-left:-1px}
+.tabs button[aria-selected="true"]{background:var(--ink); color:var(--paper)}
+.pipe{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:0; border:1px solid var(--line)}
+@media (max-width:820px){.pipe{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:460px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stage{padding:10px 8px; text-align:center; border-right:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 -1px -1px 0; transition:background .25s}
+.stage .si{width:26px; height:26px; margin:0 auto 6px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--dim); font-family:var(--mono); font-size:.66rem; color:var(--dim)}
+.stage strong{display:block; font-size:.8rem; font-weight:500}
+.stage span{display:block; font-family:var(--mono); font-size:.6rem; color:var(--dim)}
+.stage.run{background:var(--fill)} .stage.run .si{border-color:var(--red); color:var(--red)}
+.stage.ok .si{border-color:var(--ok); background:var(--ok); color:var(--card)}
+.console{margin-top:12px; background:var(--term); border:1px solid var(--line); padding:11px 13px; font-family:var(--mono); font-size:.72rem; color:#a9b8cc; height:150px; overflow:auto; line-height:1.6}
+.console .ok{color:#6fe0a4} .console .c{color:#7cc8ff} .console .d{color:#62728a}
+.net{display:grid; grid-template-columns:minmax(0,200px) minmax(0,1fr); gap:16px; align-items:start}
+@media (max-width:820px){.net{grid-template-columns:1fr}}
+.osi{display:grid; border:1px solid var(--line)}
+.osi div{display:grid; grid-template-columns:30px minmax(0,1fr); gap:8px; align-items:center; padding:5px 9px; border-top:1px solid var(--line); font-size:.78rem; color:var(--dim); transition:.2s}
+.osi div:first-child{border-top:0}
+.osi b{font-family:var(--mono); font-size:.66rem; font-weight:500}
+.osi small{display:block; font-family:var(--mono); font-size:.6rem}
+.osi div.on{background:var(--fill); color:var(--ink); box-shadow:inset 3px 0 0 var(--red)}
+.hops{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0; border:1px solid var(--line)}
+@media (max-width:620px){.hops{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hop{border:0; border-right:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 -1px -1px 0; background:none; padding:9px 10px; text-align:left}
+.hop .hn{font-family:var(--mono); font-size:.6rem; color:var(--dim)}
+.hop strong{display:block; font-size:.84rem; font-weight:500}
+.hop span{display:block; font-family:var(--mono); font-size:.62rem; color:var(--blue)}
+.hop[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.hop[aria-pressed="true"] span,.hop[aria-pressed="true"] .hn{color:inherit; opacity:.75}
+.hopd{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; margin-top:12px; min-height:236px}
+@media (max-width:720px){.hopd{grid-template-columns:1fr}}
+.hopd p{color:var(--soft); font-size:.9rem; margin-top:6px}
+.hopd pre{margin:0; font-family:var(--mono); font-size:.7rem; line-height:1.55; background:var(--term); color:#a9b8cc; border:1px solid var(--line); padding:11px; overflow-x:auto; white-space:pre}
+.hopd pre .c{color:#62728a} .hopd pre .k2{color:#7cc8ff} .hopd pre .s{color:#6fe0a4}
+.facts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin-top:20px; border:1px solid var(--ink); background:var(--card)}
+@media (max-width:820px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.facts div{padding:13px 14px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 -1px -1px 0}
+.facts b{display:block; font-family:var(--head); font-size:1.15rem}
+.facts span{font-size:.84rem; color:var(--soft)}
 
 /* ---------- architecture ---------- */
-.arch{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,340px); gap:18px; align-items:start}
+.arch{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,330px); gap:18px; align-items:start}
 @media (max-width:900px){.arch{grid-template-columns:1fr}}
-.tiers{display:grid; gap:10px}
-.tier{display:grid; grid-template-columns:118px minmax(0,1fr); gap:12px; align-items:stretch; border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--panel)}
+.tiers{display:grid; border:1px solid var(--ink); background:var(--card)}
+.tier{display:grid; grid-template-columns:112px minmax(0,1fr); gap:10px; padding:10px; border-top:1px solid var(--line)}
+.tier:first-child{border-top:0}
 @media (max-width:600px){.tier{grid-template-columns:1fr}}
-.tier-l{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim); display:flex; align-items:center; gap:8px; padding-left:4px}
-.tier-l i{width:8px; height:8px; border-radius:2px; flex:none}
-.tier-n{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px}
-.an{border:1px solid var(--line2); background:var(--panel2); border-radius:9px; padding:9px 10px; text-align:left; transition:.18s}
-.an strong{display:block; font-size:.84rem; font-weight:600; line-height:1.25}
-.an span{display:block; font-family:var(--mono); font-size:.64rem; color:var(--fg-dim); margin-top:3px}
-.an:hover{border-color:var(--c1)}
-.an.sel{border-color:var(--c1); background:color-mix(in srgb,var(--c1) 14%,var(--panel2)); box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
-.an.rel{border-color:var(--c2); background:color-mix(in srgb,var(--c2) 10%,var(--panel2))}
-.tiers.focus .an:not(.sel):not(.rel){opacity:.42}
-.arch-detail{position:sticky; top:78px}
-.arch-detail .k{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim); margin-top:14px}
-.arch-detail .k:first-of-type{margin-top:0}
-.arch-detail h3{font-size:1.2rem; margin:6px 0 2px}
-.arch-detail .tech{font-family:var(--mono); font-size:.74rem; color:var(--c1)}
-.arch-detail p{color:var(--fg-soft); font-size:.92rem; margin-top:5px}
-.arch-detail .links{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
-.arch-detail .links button{font-family:var(--mono); font-size:.68rem; border:1px solid var(--line2); background:none; color:var(--fg-soft); border-radius:6px; padding:3px 8px}
-.arch-detail .links button:hover{border-color:var(--c2); color:var(--fg)}
-.principles{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:22px}
-@media (max-width:900px){.principles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.principles{grid-template-columns:1fr}}
-.pr{border:1px dashed var(--line2); border-radius:12px; padding:16px}
-.pr .no{font-family:var(--mono); font-size:.7rem; color:var(--c3)}
-.pr h3{font-size:.98rem; margin:6px 0 6px}
-.pr p{color:var(--fg-soft); font-size:.88rem}
+.tier-l{font-family:var(--cond); font-weight:600; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); display:flex; align-items:center}
+.tier-n{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:7px}
+.an{border:1px solid var(--line); background:var(--paper); padding:8px 9px; text-align:left; transition:.15s}
+.an strong{display:block; font-size:.82rem; font-weight:500; line-height:1.25}
+.an span{display:block; font-family:var(--mono); font-size:.62rem; color:var(--dim); margin-top:2px}
+.an:hover{border-color:var(--ink)}
+.an.sel{background:var(--ink); color:var(--paper); border-color:var(--ink)} .an.sel span{color:inherit; opacity:.7}
+.an.rel{border-color:var(--red); box-shadow:inset 3px 0 0 var(--red)}
+.tiers.focus .an:not(.sel):not(.rel){opacity:.45}
+.detail{padding:16px; position:sticky; top:74px; min-height:330px}
+.detail h3{font-size:1.2rem; margin:4px 0 2px}
+.detail .tech{font-family:var(--mono); font-size:.72rem; color:var(--blue)}
+.detail .lbl{display:block; margin-top:14px}
+.detail p{color:var(--soft); font-size:.92rem; margin-top:3px}
+.detail .links{display:flex; flex-wrap:wrap; gap:6px; margin-top:7px}
+.detail .links button{font-family:var(--mono); font-size:.66rem; border:1px solid var(--line); background:none; padding:3px 7px}
+.detail .links button:hover{border-color:var(--red)}
+.notes{margin:26px 0 0; padding:16px 18px 16px 44px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 34px; font-size:.92rem; color:var(--soft)}
+@media (max-width:760px){.notes{grid-template-columns:1fr}}
+.notes li::marker{font-family:var(--mono); font-size:.76rem; color:var(--red)}
+.notes b{color:var(--ink); font-weight:500}
 
-/* ---------- legacy demo ---------- */
-.legacy{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; align-items:stretch}
-@media (max-width:980px){.legacy{grid-template-columns:1fr}}
-.pane{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; display:flex; flex-direction:column; background:var(--panel); transition:border-color .3s, box-shadow .3s; min-width:0}
-.pane.active{border-color:var(--c1); box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 16%,transparent)}
-.pane-h{display:flex; align-items:center; gap:8px; padding:9px 12px; border-bottom:1px solid var(--line); font-family:var(--mono); font-size:.7rem; color:var(--fg-soft)}
-.pane-h .st{margin-left:auto; color:var(--fg-dim)}
-.pane-h .num{width:18px; height:18px; border-radius:50%; display:grid; place-items:center; font-size:.62rem; background:var(--line); color:var(--fg)}
-.pane.active .num{background:var(--c1); color:#04121a}
-.green{background:#020a04; color:#33ff66; font-family:var(--mono); font-size:.72rem; line-height:1.55; padding:12px; margin:0; flex:1; white-space:pre; overflow-x:auto; text-shadow:0 0 6px rgba(51,255,102,.35)}
-.green .hl{background:#33ff66; color:#020a04; text-shadow:none}
-.green .dim{color:#1f9c40}
-.code{font-family:var(--mono); font-size:.72rem; line-height:1.55; padding:12px; margin:0; flex:1; white-space:pre; overflow-x:auto; color:var(--fg-soft); background:var(--panel2)}
-.code .k{color:var(--c2)} .code .s{color:var(--good)} .code .n{color:var(--c3)} .code .m{color:var(--c1)}
-.chat{padding:12px; display:flex; flex-direction:column; gap:9px; flex:1; background:var(--panel2); font-size:.84rem}
-.msg{max-width:92%; padding:8px 11px; border-radius:11px; line-height:1.45}
-.msg.u{align-self:flex-end; background:color-mix(in srgb,var(--c2) 22%,var(--panel)); border:1px solid color-mix(in srgb,var(--c2) 40%,transparent)}
-.msg.a{align-self:flex-start; background:var(--panel); border:1px solid var(--line2)}
-.msg.t{align-self:flex-start; font-family:var(--mono); font-size:.68rem; color:var(--fg-dim); background:none; border:1px dashed var(--line2); padding:5px 9px}
-.legacy-ctl{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:16px}
-.legacy-ctl .note{font-size:.8rem; color:var(--fg-dim)}
-.green,.code,.chat{min-height:262px}
-.caret::after{content:"▋"; animation:pulse 1s infinite; margin-left:1px}
-
-/* ---------- pipeline ---------- */
-.pipe{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; position:relative}
-@media (max-width:860px){.pipe{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:480px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.stage{border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:12px 10px; text-align:center; position:relative; transition:.3s}
-.stage .si{width:30px; height:30px; margin:0 auto 8px; border-radius:50%; display:grid; place-items:center; border:2px solid var(--line2); font-family:var(--mono); font-size:.72rem; color:var(--fg-dim); transition:.3s}
-.stage strong{display:block; font-size:.82rem}
-.stage span{display:block; font-family:var(--mono); font-size:.62rem; color:var(--fg-dim); margin-top:2px}
-.stage.run{border-color:var(--c1)} .stage.run .si{border-color:var(--c1); border-top-color:transparent; animation:spin .8s linear infinite}
-.stage.ok{border-color:color-mix(in srgb,var(--good) 55%,var(--line))} .stage.ok .si{border-color:var(--good); background:var(--good); color:#04121a}
-@keyframes spin{to{transform:rotate(360deg)}}
-.console{margin-top:14px; background:#05080d; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-family:var(--mono); font-size:.74rem; color:#a9b8cc;
-  height:212px; overflow:auto; line-height:1.6}
-.console .ok{color:#51cf8d} .console .c{color:#4cc9f0} .console .w{color:#f7b267} .console .d{color:#62728a}
-.pipe-ctl{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px}
-.pipe-facts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:16px}
-@media (max-width:800px){.pipe-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.pf{border-left:2px solid var(--c1); padding:4px 0 4px 12px}
-.pf b{display:block; font-family:var(--display); font-size:1.15rem}
-.pf span{font-size:.82rem; color:var(--fg-soft)}
-
-/* ---------- network ---------- */
-.net{display:grid; grid-template-columns:minmax(0,240px) minmax(0,1fr); gap:18px; align-items:start}
-@media (max-width:860px){.net{grid-template-columns:1fr}}
-.osi{display:grid; gap:5px}
-.osi div{display:grid; grid-template-columns:30px minmax(0,1fr); align-items:center; gap:8px; border:1px solid var(--line); border-radius:8px; padding:6px 9px; font-size:.8rem; color:var(--fg-dim); background:var(--panel); transition:.25s}
-.osi div b{font-family:var(--mono); font-size:.68rem; font-weight:500}
-.osi div small{display:block; font-family:var(--mono); font-size:.62rem}
-.osi div.on{color:var(--fg); border-color:var(--c1); background:color-mix(in srgb,var(--c1) 12%,var(--panel))}
-.osi div.on b{color:var(--c1)}
-.hops{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px}
-@media (max-width:640px){.hops{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.hop{border:1px solid var(--line2); background:var(--panel); border-radius:11px; padding:10px; text-align:left; position:relative; transition:.2s}
-.hop .hn{font-family:var(--mono); font-size:.62rem; color:var(--fg-dim)}
-.hop strong{display:block; font-size:.86rem; margin-top:2px}
-.hop span{display:block; font-family:var(--mono); font-size:.64rem; color:var(--c1); margin-top:3px}
-.hop[aria-pressed="true"]{border-color:var(--c1); box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
-.wire{height:6px; margin:10px 2px; border-radius:99px; background:var(--line); position:relative; overflow:hidden}
-.wire i{position:absolute; top:0; bottom:0; width:18%; border-radius:99px; background:linear-gradient(90deg,transparent,var(--c1),var(--c2)); transition:left .45s cubic-bezier(.4,0,.2,1)}
-.hopd{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; margin-top:6px}
-@media (max-width:760px){.hopd{grid-template-columns:1fr}}
-.hopd h3{font-size:1.05rem}
-.hopd p{color:var(--fg-soft); font-size:.9rem; margin-top:8px}
-.hopd .k{font-family:var(--mono); font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim); margin-top:12px}
-.hopd pre{margin:0; font-family:var(--mono); font-size:.72rem; line-height:1.55; background:#05080d; color:#a9b8cc; border:1px solid var(--line); border-radius:10px; padding:12px; overflow-x:auto; white-space:pre}
-.hopd pre .c{color:#62728a} .hopd pre .k2{color:#8b7bff} .hopd pre .s{color:#51cf8d}
-.netfacts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:18px}
-@media (max-width:860px){.netfacts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:460px){.netfacts{grid-template-columns:1fr}}
-.nf{border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--panel)}
-.nf .l{font-family:var(--mono); font-size:.64rem; color:var(--c3); letter-spacing:.1em}
-.nf b{display:block; font-size:.92rem; margin:4px 0 4px}
-.nf span{font-size:.84rem; color:var(--fg-soft)}
-
-/* ---------- achievements ---------- */
-.ach{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
-@media (max-width:760px){.ach{grid-template-columns:1fr}}
-.aw{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:start}
-.aw .yr{font-family:var(--mono); font-size:.68rem; color:#04121a; background:linear-gradient(135deg,var(--c1),var(--c2)); border-radius:8px; padding:4px 8px; white-space:nowrap}
-.aw h3{font-size:1rem}
-.aw p{color:var(--fg-soft); font-size:.89rem; margin-top:5px}
-.aw .res{font-family:var(--mono); font-size:.72rem; color:var(--good); margin-top:8px}
-
-/* ---------- economics ---------- */
-.econ{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:18px; align-items:start}
-@media (max-width:900px){.econ{grid-template-columns:1fr}}
-canvas.chart{display:block; width:100%; border-radius:10px; touch-action:pan-y}
-.readrow{display:flex; gap:22px; flex-wrap:wrap; margin-top:14px}
-.readrow div span{display:block; font-family:var(--mono); font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim)}
-.readrow div b{font-family:var(--display); font-size:1.5rem; font-variant-numeric:tabular-nums}
-label.ctl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--fg-soft); margin:14px 0 6px}
-input[type=range]{width:100%; accent-color:var(--c1)}
-.ladder{display:grid; gap:8px}
-.rung{display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:12px; align-items:center; text-align:left; width:100%;
-  background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:11px 13px}
-.rung:hover,.rung[aria-expanded="true"]{border-color:var(--c1)}
-.rung .t{font-family:var(--display); font-size:1.1rem; font-weight:700; color:var(--c1)}
-.rung strong{font-size:.88rem; font-weight:600}
-.rung .c{font-family:var(--mono); font-size:.66rem; color:var(--fg-soft); text-align:right; max-width:110px}
-.rung .bar{display:block; height:4px; border-radius:99px; background:var(--line); margin-top:7px; overflow:hidden}
-.rung .bar i{display:block; height:100%; background:linear-gradient(90deg,var(--c1),var(--c2))}
-.rung-body{padding:0 12px 4px 58px; color:var(--fg-soft); font-size:.88rem}
-
-/* ---------- control ---------- */
-.lab{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:18px; align-items:start}
-@media (max-width:820px){.lab{grid-template-columns:1fr}}
-.readout{font-family:var(--mono); font-size:.8rem; display:grid; gap:7px}
-.readout div{display:flex; justify-content:space-between; gap:12px; border-bottom:1px dotted var(--line2); padding-bottom:6px}
-.readout b{font-variant-numeric:tabular-nums; font-weight:500}
-.verdict{margin-top:14px; padding:10px 12px; border-radius:10px; font-size:.86rem; border-left:3px solid var(--c1); background:color-mix(in srgb,var(--c1) 12%,transparent)}
-.verdict[data-state="hold"]{border-color:var(--good); background:color-mix(in srgb,var(--good) 12%,transparent)}
-.verdict[data-state="clamp"]{border-color:var(--c3); background:color-mix(in srgb,var(--c3) 14%,transparent)}
-
-/* ---------- impact ---------- */
-.impact{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
-@media (max-width:960px){.impact{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.impact{grid-template-columns:1fr}}
-.ig h3{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--c2); font-weight:500; margin-bottom:12px}
-.ig .row{padding:11px 0; border-top:1px solid var(--line)}
-.ig .row:first-of-type{border-top:0; padding-top:0}
-.ig .row b{display:block; font-family:var(--display); font-size:1.35rem; font-variant-numeric:tabular-nums; line-height:1.2}
-.ig .row span{font-size:.84rem; color:var(--fg-soft)}
-
-/* ---------- timeline ---------- */
-.tl{display:grid; gap:14px}
-.job{display:grid; grid-template-columns:170px minmax(0,1fr); gap:20px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:20px}
-@media (max-width:760px){.job{grid-template-columns:1fr; gap:8px}}
-.job .when{font-family:var(--mono); font-size:.76rem; color:var(--fg-soft)}
-.job .when b{display:block; color:var(--c3); font-weight:500; margin-bottom:2px}
-.job h3 small{display:block; font-family:var(--body); font-weight:400; font-size:.9rem; color:var(--fg-soft); margin-top:3px}
-.job ul{margin:12px 0 0; padding-left:18px; display:grid; gap:7px; font-size:.93rem; color:var(--fg-soft)}
-.job ul b{color:var(--fg); font-weight:500}
-.job .now{display:inline-block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--good);
-  border:1px solid color-mix(in srgb,var(--good) 45%,transparent); border-radius:999px; padding:1px 8px; margin-left:8px; vertical-align:middle}
-
-/* ---------- skills ---------- */
-.skills-lab{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:18px; align-items:start}
-@media (max-width:860px){.skills-lab{grid-template-columns:1fr}}
-.filters{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
-.filters button{font-family:var(--mono); font-size:.7rem; border:1px solid var(--line2); background:none; color:var(--fg-soft); border-radius:999px; padding:5px 11px}
-.filters button[aria-pressed="true"]{background:var(--fg); color:var(--bg); border-color:var(--fg)}
-.cloud{display:flex; flex-wrap:wrap; gap:8px}
-.sk{border:1px solid var(--line); background:var(--panel); color:var(--fg-soft); border-radius:8px; padding:7px 12px; font-family:var(--mono); font-size:.78rem; transition:transform .16s, border-color .16s, color .16s}
-.sk:hover{transform:translateY(-2px); color:var(--fg); border-color:var(--c1)}
-.sk[aria-pressed="true"]{background:var(--c1); border-color:var(--c1); color:#04121a; font-weight:500}
-.sk .lvl{opacity:.6; margin-left:7px}
-.proof{position:sticky; top:78px}
-.proof .k{font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim)}
-.proof h3{font-size:1.1rem; margin:8px 0 10px}
-.proof ul{margin:0; padding-left:18px; display:grid; gap:8px; font-size:.92rem; color:var(--fg-soft)}
-
-/* ---------- projects ---------- */
-.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:14px}
-.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:18px; display:grid; gap:9px; align-content:start; min-width:0; transition:transform .18s, border-color .18s}
-.card:hover{transform:translateY(-3px); border-color:var(--c2)}
-.card .m{font-family:var(--mono); font-size:.74rem; color:var(--c1)}
-.card p{font-size:.89rem; color:var(--fg-soft)}
-.tags{display:flex; gap:6px; flex-wrap:wrap}
-.tags span{font-family:var(--mono); font-size:.64rem; color:var(--fg-soft); border:1px solid var(--line); border-radius:6px; padding:2px 7px}
-.sub-h{font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-dim); margin:34px 0 14px}
-.edu{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px}
-@media (max-width:700px){.edu{grid-template-columns:1fr}}
-.edu .panel b{display:block; font-family:var(--display); font-size:1rem}
-.edu .panel span{font-size:.85rem; color:var(--fg-soft)}
+/* ---------- experience ---------- */
+.xp{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:30px; align-items:start}
+@media (max-width:920px){.xp{grid-template-columns:1fr}}
+.job{display:grid; grid-template-columns:116px minmax(0,1fr); gap:16px; padding:16px 0; border-top:1px solid var(--line)}
+.job:first-child{border-top:0; padding-top:0}
+@media (max-width:560px){.job{grid-template-columns:1fr; gap:4px}}
+.job .when{font-family:var(--mono); font-size:.72rem; color:var(--red); padding-top:3px}
+.job h3 small{display:block; font-family:var(--body); font-weight:400; font-size:.86rem; color:var(--dim); margin-top:2px}
+.job ul{margin:8px 0 0; padding-left:17px; display:grid; gap:5px; font-size:.92rem; color:var(--soft)}
+.job ul b{color:var(--ink); font-weight:500}
+.bom{width:100%; border-collapse:collapse; font-size:.86rem; background:var(--card)}
+.bom caption{text-align:left; padding-bottom:8px}
+.bom th,.bom td{border:1px solid var(--ink); padding:7px 9px; text-align:left; vertical-align:top}
+.bom th{font-family:var(--cond); font-weight:600; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+.bom td:first-child{font-family:var(--mono); font-size:.68rem; color:var(--dim); width:1%}
+.bom td:nth-child(2){font-weight:500; white-space:nowrap}
+.bom td:last-child{color:var(--soft)}
+.bom .new{font-family:var(--mono); font-size:.6rem; color:var(--red); border:1px solid var(--red); padding:0 4px; margin-left:4px; vertical-align:1px}
+.side{margin-top:22px}
+.side ul{margin:8px 0 0; padding:0; list-style:none; display:grid; gap:7px; font-size:.9rem; color:var(--soft)}
+.side li{padding-left:14px; border-left:2px solid var(--line)}
+.side b{color:var(--ink); font-weight:500}
 
 /* ---------- contact ---------- */
-.contact{text-align:center; padding-block:clamp(70px,10vw,120px)}
-.contact h2{font-size:clamp(1.9rem,4.6vw,3rem); max-width:22ch; margin:12px auto 0}
-.contact p{color:var(--fg-soft); max-width:56ch; margin:16px auto 0}
-.contact .cta{justify-content:center}
-.mailrow{display:inline-flex; gap:8px; align-items:center; margin-top:22px; font-family:var(--mono); font-size:.86rem; flex-wrap:wrap; justify-content:center}
-.mailrow code{background:var(--panel); border:1px solid var(--line); border-radius:9px; padding:8px 12px}
-.toast{font-family:var(--mono); font-size:.74rem; color:var(--good)}
-footer{border-top:1px solid var(--line); padding:22px 0 34px; font-family:var(--mono); font-size:.72rem; color:var(--fg-dim)}
-footer .wrap{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.contact h2{font-size:clamp(1.8rem,4.4vw,3rem); max-width:20ch}
+.contact .intro{margin-bottom:6px}
+.mailrow{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:22px; font-family:var(--mono); font-size:.9rem}
+.mailrow code{border:1px solid var(--ink); background:var(--card); padding:8px 12px}
+.toast{font-family:var(--mono); font-size:.74rem; color:var(--ok)}
+footer{padding:0 0 34px}
+footer .tblock{font-size:.68rem}
 
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important; transition:none!important}
   html{scroll-behavior:auto}
@@ -393,508 +299,302 @@ footer .wrap{display:flex; justify-content:space-between; gap:12px; flex-wrap:wr
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div id="prog" aria-hidden="true"></div>
 
-<header class="topbar">
-  <div class="topbar-in">
+<header class="top">
+  <div class="top-in">
     <a class="brand" href="#top"><i>HP</i>Harsha Pakki</a>
     <nav id="nav" aria-label="Sections">
-      <a href="#range">Range</a>
-      <a href="#design">Design</a>
-      <a href="#legacy">Demos</a>
-      <a href="#network">Networking</a>
-      <a href="#impact">Impact</a>
-      <a href="#wins">Achievements</a>
-      <a href="#work">Work</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
+      <a href="#work">Case studies</a>
+      <a href="#platform">Platform</a>
+      <a href="#system">System design</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <div class="tb-actions">
-      <button class="icon-btn" id="theme" aria-label="Toggle light and dark theme" title="Theme">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <div class="tb">
+      <button class="ib" id="theme" aria-label="Switch between paper and blueprint theme" title="Paper / blueprint">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>
       </button>
-      <button class="icon-btn menu-btn" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <button class="ib" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <a class="btn solid sm" href="#contact">Contact</a>
     </div>
   </div>
 </header>
 
 <main id="main">
-<div class="hero" id="top">
-  <div class="wrap hero-grid">
+
+<!-- HERO -->
+<div class="hero wrap" id="top">
+  <div class="hero-top">
     <div>
-      <span class="badge"><span class="dot"></span>AI Forward Deployed Engineer · embedded in manufacturing</span>
-      <h1>I connect the systems a business already runs on <span class="grad">to the AI it wants to use.</span></h1>
-      <p class="lede">I sit with the people doing the work, wrap decades-old ERPs, databases and machines in clean modern APIs, put AI on top only where it pays for itself, and ship it all through deployment pipelines I build and run. Then I stay until the customer's own team can run it without me.</p>
-      <div class="caps">
-        <span class="cap"><b>Legacy → API</b> AS/400 · SQL Server · CNC</span>
-        <span class="cap"><b>Applied AI</b> agents · MCP · vision · routing</span>
-        <span class="cap"><b>Cloud &amp; platform</b> AWS · CI/CD · Docker · Kubernetes</span>
-        <span class="cap"><b>Network</b> L1–L7 · TCP → WebSocket · TLS</span>
-        <span class="cap"><b>Stack</b> Python · Rust · C# · TypeScript</span>
-        <span class="cap"><b>Design</b> systems · data · product</span>
-      </div>
+      <span class="role">AI Forward Deployed Engineer</span>
+      <h1>I connect the systems a business already runs on <em>to the AI it wants to use.</em></h1>
+      <p class="lede">I wrap legacy ERPs, databases and machines in modern APIs, put AI on top where it pays for itself, and ship it on deployment pipelines I build and run. Currently embedded with a manufacturer, with 8+ systems in production.</p>
       <div class="cta">
-        <a class="btn solid" href="#design">See the system design</a>
-        <a class="btn" href="#legacy">Run the live demos</a>
-        <a class="btn" href="mailto:harshapakki@gmail.com">harshapakki@gmail.com</a>
+        <a class="btn pri" href="#work">Read the case studies</a>
+        <a class="btn" href="mailto:harshapakki@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/hpakki/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
+    <table class="tblock" aria-label="Summary">
+      <tr><td>Name</td><td><b>Harsha Prakash Pakki</b></td></tr>
+      <tr><td>Role</td><td>AI Forward Deployed Engineer</td></tr>
+      <tr><td>Field</td><td>Manufacturing · legacy to AI</td></tr>
+      <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
+      <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
+      <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
+    </table>
+  </div>
 
-    <div class="flow" id="flow" aria-label="Diagram: legacy systems flow through an API layer into AI agents and apps">
-      <div class="flow-head"><span>legacy → api → ai</span><span class="live">live</span></div>
-      <div class="flow-cols">
-        <div class="flow-col" data-col="0">
-          <h4>Legacy</h4>
-          <div class="fn" data-g="0" data-id="as400">AS/400 ERP<small>DB2 for i</small></div>
-          <div class="fn" data-g="0" data-id="sql">SQL Server<small>on-prem</small></div>
-          <div class="fn" data-g="0" data-id="cnc">CNC cells<small>Siemens 828D</small></div>
-          <div class="fn" data-g="0" data-id="gauge">Gauges<small>Keyence · OPC</small></div>
-          <div class="fn" data-g="0" data-id="xl">Spreadsheets<small>SharePoint</small></div>
-        </div>
-        <div class="flow-col" data-col="1">
-          <h4>API layer</h4>
-          <div class="fn" data-g="1" data-id="api">Data services<small>FastAPI</small></div>
-          <div class="fn" data-g="1" data-id="auth">Identity<small>SAML · OIDC</small></div>
-          <div class="fn" data-g="1" data-id="loop">Control loop<small>C# / .NET</small></div>
-          <div class="fn" data-g="1" data-id="flowsvc">Workflows<small>events · hooks</small></div>
-        </div>
-        <div class="flow-col" data-col="2">
-          <h4>AI &amp; apps</h4>
-          <div class="fn" data-g="2" data-id="agent">Agents<small>MCP tools</small></div>
-          <div class="fn" data-g="2" data-id="router">Model router<small>local → premium</small></div>
-          <div class="fn" data-g="2" data-id="quote">Quoting<small>React</small></div>
-          <div class="fn" data-g="2" data-id="dash">Dashboards<small>Next.js</small></div>
-          <div class="fn" data-g="2" data-id="mobile">Mobile<small>React Native</small></div>
-        </div>
+  <div class="fig" id="legacyFig">
+    <div class="fig-h"><span class="lbl">Fig. 1</span><span class="cap">One question, traced from an AI agent down to a 5250 green screen and back</span>
+      <button class="btn sm" id="runLegacy" aria-pressed="false">❚❚ Pause</button></div>
+    <div class="fig-b">
+      <div class="legacy" id="legacyDemo">
+        <div class="pane"><div class="pane-h"><span class="bal">3</span>ERP terminal · AS/400<span class="st" id="st0">idle</span></div><pre class="green" id="green"></pre></div>
+        <div class="pane"><div class="pane-h"><span class="bal">2</span>Data service · REST<span class="st" id="st1">idle</span></div><pre class="code" id="apiOut"></pre></div>
+        <div class="pane"><div class="pane-h"><span class="bal">1</span>Agent · tool call<span class="st" id="st2">idle</span></div><div class="chat" id="chat"></div></div>
       </div>
-      <canvas id="flowCanvas" aria-hidden="true"></canvas>
-      <div class="flow-foot">hover a system to trace where its data goes</div>
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="metrics reveal">
-      <div class="metric"><div class="big">8<em>+</em></div><div class="n">production systems designed, delivered and run end to end</div></div>
-      <div class="metric"><div class="big">2-3d <em>→</em> 1d</div><div class="n">quote turnaround, about 40% more estimates</div></div>
-      <div class="metric"><div class="big">~$150</div><div class="n">to digitise 1,800 drawings in 3 days, against a month and $3-5K by hand</div></div>
-      <div class="metric"><div class="big">4-5% <em>→</em> 1-2%</div><div class="n">scrap on cells with closed-loop correction</div></div>
-      <div class="metric"><div class="big">~20</div><div class="n">containerised services on push-to-deploy</div></div>
-      <div class="metric"><div class="big">12<em>+</em> teams</div><div class="n">about 120 users on automated order flow</div></div>
+  <div class="fig" id="deployFig" style="margin-top:18px">
+    <div class="fig-h"><span class="lbl">Fig. 2</span><span class="cap"><span class="mono">git push origin main</span>, and it is in production. Nobody logs in to a server.</span>
+      <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
+    <div class="fig-b">
+      <div class="pipe" id="pipe"></div>
+      <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
     </div>
   </div>
 </div>
 
-<!-- 01 RANGE -->
-<section id="range">
+<!-- CASE STUDIES -->
+<section id="work">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">01 · Range</div>
-      <h2>One engineer, the whole path from shop floor to business case</h2>
-      <p>A forward deployed engineer gets handed a customer, not a ticket. That means owning requirements, integration, AI, infrastructure, rollout and the numbers that justify it. Here is what that has looked like in practice.</p>
+    <div class="sheet-h"><span class="no">01 / 05</span><span class="lbl">Case studies</span><span class="rule"></span></div>
+    <h2>Three problems, from the shop floor up</h2>
+    <p class="intro">Each started with sitting next to the people doing the work. Results are in the customer's own numbers.</p>
+
+    <article class="cs reveal">
+      <div>
+        <div class="tag">CASE A · LEGACY → API → AI</div>
+        <h3>Opening a decades-old ERP so quotes take a day, not three</h3>
+        <dl class="pbr">
+          <dt>Problem</dt><dd>Prices, stock and routings lived in an AS/400 behind green screens. Estimators re-keyed them into a shared spreadsheet, one quote at a time.</dd>
+          <dt>Built</dt><dd>A <b>FastAPI data service</b> over DB2 for i that serves live pricing, stock, catalogue and work-order routes as JSON. On top of it, a <b>quoting platform</b> with recursive cost roll-ups, single sign-on, and <b>narrow agent tools</b> so AI can answer from the same source.</dd>
+          <dt>Result</dt><dd>The ERP was never modified, and every new app or agent now starts from the same API.
+            <div class="dim">2-3 days → 1 day per quote</div>
+            <div class="dim">≈ 40% more estimates</div></dd>
+        </dl>
+        <div class="stack">Python · FastAPI · ODBC · DB2 for i · PostgreSQL · React · SAML/OIDC</div>
+      </div>
+      <div class="fig" style="margin-top:0">
+        <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap">Wrapped, not replaced</span></div>
+        <div class="fig-b">
+          <div class="flowd">
+            <div class="col">
+              <div class="nd old">AS/400 ERP<small>DB2 for i · 5250</small></div>
+              <div class="nd old">SQL Server<small>on-prem</small></div>
+              <div class="nd old">Spreadsheets<small>SharePoint</small></div>
+            </div>
+            <div class="arr">→</div>
+            <div class="col">
+              <div class="nd key">Data service<small>FastAPI · typed contracts</small></div>
+              <div class="nd">Identity<small>SAML · OIDC</small></div>
+            </div>
+            <div class="arr">→</div>
+            <div class="col">
+              <div class="nd">Quoting platform<small>React</small></div>
+              <div class="nd">AI agents<small>MCP tools, read-only</small></div>
+              <div class="nd">Shop dashboards<small>Next.js</small></div>
+            </div>
+          </div>
+          <p class="fnote">A material-code proxy hides the ERP's quirks behind stable contracts. Apps and agents get read-only access; writes go through narrow, audited endpoints.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="cs reveal">
+      <div>
+        <div class="tag">CASE B · APPLIED AI · COST</div>
+        <h3>Digitising 1,800 engineering drawings for the price of a team lunch</h3>
+        <dl class="pbr">
+          <dt>Problem</dt><dd>Scanned drawings across 97 part families had to become structured, catalogue-valid data. By hand: about a month and $3-5K. With the best model on every page: accurate, and too expensive to repeat.</dd>
+          <dt>Built</dt><dd>A <b>four-step escalation ladder</b>. Cheap and exact first, one vision read next, a second read only on evidence, people last. Confidence comes from <b>physical cross-checks</b> (OCR agreement, geometry, mass against printed weight), never from the model's opinion of itself.</dd>
+          <dt>Result</dt><dd>Extraction became priceable per drawing instead of per project.
+            <div class="dim">3 days · about $150 total</div>
+            <div class="dim">90% on adjudicated core fields</div></dd>
+        </dl>
+        <div class="stack">Python · vision models · OCR · local models via Ollama · golden-set evals</div>
+      </div>
+      <div class="fig" style="margin-top:0">
+        <div class="fig-h"><span class="lbl">Fig. 4</span><span class="cap">Cost per pass against how much is escalated. Drag it.</span></div>
+        <div class="fig-b">
+          <canvas class="chart" id="costCanvas" height="220" aria-label="Blended cost per pass against escalation rate"></canvas>
+          <label class="ctl" for="esc"><span>Escalated to the premium model</span><span id="escPct">35%</span></label>
+          <input id="esc" type="range" min="0" max="100" value="35">
+          <div class="readrow">
+            <div><span>Cost per pass</span><b id="escCost">$42.60</b></div>
+            <div><span>vs. all-premium</span><b id="escSave">−57%</b></div>
+          </div>
+          <div class="ladder" id="ladder"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="cs reveal">
+      <div>
+        <div class="tag">CASE C · SOFTWARE THAT MOVES METAL</div>
+        <h3>Closing the loop between a gauge and a CNC machine</h3>
+        <dl class="pbr">
+          <dt>Problem</dt><dd>Operators measured parts, then typed tool-offset corrections into the controller by hand. Drift was caught late, and scrap followed.</dd>
+          <dt>Built</dt><dd>A <b>C# controller</b> that reads Keyence gauges and writes corrections to Siemens 828D tool-offset registers. A <b>deadband</b> ignores in-spec noise and a <b>per-step clamp</b> stops one bad reading from driving the tool.</dd>
+          <dt>Result</dt><dd>Corrections happen every part, inside limits a quality engineer signed off.
+            <div class="dim">scrap 4-5% → 1-2%</div></dd>
+        </dl>
+        <div class="stack">C# · .NET · Keyence TM-X · Siemens 828D · OPC</div>
+      </div>
+      <div class="fig" style="margin-top:0">
+        <div class="fig-h"><span class="lbl">Fig. 5</span><span class="cap">The same control math, live. Drag the measurement.</span></div>
+        <div class="fig-b">
+          <canvas class="chart" id="loopCanvas" height="230" aria-label="Tolerance band with the measured value and the applied correction"></canvas>
+          <label class="ctl" for="measured"><span>Measured diameter, mm</span><span id="mVal">25.062</span></label>
+          <input type="range" id="measured" min="24.88" max="25.12" step="0.001" value="25.062">
+          <div class="readout">
+            <div><span>Deviation</span><b id="r-dev">+0.062</b></div>
+            <div><span>Raw correction</span><b id="r-raw">-0.037</b></div>
+            <div><span>Per-step clamp</span><b>0.030</b></div>
+            <div><span>Written to register</span><b id="r-out">-0.030</b></div>
+          </div>
+          <div class="verdict" id="verdict" data-state="clamp"></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section id="platform">
+  <div class="wrap">
+    <div class="sheet-h"><span class="no">02 / 05</span><span class="lbl">The platform underneath</span><span class="rule"></span></div>
+    <h2>A desktop in a browser tab, traced through the network layers</h2>
+    <p class="intro">A plant network has no cloud CI and no public internet, so I designed the delivery platform and the access path the case studies run on. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
+
+    <div class="fig reveal">
+      <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+        <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
+      </div>
+      <div class="fig-b">
+        <div class="net">
+          <div class="osi" id="osi"></div>
+          <div>
+            <div class="hops" id="hops"></div>
+            <div class="hopd" id="hopd"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="caps-grid reveal">
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M9 16v4M15 16v4M7 8h4M7 11h7"/></svg></div>
-        <h3>Legacy systems → modern APIs</h3>
-        <ul>
-          <li><b>Wrapped an AS/400 ERP</b> (DB2 for i) in a JSON data service: live pricing and stock through a material-code proxy</li>
-          <li><b>Catalogue snapshots and work-order routes</b> over ODBC for apps that never touch a green screen</li>
-          <li><b>One-click access provisioning</b> that replaced manual toggling</li>
-        </ul>
-        <div class="k">Python · FastAPI · ODBC · DB2 for i</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 4.6L19 9l-3.5 3.4.8 4.9L12 15l-4.3 2.3.8-4.9L5 9l4.8-1.4z"/></svg></div>
-        <h3>AI that earns its keep</h3>
-        <ul>
-          <li><b>Vision extraction pipeline</b>: 1,800 drawings in 3 days for about $150, confidence scored from physics</li>
-          <li><b>Model routing</b>: local Qwen models via Ollama, premium model only past a complexity gate</li>
-          <li><b>MCP server</b> over tree-sitter and Neo4j, 16 tools, 111 tests across 6 topologies</li>
-        </ul>
-        <div class="k">Vision · agents · MCP · Ollama · eval sets</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.3 7.2l7.4 3.6M8.3 16.8l7.4-3.6"/></svg></div>
-        <h3>Automated deployment pipelines</h3>
-        <ul>
-          <li><b>Delivery platform from zero</b>: Gitea, push-to-deploy webhooks across about 11 services</li>
-          <li><b>About 20 containerised services</b> on Docker and Kubernetes, Helm with per-site config externalised</li>
-          <li><b>semantic-release</b> to an artifact registry with versioned contracts; monitoring and status pages</li>
-        </ul>
-        <div class="k">Gitea · Docker · Kubernetes · Helm · CI/CD</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v2h11v-2M12 12v2"/></svg></div>
-        <h3>System design</h3>
-        <ul>
-          <li><b>99.99% uptime</b> with SQL Server availability groups and failover testing, zero data loss</li>
-          <li><b>ETL moved off on-prem SQL Server</b> onto Spark, with RDS and S3 behind it</li>
-          <li><b>Micro frontends</b> with typed host contracts; a knowledge graph across 14 repositories</li>
-        </ul>
-        <div class="k">HA · data platforms · event flows · contracts</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-5 3 3 5-7"/><path d="M15 7h3v3"/></svg></div>
-        <h3>AI for business improvement</h3>
-        <ul>
-          <li><b>Quoting platform</b> that replaced a spreadsheet: 2-3 days to about 1, roughly 40% more volume</li>
-          <li><b>Order automation across 12+ teams</b>, so an order moves itself from entry to invoicing</li>
-          <li><b>Trial to paid 11% → 18%</b> and <b>+22% revenue per customer</b> from credit-metered AI pricing</li>
-        </ul>
-        <div class="k">Discovery · metrics · pricing · process</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div>
-        <h3>Shop floor &amp; infrastructure</h3>
-        <ul>
-          <li><b>Closed-loop CNC control</b> in C# and .NET reading gauges, writing tool offsets</li>
-          <li><b>Plant LAN and Sophos XGS firewall</b>, documented for handover; WireGuard and Tailscale remote access</li>
-          <li><b>Browser-reachable VMs</b> via noVNC: environment setup from days to first login</li>
-        </ul>
-        <div class="k">OT · networking · security · field work</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.2 9.1 4.5 4.5 0 0 0 7 18z"/></svg></div>
-        <h3>Cloud</h3>
-        <ul>
-          <li><b>AWS data platform</b>: PySpark on EMR and Glue, orchestrated with Step Functions, RDS and S3 for high availability</li>
-          <li><b>App hosting</b> on ECS and AppSync for client front ends, least-privilege IAM throughout</li>
-          <li><b>Hybrid by design</b>: plant workloads on site, packaged so the same release runs on any cloud Kubernetes</li>
-        </ul>
-        <div class="k">AWS · EMR · Glue · RDS · S3 · ECS · IAM</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg></div>
-        <h3>Networking, layer by layer</h3>
-        <ul>
-          <li><b>TCP to HTTP</b>: raw VNC (RFB over TCP) bridged into WebSockets with websockify, so desktops open in a browser</li>
-          <li><b>nginx reverse proxy</b> with TLS termination, WebSocket upgrades and an internal-CA wildcard certificate</li>
-          <li><b>Only 443 exposed</b>: direct IP:port access firewalled, admin access over WireGuard and Tailscale</li>
-        </ul>
-        <div class="k">OSI L1–L7 · TCP/IP · TLS · WebSockets · VPN</div>
-      </article>
-      <article class="panel capc">
-        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div>
-        <h3>Polyglot, moving to Rust</h3>
-        <ul>
-          <li><b>Python and C#</b> for services and machine control, <b>TypeScript</b> for web and mobile</li>
-          <li><b>Rust going forward</b> for new services: protocol bridges, edge agents beside machines, low-footprint APIs</li>
-          <li><b>Memory safety without a garbage collector</b>, which matters for long-running code on plant hardware</li>
-        </ul>
-        <div class="k">Rust · Python · C# / .NET · TypeScript · SQL</div>
-      </article>
+
+    <div class="facts reveal">
+      <div><b>~20 services</b><span>containerised on Docker and Kubernetes, about 11 on push-to-deploy</span></div>
+      <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
+      <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
+      <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
     </div>
   </div>
 </section>
 
-<!-- 02 SYSTEM DESIGN -->
-<section id="design" class="band">
+<!-- SYSTEM DESIGN -->
+<section id="system">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">02 · System design</div>
-      <h2>The reference architecture I deploy into a plant</h2>
-      <p>Five layers, each one replaceable on its own. Select any component to see what it does, the design decision behind it, and what it talks to.</p>
-    </div>
-    <div class="arch reveal">
+    <div class="sheet-h"><span class="no">03 / 05</span><span class="lbl">System design</span><span class="rule"></span></div>
+    <h2>The architecture I deploy into a plant</h2>
+    <p class="intro">Five layers, each replaceable on its own. Select a component to see what it does, the decision behind it, and what it talks to.</p>
+    <div class="arch reveal" style="margin-top:24px">
       <div class="tiers" id="tiers"></div>
-      <aside class="panel arch-detail" id="archDetail" aria-live="polite"></aside>
+      <aside class="box detail" id="archDetail" aria-live="polite"></aside>
     </div>
-    <div class="principles reveal">
-      <div class="pr"><div class="no">PRINCIPLE 01</div><h3>Confidence from physics, not from the model</h3><p>Extraction is scored by OCR agreement, geometry and mass-from-geometry against printed weight, never by what the model says about itself.</p></div>
-      <div class="pr"><div class="no">PRINCIPLE 02</div><h3>Clamp anything that touches a machine</h3><p>Deadbands ignore in-spec noise and per-step limits stop a bad reading from driving a tool. Automation walks to the answer, it does not jump.</p></div>
-      <div class="pr"><div class="no">PRINCIPLE 03</div><h3>Escalate on evidence</h3><p>Cheap and deterministic first, local model next, premium model last and capped. Every rung must justify the cost of the next one.</p></div>
-      <div class="pr"><div class="no">PRINCIPLE 04</div><h3>One release, per-site config</h3><p>Sites differ in configuration, not in code. Helm values and governed constants instead of forks, so every plant runs the same tested build.</p></div>
-      <div class="pr"><div class="no">PRINCIPLE 05</div><h3>Read-only until proven otherwise</h3><p>Dashboards and agents get read-only roles on systems of record. Writes go through narrow, audited endpoints with an owner.</p></div>
-      <div class="pr"><div class="no">PRINCIPLE 06</div><h3>Leave it runnable</h3><p>Runbooks, status pages and one-click paths, so the customer's own staff keep it going after I leave.</p></div>
-    </div>
+    <ol class="box notes reveal" aria-label="Design notes">
+      <li><b>Confidence from physics.</b> Score AI output by what can be checked, not by what the model claims.</li>
+      <li><b>Clamp anything that touches a machine.</b> Automation walks to the answer; it does not jump.</li>
+      <li><b>Escalate on evidence.</b> Every step up in cost has to be earned by the step below.</li>
+      <li><b>One release, per-site config.</b> Sites differ in values, never in code.</li>
+      <li><b>Read-only until proven otherwise.</b> Writes go through narrow endpoints with an owner.</li>
+      <li><b>Leave it runnable.</b> Runbooks and status pages, so the customer's team carries on without me.</li>
+    </ol>
   </div>
 </section>
 
-<!-- 03 LEGACY TO AI -->
-<section id="legacy">
+<!-- EXPERIENCE -->
+<section id="experience">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">03 · Interactive · Legacy → AI</div>
-      <h2>From green screen to a question anyone can ask</h2>
-      <p>The data was always there; it was just behind a 5250 terminal and a person who knew the function keys. Wrap it in an API, give an agent a narrow tool on top, and a planner gets an answer in seconds. Watch one request travel the whole path.</p>
-    </div>
-    <div class="legacy reveal" id="legacyDemo">
-      <div class="pane" data-step="0">
-        <div class="pane-h"><span class="num">1</span>ERP terminal · 5250<span class="st" id="st0">idle</span></div>
-        <pre class="green" id="green"></pre>
+    <div class="sheet-h"><span class="no">04 / 05</span><span class="lbl">Experience &amp; stack</span><span class="rule"></span></div>
+    <h2>Data, then software, then product, then the field</h2>
+    <div class="xp" style="margin-top:26px">
+      <div class="reveal">
+        <article class="job">
+          <div class="when">03/2026 – now</div>
+          <div><h3>AI Forward Deployed Engineer<small>Quadyster · embedded with a manufacturing customer</small></h3>
+            <ul>
+              <li>Technical lead on site, owning delivery from requirements to operations.</li>
+              <li><b>Order automation across 12+ teams</b> and about 120 users, so an order moves itself from entry to invoicing.</li>
+              <li>Plant network, firewall and remote access, documented for handover.</li>
+            </ul></div>
+        </article>
+        <article class="job">
+          <div class="when">01/2025 – 03/2026</div>
+          <div><h3>Software Engineer &amp; Product Owner<small>Quadyster · John Deere and internal products</small></h3>
+            <ul>
+              <li>Publishable micro frontends with typed host contracts, a GraphQL explorer over 51 entities, and a React Native app with 68 tests.</li>
+              <li><b>Credit-metered AI pricing</b>: trial to paid 11% → 18%, revenue per customer +22%.</li>
+            </ul></div>
+        </article>
+        <article class="job">
+          <div class="when">02/2023 – 12/2024</div>
+          <div><h3>Software Engineer, Product R&amp;D → Data &amp; Analytics Product<small>Cornerstone OnDemand · 50+ client deployments</small></h3>
+            <ul>
+              <li><b>99.99% uptime</b> on SQL Server availability groups; queries 65% faster with 45% less memory.</li>
+              <li>Moved ETL from on-prem SQL Server to <b>Spark on AWS</b>; made client installs repeatable with a .NET installer.</li>
+              <li>Churn down 3.4 points and upsell acceptance 6% → 14% after taking the rollout customer-facing.</li>
+            </ul></div>
+        </article>
+        <article class="job">
+          <div class="when">2018 – 2022</div>
+          <div><h3>Analytics Developer → Data Engineer<small>Deloitte, then CloudPeritus</small></h3>
+            <ul>
+              <li>SSIS pipelines over 10M+ records a day; dashboard loads from 45 seconds to under 5.</li>
+              <li>PySpark on EMR and Glue with Step Functions and least-privilege IAM.</li>
+            </ul></div>
+        </article>
+        <article class="job">
+          <div class="when">Education</div>
+          <div><h3>MS Computer Science, University of Florida<small>PG Diploma in ML &amp; AI, IIIT Bangalore · BS Electronics &amp; Communication, GITAM</small></h3></div>
+        </article>
       </div>
-      <div class="pane" data-step="1">
-        <div class="pane-h"><span class="num">2</span>Data service · REST<span class="st" id="st1">idle</span></div>
-        <pre class="code" id="apiOut"></pre>
-      </div>
-      <div class="pane" data-step="2">
-        <div class="pane-h"><span class="num">3</span>Agent · MCP tool call<span class="st" id="st2">idle</span></div>
-        <div class="chat" id="chat"></div>
-      </div>
-    </div>
-    <div class="legacy-ctl">
-      <button class="btn sm" id="runLegacy" aria-pressed="false">❚❚ Pause</button>
-      <span class="note">Illustrative item and stock values. The pattern is the one running in production.</span>
-    </div>
-  </div>
-</section>
 
-<!-- 04 PIPELINE -->
-<section id="pipeline" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">04 · Interactive · Deployment</div>
-      <h2>Push to main, and it is in production</h2>
-      <p>On a plant network with no cloud CI, I designed and stood up the delivery platform: self-hosted Git, webhooks, image builds, rollout and a status page. Nobody SSHs into a box to deploy.</p>
-    </div>
-    <div class="reveal">
-      <div class="pipe-ctl">
-        <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button>
-        <span class="mono" style="font-size:.78rem;color:var(--fg-dim)" id="pipeTime">watching main</span>
-      </div>
-      <div class="pipe" id="pipe"></div>
-      <div class="console" id="console" aria-live="polite"><span class="d"># waiting for a push…</span></div>
-      <div class="pipe-facts">
-        <div class="pf"><b>~11 services</b><span>on push-to-deploy webhooks</span></div>
-        <div class="pf"><b>~20 containers</b><span>Docker and Kubernetes, Helm charts</span></div>
-        <div class="pf"><b>Versioned releases</b><span>semantic-release to an artifact registry</span></div>
-        <div class="pf"><b>days → login</b><span>dev containers and browser VMs</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- NETWORK -->
-<section id="network">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">05 · Interactive · Networking</div>
-      <h2>A desktop in the browser, traced through the network stack</h2>
-      <p>VNC speaks a raw binary protocol over TCP; browsers only speak HTTP and WebSockets. I bridge the two so a plant VM opens in a browser tab, with nothing but HTTPS exposed. Step through each hop and watch which OSI layers it works at.</p>
-    </div>
-    <div class="net reveal">
-      <div class="osi" id="osi"></div>
-      <div>
-        <div class="hops" id="hops"></div>
-        <div class="wire" aria-hidden="true"><i id="wireDot"></i></div>
-        <div class="panel hopd" id="hopd" aria-live="polite"></div>
-      </div>
-    </div>
-    <div class="netfacts reveal">
-      <div class="nf"><div class="l">L7 · APPLICATION</div><b>Reverse proxy &amp; routing</b><span>nginx host and path routing, WebSocket upgrade, long-lived connections</span></div>
-      <div class="nf"><div class="l">L6 · PRESENTATION</div><b>TLS everywhere</b><span>Wildcard certificate from an internal Active Directory CA, renewal documented</span></div>
-      <div class="nf"><div class="l">L4 · TRANSPORT</div><b>TCP ↔ WebSocket</b><span>websockify unwraps frames into a byte stream for RFB on port 5900</span></div>
-      <div class="nf"><div class="l">L3 · NETWORK</div><b>Firewall &amp; tunnels</b><span>Sophos XGS rules, WireGuard and Tailscale for remote admin</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 05 ECONOMICS -->
-<section id="economics" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">06 · Interactive · AI economics</div>
-      <h2>Making AI cheap enough to actually use</h2>
-      <p>1,800 scanned engineering drawings, 97 part families, a 214-page catalogue of legal values. Sending everything to the best model costs $99.50 a pass. Routing only the uncertain ones up the ladder brought it to $42.60. Move the escalation rate.</p>
-    </div>
-    <div class="econ reveal">
-      <div class="panel">
-        <canvas class="chart" id="costCanvas" height="250" aria-label="Blended cost per pass against escalation rate"></canvas>
-        <label class="ctl" for="esc"><span>Escalation to premium model</span><span id="escPct">35%</span></label>
-        <input id="esc" type="range" min="0" max="100" value="35">
-        <div class="readrow">
-          <div><span>Blended cost / pass</span><b id="escCost">$42.60</b></div>
-          <div><span>vs all-premium</span><b id="escSave">−57%</b></div>
-          <div><span>Core-field accuracy</span><b id="escAcc">90%</b></div>
-        </div>
-      </div>
-      <div class="ladder" id="ladder"></div>
-    </div>
-  </div>
-</section>
-
-<!-- 06 CONTROL -->
-<section id="control">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">07 · Interactive · Closed loop</div>
-      <h2>Software that writes back to a machine</h2>
-      <p>A controller I wrote reads a gauge and writes corrections to a CNC tool-offset register. Drag the measurement: in-spec noise is ignored, corrections are clamped, and nothing chases a bad reading. Same math, running in your browser.</p>
-    </div>
-    <div class="lab reveal">
-      <div class="panel">
-        <canvas class="chart" id="loopCanvas" height="280" aria-label="Tolerance band with measured value and applied correction"></canvas>
-        <label class="ctl" for="measured"><span>Measured diameter, mm</span><span id="mVal">25.062</span></label>
-        <input type="range" id="measured" min="24.88" max="25.12" step="0.001" value="25.062">
-      </div>
-      <div class="panel">
-        <div class="readout">
-          <div><span>Nominal</span><b>25.000</b></div>
-          <div><span>Tolerance</span><b>24.950 / 25.050</b></div>
-          <div><span>Deadband</span><b>24.985 / 25.015</b></div>
-          <div><span>Deviation</span><b id="r-dev">+0.062</b></div>
-          <div><span>Raw correction, gain 0.6</span><b id="r-raw">-0.037</b></div>
-          <div><span>Per-step clamp</span><b>0.030</b></div>
-          <div><span>Written to register</span><b id="r-out">-0.030</b></div>
-        </div>
-        <div class="verdict" id="verdict" data-state="clamp"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 07 IMPACT -->
-<section id="impact" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">08 · Impact</div>
-      <h2>What moved, in the customer's own numbers</h2>
-      <p>Every figure had a threshold agreed before the work started and a write-up afterwards, whether it cleared or not.</p>
-    </div>
-    <div class="impact reveal">
-      <div class="panel ig"><h3>Operations</h3>
-        <div class="row"><b>2-3d → 1d</b><span>quote turnaround, ~40% more estimates</span></div>
-        <div class="row"><b>4-5% → 1-2%</b><span>scrap on closed-loop cells</span></div>
-        <div class="row"><b>12+ teams</b><span>~120 users, order entry to invoice automated</span></div>
-      </div>
-      <div class="panel ig"><h3>AI cost</h3>
-        <div class="row"><b>$99.50 → $42.60</b><span>per extraction pass</span></div>
-        <div class="row"><b>~$150</b><span>for 1,800 drawings vs a month and $3-5K manual</span></div>
-        <div class="row"><b>35% cap</b><span>on premium escalation, 90% adjudicated accuracy</span></div>
-      </div>
-      <div class="panel ig"><h3>Revenue</h3>
-        <div class="row"><b>11% → 18%</b><span>trial to paid, paywall moved after first value</span></div>
-        <div class="row"><b>+22%</b><span>revenue per customer, three-tier plans</span></div>
-        <div class="row"><b>6% → 14%</b><span>upsell acceptance, propensity-targeted</span></div>
-      </div>
-      <div class="panel ig"><h3>Reliability</h3>
-        <div class="row"><b>99.99%</b><span>uptime with availability groups</span></div>
-        <div class="row"><b>65% / 45%</b><span>faster queries / less memory after tuning</span></div>
-        <div class="row"><b>45s → &lt;5s</b><span>dashboard load over 10M+ records a day</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACHIEVEMENTS -->
-<section id="wins">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">09 · Recent achievements</div>
-      <h2>The last two years, in shipped results</h2>
-      <p>Each one is live in production and used every day by the people it was built for.</p>
-    </div>
-    <div class="ach reveal">
-      <article class="panel aw"><span class="yr">2026</span><div><h3>Stepped into the forward deployed role</h3><p>Embedded with a manufacturing customer as their AI Forward Deployed Engineer, owning delivery from the shop floor to the cloud.</p><div class="res">8+ systems in production</div></div></article>
-      <article class="panel aw"><span class="yr">2026</span><div><h3>1,800 drawings digitised in three days</h3><p>A vision pipeline with a four-tier escalation ladder replaced a month of manual data entry.</p><div class="res">~$150 vs $3-5K · 90% adjudicated accuracy</div></div></article>
-      <article class="panel aw"><span class="yr">2026</span><div><h3>Closed the loop on CNC quality</h3><p>Gauge readings now correct tool offsets automatically, inside a deadband and a per-step clamp.</p><div class="res">scrap 4-5% → 1-2%</div></div></article>
-      <article class="panel aw"><span class="yr">2026</span><div><h3>Legacy ERP opened up as an API</h3><p>AS/400 pricing, stock and routings served as JSON to apps and AI agents, without changing the ERP itself.</p><div class="res">quotes 2-3 days → 1 day</div></div></article>
-      <article class="panel aw"><span class="yr">2026</span><div><h3>A delivery platform where there was none</h3><p>Self-hosted Git, push-to-deploy, containers on Kubernetes, monitoring and status pages on a plant network.</p><div class="res">~20 services · no manual deploys</div></div></article>
-      <article class="panel aw"><span class="yr">2026</span><div><h3>Browser desktops behind HTTPS only</h3><p>noVNC through websockify and nginx, so engineers reach VMs from any browser with no exposed desktop ports.</p><div class="res">environment setup: days → first login</div></div></article>
-      <article class="panel aw"><span class="yr">2025</span><div><h3>Grounded AI over 14 repositories</h3><p>A knowledge graph and deterministic MCP server so AI tools answer from code structure instead of raw files.</p><div class="res">1,515 entities · 16 tools · 111 tests</div></div></article>
-      <article class="panel aw"><span class="yr">2025</span><div><h3>Priced AI so it pays for itself</h3><p>Credit-metered plans sized against measured cost to serve, with the paywall moved after first value.</p><div class="res">trial → paid 11% → 18% · +22% revenue per customer</div></div></article>
-    </div>
-  </div>
-</section>
-
-<!-- 08 WORK -->
-<section id="work" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">10 · Experience</div>
-      <h2>Where I have done it</h2>
-      <p>Data, then software, then product, then the field. Each step added a layer the next job needed.</p>
-    </div>
-    <div class="tl">
-      <article class="job reveal">
-        <div class="when"><b>03/2026 – now</b>Quadyster · embedded with a manufacturing customer</div>
-        <div>
-          <h3>AI Forward Deployed Engineer <span class="now">current</span><small>Technical lead on site · 8+ production systems, end-to-end ownership</small></h3>
+      <div class="reveal">
+        <table class="bom">
+          <caption class="lbl">Bill of materials</caption>
+          <tr><th>#</th><th>Part</th><th>What I use</th></tr>
+          <tr><td>01</td><td>AI</td><td>Agents and MCP servers, vision pipelines, model routing, local models (Ollama), eval sets</td></tr>
+          <tr><td>02</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
+          <tr><td>03</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
+          <tr><td>04</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, monitoring</td></tr>
+          <tr><td>05</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
+          <tr><td>06</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
+          <tr><td>07</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
+          <tr><td>08</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
+        </table>
+        <div class="side">
+          <span class="lbl">Built on my own time</span>
           <ul>
-            <li><b>Legacy ERP data service</b> exposing AS/400 DB2 for i as JSON: live pricing, stock, catalogue and work-order routes for every app and agent downstream.</li>
-            <li><b>Quoting platform</b> in FastAPI, PostgreSQL and React that replaced a spreadsheet, cutting turnaround from 2-3 days to about one.</li>
-            <li><b>Vision pipeline</b> that digitised 1,800 drawings in 3 days for about $150, with a four-tier escalation ladder and deterministic confidence.</li>
-            <li><b>Closed-loop CNC control</b> in C# and .NET that cut scrap from 4-5% to 1-2% on enabled cells.</li>
-            <li><b>Delivery platform from zero</b>: Gitea, push-to-deploy, about 20 containerised services on Docker and Kubernetes, monitoring and status pages.</li>
-            <li><b>Automation across 12+ teams</b>, roughly 120 users, so an order moves itself from entry to invoicing.</li>
+            <li><b>Unified knowledge graph.</b> 14 repositories in Neo4j behind a deterministic MCP server, so AI tools get structure instead of raw files.</li>
+            <li><b>Model escalation harness.</b> Local models take routine work; a premium model is called only past a complexity gate.</li>
+            <li><b>Melody.</b> A voice agent streaming speech over WebSockets into faster-whisper.</li>
+            <li><b>Pocket server.</b> A rooted Android phone running as a Tailscale-connected server.</li>
           </ul>
         </div>
-      </article>
-      <article class="job reveal">
-        <div class="when"><b>01/2025 – 03/2026</b>Quadyster · John Deere and internal products</div>
-        <div>
-          <h3>Software Engineer &amp; Product Owner<small>Client front ends, internal platform, AI product monetisation</small></h3>
-          <ul>
-            <li><b>Two publishable micro frontends</b>, led development (38 of 40 commits), released through semantic-release to an artifact registry.</li>
-            <li><b>GraphQL schema explorer</b> that translated 51 entities into business language for non-technical users.</li>
-            <li><b>Mobile app</b> in React Native for iOS and Android, designed and built end to end, 68 tests, silent token renewal.</li>
-            <li><b>Credit-metered AI pricing</b> across three product lines: trial to paid 11% → 18%, revenue per customer +22%, 8-12 concurrent experiments with thresholds set up front.</li>
-          </ul>
-        </div>
-      </article>
-      <article class="job reveal">
-        <div class="when"><b>02/2023 – 12/2024</b>Cornerstone OnDemand · San Ramon, CA</div>
-        <div>
-          <h3>Software Engineer, Product R&amp;D → Data &amp; Analytics Product<small>C# and .NET, SQL Server, Spark on AWS, 50+ client deployments</small></h3>
-          <ul>
-            <li><b>Owned the deployment surface</b>: a .NET installer with WiX that made every client install repeatable instead of hand-configured.</li>
-            <li><b>Moved ETL off on-premises SQL Server onto Spark</b>, with RDS and S3 for high availability.</li>
-            <li><b>99.99% uptime</b> through availability groups and failover testing; 65% faster queries and 45% less memory after tuning.</li>
-            <li><b>Took the rollout customer-facing</b>: churn down 3.4 points via leaver segmentation, upsell acceptance 6% → 14%.</li>
-          </ul>
-        </div>
-      </article>
-      <article class="job reveal">
-        <div class="when"><b>2018 – 2022</b>Deloitte, then CloudPeritus</div>
-        <div>
-          <h3>Analytics Developer → Data Engineer<small>Where the data habits came from</small></h3>
-          <ul>
-            <li><b>SSIS pipelines at 10M+ records a day</b> and 30+ leadership visualisations; dashboard loads from 45 seconds to under 5.</li>
-            <li><b>PySpark on EMR and Glue</b> with Step Functions and least-privilege IAM, turning raw leads into queryable profiles.</li>
-          </ul>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- 09 SKILLS -->
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">11 · Skills with receipts</div>
-      <h2>What I actually know</h2>
-      <p>Pick anything. The panel shows where I used it and what came out of it, so you can check the claim instead of taking my word for it.</p>
-    </div>
-    <div class="skills-lab reveal">
-      <div>
-        <div class="filters" id="filters"></div>
-        <div class="cloud" id="cloud"></div>
       </div>
-      <aside class="panel proof" id="proof" aria-live="polite"></aside>
-    </div>
-  </div>
-</section>
-
-<!-- 10 PROJECTS -->
-<section id="projects" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="n">12 · Built on my own time</div>
-      <h2>Side projects and research</h2>
-      <p>Designed and built independently. Most of them are experiments in making AI cheaper, more local, or more grounded.</p>
-    </div>
-    <div class="grid reveal" id="cards"></div>
-    <div class="sub-h">Research &amp; coursework</div>
-    <div class="grid reveal" id="researchCards"></div>
-    <div class="sub-h">Education</div>
-    <div class="edu reveal">
-      <div class="panel"><b>MS, Computer Science</b><span>University of Florida · 2022</span></div>
-      <div class="panel"><b>PG Diploma, ML &amp; AI</b><span>IIIT Bangalore · 2021</span></div>
-      <div class="panel"><b>BS, Electronics &amp; Communication</b><span>GITAM · 2018</span></div>
     </div>
   </div>
 </section>
@@ -902,16 +602,17 @@ footer .wrap{display:flex; justify-content:space-between; gap:12px; flex-wrap:wr
 <!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="wrap">
-    <div class="eyebrow">Contact</div>
-    <h2>Got a legacy system and an AI ambition? <span class="grad">Let's connect them.</span></h2>
-    <p>I am most useful where the data is stuck in old systems, the people doing the work are busy, and the AI has to justify its cost.</p>
+    <div class="sheet-h"><span class="no">05 / 05</span><span class="lbl">Contact</span><span class="rule"></span></div>
+    <h2>Got a legacy system and an AI ambition?</h2>
+    <p class="intro">I am most useful where the data is stuck in old systems, the people doing the work are busy, and the AI has to justify its cost.</p>
     <div class="mailrow">
       <code id="mail">harshapakki@gmail.com</code>
       <button class="btn sm" id="copy">Copy</button>
       <span class="toast" id="toast" hidden>Copied</span>
     </div>
     <div class="cta">
-      <a class="btn solid" href="mailto:harshapakki@gmail.com">Email me</a>
+      <a class="btn pri" href="mailto:harshapakki@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/hpakki/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://github.com/harshapakki" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
@@ -920,8 +621,10 @@ footer .wrap{display:flex; justify-content:space-between; gap:12px; flex-wrap:wr
 
 <footer>
   <div class="wrap">
-    <span>Harsha Prakash Pakki · Bettendorf, Iowa</span>
-    <span>Hand-written HTML, no trackers, no cookies</span>
+    <table class="tblock" aria-label="Title block">
+      <tr><td>Drawn by</td><td>H. P. Pakki</td><td>Title</td><td>AI Forward Deployed Engineer</td></tr>
+      <tr><td>Location</td><td>Bettendorf, Iowa</td><td>Notes</td><td>Hand-written HTML · no trackers · no cookies</td></tr>
+    </table>
   </div>
 </footer>
 
@@ -934,7 +637,7 @@ const css = n => getComputedStyle(root).getPropertyValue(n).trim();
 const $ = id => document.getElementById(id);
 const redraws = [];
 
-/* ============ theme ============ */
+/* ---------- theme ---------- */
 try { const t = localStorage.getItem("hp-theme"); if (t) root.dataset.theme = t; } catch (e) {}
 const isDark = () => getComputedStyle(root).getPropertyValue("color-scheme").trim() === "dark";
 $("theme").addEventListener("click", () => {
@@ -944,206 +647,54 @@ $("theme").addEventListener("click", () => {
   redraws.forEach(f => f());
 });
 
-/* ============ menu / nav ============ */
+/* ---------- menu + active nav ---------- */
 const nav = $("nav"), menu = $("menu");
 menu.addEventListener("click", () => { const o = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", String(o)); });
 nav.addEventListener("click", e => { if (e.target.tagName === "A") { nav.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); } });
-const navLinks = [...nav.querySelectorAll("a")];
-const navTargets = navLinks.map(a => document.querySelector(a.getAttribute("href")));
+const links = [...nav.querySelectorAll("a")], targets = links.map(a => document.querySelector(a.getAttribute("href")));
+function spy(){ let cur = -1; targets.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * .4) cur = i; }); links.forEach((a, i) => a.classList.toggle("on", i === cur)); }
+addEventListener("scroll", spy, { passive: true }); spy();
 
-/* ============ scroll progress + active nav ============ */
-const prog = $("prog"); let ticking = false;
-function onScroll(){
-  ticking = false;
-  const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
-  prog.style.width = (max > 0 ? y / max * 100 : 0) + "%";
-  let cur = -1;
-  navTargets.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * .35) cur = i; });
-  navLinks.forEach((a, i) => a.classList.toggle("on", i === cur));
-}
-addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-onScroll();
-
-/* ============ reveal ============ */
+/* ---------- reveal ---------- */
 if ("IntersectionObserver" in window && !reduce) {
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .08 });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .06 });
   document.querySelectorAll(".reveal").forEach(n => io.observe(n));
+  setTimeout(() => document.querySelectorAll(".reveal").forEach(n => n.classList.add("in")), 2500);
 } else document.querySelectorAll(".reveal").forEach(n => n.classList.add("in"));
 
-/* ============ looping demos ============ */
-/* Runs `cycle` again and again while `el` is on screen. The button pauses and resumes. */
+/* ---------- looping demos ---------- */
+/* Replays `cycle` while `el` is on screen. The button pauses and resumes mid-step. */
 function loopDemo(el, btn, cycle, gap){
-  let paused = false, inView = false, busy = false, timer = null;
+  let paused = false, busy = false, timer = null;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const wait = async ms => { await sleep(ms); while (paused) await sleep(120); };
-  function label(){ btn.textContent = paused ? "▶ Play" : "❚❚ Pause"; btn.setAttribute("aria-pressed", String(paused)); }
+  const label = () => { btn.textContent = paused ? "▶ Play" : "❚❚ Pause"; btn.setAttribute("aria-pressed", String(paused)); };
+  const seen = () => { const r = el.getBoundingClientRect(); return !document.hidden && r.height > 0 && r.bottom > innerHeight * .15 && r.top < innerHeight * .85; };
   async function go(){
-    if (busy || paused || !inView) return;
+    if (busy || paused || !seen()) return;
     busy = true; await cycle(wait); busy = false;
     clearTimeout(timer); timer = setTimeout(go, gap);
   }
-  btn.addEventListener("click", () => { paused = !paused; label(); if (!paused) go(); });
-  label();
-  function check(){
-    const r = el.getBoundingClientRect();
-    inView = !document.hidden && r.bottom > innerHeight * .15 && r.top < innerHeight * .85;
-    if (inView) go();
-  }
-  setInterval(check, 500); check();
+  const api = { toggle(){ paused = !paused; label(); if (!paused) go(); }, pause(){ if (!paused) { paused = true; label(); } }, label };
+  setInterval(go, 500); label();
+  return api;
 }
 
-/* ============ hero flow ============ */
-(function(){
-  const box = $("flow"), cv = $("flowCanvas"), g = cv.getContext("2d");
-  const edges = [
-    ["as400","api"],["as400","auth"],["sql","api"],["sql","flowsvc"],["cnc","loop"],["gauge","loop"],["gauge","api"],["xl","flowsvc"],
-    ["api","agent"],["api","router"],["api","quote"],["api","dash"],["auth","quote"],["auth","mobile"],["auth","agent"],
-    ["loop","dash"],["flowsvc","quote"],["flowsvc","mobile"],["router","agent"]
-  ].filter(e => e[1] !== "agent" || e[0] !== "router");
-  const nodes = {}; box.querySelectorAll(".fn").forEach(n => nodes[n.dataset.id] = n);
-  let W = 0, H = 0, pos = {}, particles = [], hot = null;
-  function measure(){
-    const dpr = Math.min(devicePixelRatio || 1, 2), b = box.getBoundingClientRect();
-    W = b.width; H = b.height; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    pos = {};
-    for (const id in nodes) { const r = nodes[id].getBoundingClientRect(); pos[id] = { l: r.left - b.left, r: r.right - b.left, y: r.top - b.top + r.height / 2 }; }
-  }
-  function pt(e, t){
-    const a = pos[e[0]], c = pos[e[1]]; if (!a || !c) return { x: 0, y: 0 };
-    const x0 = a.r, y0 = a.y, x3 = c.l, y3 = c.y, dx = (x3 - x0) * .5;
-    const x1 = x0 + dx, x2 = x3 - dx, u = 1 - t;
-    return { x: u*u*u*x0 + 3*u*u*t*x1 + 3*u*t*t*x2 + t*t*t*x3, y: u*u*u*y0 + 3*u*u*t*y0 + 3*u*t*t*y3 + t*t*t*y3 };
-  }
-  function related(id){
-    if (!id) return null;
-    const set = new Set([id]);
-    // walk downstream and upstream one hop each direction, then onward downstream
-    edges.forEach(e => { if (e[0] === id) set.add(e[1]); if (e[1] === id) set.add(e[0]); });
-    edges.forEach(e => { if (set.has(e[0]) && nodes[e[0]].dataset.g === "1" && nodes[id].dataset.g === "0") set.add(e[1]); });
-    return set;
-  }
-  function spawn(){
-    const starts = edges.filter(e => nodes[e[0]].dataset.g === "0");
-    const pool = hot ? edges.filter(e => e[0] === hot || e[1] === hot) : starts;
-    const e = (pool.length ? pool : starts)[Math.floor(Math.random() * (pool.length || starts.length))];
-    particles.push({ e, t: 0, v: .006 + Math.random() * .006 });
-  }
-  function draw(){
-    g.clearRect(0, 0, W, H);
-    const rel = related(hot), c1 = css("--c1"), c2 = css("--c2"), line = css("--line2");
-    edges.forEach(e => {
-      const on = rel && rel.has(e[0]) && rel.has(e[1]);
-      g.beginPath();
-      for (let i = 0; i <= 24; i++) { const p = pt(e, i / 24); i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y); }
-      g.strokeStyle = on ? c1 : line; g.globalAlpha = rel ? (on ? .95 : .25) : .7; g.lineWidth = on ? 1.8 : 1; g.stroke();
-    });
-    g.globalAlpha = 1;
-    particles.forEach(p => {
-      const q = pt(p.e, p.t), first = nodes[p.e[0]].dataset.g === "0";
-      g.beginPath(); g.arc(q.x, q.y, 2.4, 0, 6.283); g.fillStyle = first ? c1 : c2; g.fill();
-      g.beginPath(); g.arc(q.x, q.y, 6, 0, 6.283); g.globalAlpha = .18; g.fill(); g.globalAlpha = 1;
-    });
-  }
-  function step(){
-    particles.forEach(p => p.t += p.v);
-    const next = [];
-    particles.forEach(p => {
-      if (p.t < 1) { next.push(p); return; }
-      const outs = edges.filter(e => e[0] === p.e[1]);
-      if (outs.length && Math.random() < .85) next.push({ e: outs[Math.floor(Math.random() * outs.length)], t: 0, v: p.v });
-    });
-    particles = next;
-    if (particles.length < (hot ? 22 : 16) && Math.random() < .2) spawn();
-    draw();
-    if (!document.hidden) requestAnimationFrame(step); else setTimeout(() => requestAnimationFrame(step), 400);
-  }
-  box.addEventListener("pointerover", e => { const n = e.target.closest(".fn"); setHot(n ? n.dataset.id : null); });
-  box.addEventListener("pointerleave", () => setHot(null));
-  function setHot(id){
-    hot = id; const rel = related(id);
-    for (const k in nodes) nodes[k].classList.toggle("hot", !!rel && rel.has(k));
-    if (reduce) draw();
-  }
-  measure();
-  addEventListener("resize", () => { measure(); draw(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); draw(); });
-  redraws.push(draw);
-  if (reduce) draw(); else { for (let i = 0; i < 10; i++) { spawn(); particles[i].t = Math.random(); } requestAnimationFrame(step); }
-})();
-
-/* ============ architecture ============ */
-(function(){
-  const tiers = [
-    { k: "Experience", col: "--c2", n: [
-      { id: "quote", name: "Quoting platform", tech: "React · Vite", what: "Replaced a shared spreadsheet. Estimators build quotes against live ERP prices and recursive cost roll-ups.", why: "Front end talks only to the API layer, never to the ERP, so the ERP can change without a front-end release.", l: ["api", "auth", "pg"] },
-      { id: "dash", name: "Shop dashboards", tech: "Next.js", what: "Live control limits, OPC status snapshots and cell health for supervisors on the floor.", why: "Served with read-only database roles. A dashboard bug can never write to production data.", l: ["api", "loop", "pg"] },
-      { id: "mobile", name: "Mobile app", tech: "React Native", what: "Time tracking on iOS and Android with optimistic clock-in and out.", why: "Silent token renewal so shop-floor users are never bounced to a login screen mid-shift.", l: ["auth", "api"] },
-      { id: "assistant", name: "AI assistant", tech: "MCP clients", what: "Natural-language questions over ERP, catalogue and code: stock, routes, part families.", why: "The agent only sees narrow, typed tools. It cannot run arbitrary SQL against a system of record.", l: ["mcp", "router"] }
-    ]},
-    { k: "AI", col: "--c1", n: [
-      { id: "router", name: "Model router", tech: "budget + complexity gate", what: "Sends routine work to local models and escalates to a premium model only past a complexity gate with budget left.", why: "One shared rate limiter across five agent instances, so cost and quota are enforced in one place.", l: ["local", "vision", "assistant"] },
-      { id: "local", name: "Local models", tech: "Ollama · Qwen", what: "Qwen coder models under a 4 GB memory cap on ordinary laptops.", why: "Target of 80% local resolution: data stays on site and the marginal cost is zero.", l: ["router"] },
-      { id: "vision", name: "Vision extraction", tech: "OCR + vision model", what: "Reads scanned engineering drawings into catalogue-valid structured rows.", why: "Confidence comes from physical cross-checks, so escalation is decided by evidence, not by the model's opinion of itself.", l: ["router", "api"] },
-      { id: "mcp", name: "MCP + knowledge graph", tech: "tree-sitter · Neo4j", what: "Deterministic MCP server with 16 tools over a graph spanning 14 repositories and 1,515 entities.", why: "Compact graph context instead of raw files: cheaper prompts and answers that cite where they came from.", l: ["assistant", "api"] }
-    ]},
-    { k: "Integration", col: "--c1", n: [
-      { id: "api", name: "Data services", tech: "FastAPI · async SQLAlchemy", what: "The single front door to every system of record: ERP pricing, stock, catalogue and work orders as JSON.", why: "A material-code proxy hides ERP quirks behind stable contracts that apps and agents can depend on.", l: ["as400", "pg", "sqlsrv", "quote", "dash", "mcp", "vision"] },
-      { id: "auth", name: "Identity", tech: "SAML · OIDC", what: "Single sign-on for every app, with one-click access provisioning.", why: "Access is granted once at the identity layer instead of toggled by hand in each system.", l: ["quote", "mobile", "api"] },
-      { id: "flows", name: "Workflow automation", tech: "Power Automate · events", what: "Moves an order from entry to invoicing across 12+ teams and about 120 users.", why: "Change-driven notifications go to the owning team, so nothing waits in someone's inbox.", l: ["sp", "api"] },
-      { id: "loop", name: "Control loop", tech: "C# · .NET 4.8", what: "Reads gauges and writes tool-offset corrections back to CNC cells.", why: "Deadband plus per-step clamp: the loop cannot overreact to noise or chase a bad measurement.", l: ["cnc", "dash"] }
-    ]},
-    { k: "Systems of record", col: "--c3", n: [
-      { id: "as400", name: "AS/400 ERP", tech: "DB2 for i · ODBC", what: "Decades of pricing, inventory and routing data behind a green-screen interface.", why: "Left untouched. Wrapped, not replaced: the business keeps its system and gains an API.", l: ["api"] },
-      { id: "pg", name: "PostgreSQL", tech: "app data", what: "Quotes, recursive cost roll-ups with cycle guards, attachments.", why: "Schema migrations in CI and separate read-only roles for dashboards.", l: ["api", "quote", "dash"] },
-      { id: "sqlsrv", name: "SQL Server", tech: "Always On", what: "Enterprise data with availability groups.", why: "Failover tested, not assumed: 99.99% uptime with zero data loss.", l: ["api"] },
-      { id: "sp", name: "SharePoint", tech: "lists", what: "Where the business already tracks orders and CMS data.", why: "Meet people where they work instead of forcing a new tool on day one.", l: ["flows"] },
-      { id: "cnc", name: "CNC & gauges", tech: "Siemens 828D · Keyence", what: "Machine controllers and in-line measurement on the shop floor.", why: "Segmented network, documented for handover, remote access only over WireGuard or Tailscale.", l: ["loop"] }
-    ]},
-    { k: "Platform", col: "--good", n: [
-      { id: "git", name: "Push-to-deploy", tech: "Gitea · webhooks", what: "Self-hosted Git that builds and deploys about 11 services on push to main.", why: "No cloud CI on a plant network, so the pipeline lives on site, and nobody deploys by hand.", l: ["k8s"] },
-      { id: "k8s", name: "Containers", tech: "Docker · Kubernetes · Helm", what: "About 20 containerised services with per-site config externalised.", why: "One tested release for every site; sites differ in values, not in code.", l: ["git", "obs", "api"] },
-      { id: "obs", name: "Monitoring", tech: "status pages", what: "Health checks and a status page the customer's staff can read.", why: "The first person to notice an outage should not be the customer.", l: ["k8s"] },
-      { id: "dev", name: "Dev environments", tech: "dev containers · noVNC", what: "Prebuilt images and browser-reachable VMs.", why: "Environment setup went from days to first login, with no exposed desktop ports.", l: ["git"] }
-    ]}
-  ];
-  const all = {}; tiers.forEach(t => t.n.forEach(n => { n.tier = t.k; all[n.id] = n; }));
-  const host = $("tiers"), det = $("archDetail");
-  host.innerHTML = tiers.map(t =>
-    '<div class="tier"><div class="tier-l"><i style="background:var(' + t.col + ')"></i>' + t.k + '</div><div class="tier-n">' +
-    t.n.map(n => '<button class="an" data-id="' + n.id + '"><strong>' + n.name + '</strong><span>' + n.tech + '</span></button>').join("") +
-    "</div></div>").join("");
-  function sel(id){
-    const n = all[id]; if (!n) return;
-    const rel = new Set(n.l); Object.values(all).forEach(m => { if (m.l.includes(id)) rel.add(m.id); });
-    host.classList.add("focus");
-    host.querySelectorAll(".an").forEach(b => { b.classList.toggle("sel", b.dataset.id === id); b.classList.toggle("rel", rel.has(b.dataset.id) && b.dataset.id !== id); b.setAttribute("aria-pressed", String(b.dataset.id === id)); });
-    det.innerHTML = '<div class="k">' + n.tier + ' layer</div><h3>' + n.name + '</h3><div class="tech">' + n.tech + '</div>' +
-      '<div class="k">What it does</div><p>' + n.what + '</p>' +
-      '<div class="k">Design decision</div><p>' + n.why + '</p>' +
-      '<div class="k">Talks to</div><div class="links">' + [...rel].filter(x => all[x]).map(x => '<button data-go="' + x + '">' + all[x].name + '</button>').join("") + '</div>';
-  }
-  host.addEventListener("click", e => { const b = e.target.closest(".an"); if (b) sel(b.dataset.id); });
-  det.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) sel(b.dataset.go); });
-  sel("api");
-})();
-
-/* ============ legacy demo ============ */
+/* ---------- Fig. 1: legacy → API → agent ---------- */
 (function(){
   const green = $("green"), api = $("apiOut"), chat = $("chat"), panes = [...document.querySelectorAll("#legacyDemo .pane")];
   const st = [$("st0"), $("st1"), $("st2")];
   const screen =
-' ITEM INQUIRY                 ERP400    11/12/26\n' +
+' ITEM INQUIRY              ERP400   11/12/26\n' +
 ' Item . . : <span class="hl">BSH-25-0412</span>\n' +
-' Desc . . : BUSHING 25MM BRONZE\n' +
-'\n' +
-' Whs  On hand   Alloc   Avail   Std cost\n' +
-' 01     1,240     860     380      3.18\n' +
-' 02       410      95     315      3.18\n' +
-'\n' +
-' <span class="dim">F3=Exit  F4=Prompt  F5=Refresh  F12=Cancel</span>';
+' Desc . . : BUSHING 25MM BRONZE\n\n' +
+' Whs  On hand  Alloc  Avail  Std cost\n' +
+' 01     1,240    860    380     3.18\n' +
+' 02       410     95    315     3.18\n\n' +
+' <span class="dm">F3=Exit  F5=Refresh  F12=Cancel</span>';
   const json =
-'<span class="m">GET</span> /v1/items/BSH-25-0412/stock\n' +
-'<span class="d">200 OK · 84 ms · cached 30s</span>\n\n' +
+'<span class="k">GET</span> /v1/items/BSH-25-0412/stock\n' +
+'<span class="d">200 OK · 84 ms</span>\n\n' +
 '{\n' +
 '  <span class="k">"item"</span>: <span class="s">"BSH-25-0412"</span>,\n' +
 '  <span class="k">"description"</span>: <span class="s">"Bushing, 25 mm, bronze"</span>,\n' +
@@ -1151,24 +702,13 @@ function loopDemo(el, btn, cycle, gap){
 '  <span class="k">"by_warehouse"</span>: [\n' +
 '    { <span class="k">"whs"</span>: <span class="s">"01"</span>, <span class="k">"avail"</span>: <span class="n">380</span> },\n' +
 '    { <span class="k">"whs"</span>: <span class="s">"02"</span>, <span class="k">"avail"</span>: <span class="n">315</span> }\n' +
-'  ],\n' +
-'  <span class="k">"source"</span>: <span class="s">"db2://erp400/ITMBAL"</span>\n' +
+'  ]\n' +
 '}';
-  const convo = [
-    ["u", "Can we ship 600 of the 25 mm bronze bushings by Friday?"],
-    ["t", "→ get_item_stock(item=\"BSH-25-0412\")"],
-    ["a", "Yes. 695 are available: 380 in warehouse 01 and 315 in 02. Shipping 600 means pulling from both. Want me to draft the transfer from 02?"]
-  ];
-  function idle(){
-    green.innerHTML = ' <span class="dim">Signed on. Waiting for input…</span>';
-    api.innerHTML = '<span class="d"># no request yet</span>';
-    chat.innerHTML = "";
-  }
-  function done(){ green.innerHTML = screen; api.innerHTML = json; chat.innerHTML = convo.map(m => '<div class="msg ' + m[0] + '">' + m[1] + "</div>").join(""); }
-  let wait = ms => new Promise(r => setTimeout(r, ms));
+  const convo = ["Can we ship 600 of the 25 mm bronze bushings by Friday?", '→ get_item_stock(item="BSH-25-0412")',
+    "Yes. 695 are available: 380 in warehouse 01 and 315 in 02. Shipping 600 means pulling from both. Want me to draft the transfer from 02?"];
+  let wait;
   async function type(el, html, speed){
     if (reduce) { el.innerHTML = html; await wait(450); return; }
-    // reveal html progressively by visible characters, keeping tags intact
     const parts = html.split(/(<[^>]+>)/); let out = "";
     for (const p of parts) {
       if (p.startsWith("<")) { out += p; continue; }
@@ -1177,252 +717,199 @@ function loopDemo(el, btn, cycle, gap){
     }
     el.innerHTML = out;
   }
+  function idle(){
+    green.innerHTML = ' <span class="dm">Signed on. Waiting for input…</span>'; api.innerHTML = '<span class="d"># no request yet</span>'; chat.innerHTML = "";
+    st.forEach(s => s.textContent = "idle");
+  }
+  const act = i => panes.forEach((p, j) => p.classList.toggle("active", i === j));
+  const bubble = c => { const d = document.createElement("div"); d.className = "msg " + c; chat.appendChild(d); return d; };
   async function run(w){
     wait = w; idle();
-    st.forEach(s => s.textContent = "idle");
-    const act = i => { panes.forEach((p, j) => p.classList.toggle("active", i === j)); };
-    act(2); st[2].textContent = "asking";
-    const u = document.createElement("div"); u.className = "msg u"; chat.appendChild(u); await type(u, convo[0][1], 18);
-    await wait(300);
-    const t = document.createElement("div"); t.className = "msg t"; t.textContent = convo[1][1]; chat.appendChild(t);
-    act(1); st[1].textContent = "calling"; await wait(250);
+    act(2); st[2].textContent = "asking"; await type(bubble("u"), convo[0], 18); await wait(300);
+    bubble("t").textContent = convo[1];
+    act(1); st[1].textContent = "calling"; await wait(350);
     act(0); st[0].textContent = "reading DB2"; await type(green, screen, 6); st[0].textContent = "done";
     act(1); await type(api, json, 6); st[1].textContent = "200 OK";
-    act(2); st[2].textContent = "answering"; await wait(300);
-    const a = document.createElement("div"); a.className = "msg a"; chat.appendChild(a); await type(a, convo[2][1], 14);
-    st[2].textContent = "done"; await wait(600); act(-1);
+    act(2); st[2].textContent = "answering"; await wait(300); await type(bubble("a"), convo[2], 14);
+    st[2].textContent = "done"; await wait(700); act(-1);
   }
   idle();
-  loopDemo($("legacyDemo"), $("runLegacy"), run, 4500);
+  const loop = loopDemo($("legacyDemo"), $("runLegacy"), run, 4500);
+  $("runLegacy").addEventListener("click", loop.toggle);
 })();
 
-/* ============ pipeline demo ============ */
+/* ---------- Fig. 4: cost curve + ladder ---------- */
+(function(){
+  const PREMIUM = 99.50, BLEND = 42.60, CAP = .35, BASE = (BLEND - CAP * PREMIUM) / (1 - CAP);
+  const cv = $("costCanvas"), g = cv.getContext("2d"), esc = $("esc"); let W = 600; const H = 220;
+  const cost = e => BASE + e * (PREMIUM - BASE);
+  function draw(){
+    const e = esc.value / 100, c = cost(e), pl = 46, pr = 14, pt = 16, pb = 28, w = W - pl - pr, h = H - pt - pb, y0 = pt + h;
+    const X = v => pl + v * w, Y = v => y0 - v / 100 * h;
+    g.clearRect(0, 0, W, H);
+    g.font = "10.5px 'IBM Plex Mono', monospace"; g.lineWidth = 1;
+    [0, 25, 50, 75, 100].forEach(v => { g.strokeStyle = css("--line"); g.beginPath(); g.moveTo(pl, Y(v)); g.lineTo(pl + w, Y(v)); g.stroke(); g.fillStyle = css("--dim"); g.textAlign = "right"; g.fillText("$" + v, pl - 7, Y(v) + 3); });
+    g.textAlign = "center"; [0, .25, .5, .75, 1].forEach(v => g.fillText(Math.round(v * 100) + "%", X(v), y0 + 17));
+    g.beginPath(); g.moveTo(X(0), Y(cost(0))); g.lineTo(X(1), Y(cost(1))); g.lineTo(X(1), y0); g.lineTo(X(0), y0); g.closePath(); g.fillStyle = css("--fill"); g.fill();
+    g.beginPath(); g.moveTo(X(0), Y(cost(0))); g.lineTo(X(1), Y(cost(1))); g.strokeStyle = css("--blue"); g.lineWidth = 2; g.stroke();
+    g.setLineDash([4, 4]); g.strokeStyle = css("--red"); g.lineWidth = 1; g.beginPath(); g.moveTo(X(CAP), y0); g.lineTo(X(CAP), Y(BLEND)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css("--red"); g.beginPath(); g.arc(X(CAP), Y(BLEND), 3.5, 0, 6.283); g.fill(); g.textAlign = "left"; g.fillText("shipped: 35% cap", X(CAP) + 8, Y(BLEND) - 8);
+    g.beginPath(); g.arc(X(e), Y(c), 6, 0, 6.283); g.fillStyle = css("--card"); g.fill(); g.strokeStyle = css("--ink"); g.lineWidth = 2; g.stroke();
+    $("escPct").textContent = esc.value + "%"; $("escCost").textContent = "$" + c.toFixed(2); $("escSave").textContent = "−" + Math.round((1 - c / PREMIUM) * 100) + "%";
+  }
+  function size(){ const d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth || 600; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); draw(); }
+  esc.addEventListener("input", draw); addEventListener("resize", size); redraws.push(draw); size();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
+
+  const rungs = [
+    ["A", "Parse the text layer", "no model call", "About one drawing in eight carries a real text layer. Parsing those is free and exact, so they never reach a model."],
+    ["B", "One vision read, checked against OCR", "85% on a golden set", "A single read per drawing, cross-checked against local OCR. Numbers the OCR cannot corroborate lower the confidence score instead of passing silently."],
+    ["C", "Second read and adjudication", "only below 0.80 confidence", "Rows that fail validation get a second independent read. Caching and batching brought a full premium pass down from $99.50."],
+    ["D", "Human review", "flagged with a reason", "Anything still uncertain ships flagged with the reason attached, so a person checks a short list instead of every drawing."]
+  ];
+  const lad = $("ladder");
+  lad.innerHTML = rungs.map((r, i) => '<button class="rung" data-i="' + i + '" aria-expanded="false" aria-controls="rb' + i + '"><span class="t">' + r[0] + '</span><strong>' + r[1] + '</strong><span class="c">' + r[2] + '</span></button><p class="rung-body" id="rb' + i + '" hidden>' + r[3] + '</p>').join("");
+  lad.addEventListener("click", e => { const b = e.target.closest(".rung"); if (!b) return; const body = $("rb" + b.dataset.i), open = b.getAttribute("aria-expanded") === "true"; b.setAttribute("aria-expanded", String(!open)); body.hidden = open; });
+})();
+
+/* ---------- Fig. 5: control loop ---------- */
+(function(){
+  const NOM = 25, HALF = .05, DEAD = .3 * HALF, GAIN = .6, CLAMP = .03;
+  const cv = $("loopCanvas"), g = cv.getContext("2d"), sl = $("measured"); let W = 600; const H = 230;
+  const sgn = n => (n > 0 ? "+" : n < 0 ? "-" : "") + Math.abs(n).toFixed(3);
+  function compute(m){ const dev = m - NOM; if (Math.abs(dev) <= DEAD) return { dev, raw: 0, out: 0, state: "hold" };
+    const raw = -dev * GAIN, out = Math.max(-CLAMP, Math.min(CLAMP, raw)); return { dev, raw, out, state: Math.abs(raw) > CLAMP ? "clamp" : "correct" }; }
+  function draw(){
+    const pad = 34, mid = H / 2 - 6, m = parseFloat(sl.value), r = compute(m), lo = NOM - HALF * 2.4, hi = NOM + HALF * 2.4, x = v => pad + (v - lo) / (hi - lo) * (W - pad * 2);
+    g.clearRect(0, 0, W, H); g.font = "10.5px 'IBM Plex Mono', monospace";
+    g.fillStyle = css("--fill"); g.fillRect(x(NOM - HALF), mid - 40, x(NOM + HALF) - x(NOM - HALF), 80);
+    g.strokeStyle = css("--blue"); g.lineWidth = 1; g.strokeRect(x(NOM - HALF), mid - 40, x(NOM + HALF) - x(NOM - HALF), 80);
+    g.setLineDash([3, 3]); g.strokeStyle = css("--dim"); g.strokeRect(x(NOM - DEAD), mid - 40, x(NOM + DEAD) - x(NOM - DEAD), 80);
+    g.beginPath(); g.moveTo(x(NOM), mid - 52); g.lineTo(x(NOM), mid + 40); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = css("--ink"); g.beginPath(); g.moveTo(pad, mid + 40); g.lineTo(W - pad, mid + 40); g.stroke();
+    g.fillStyle = css("--dim"); g.textAlign = "center";
+    (W < 460 ? [NOM - HALF, NOM, NOM + HALF] : [NOM - HALF, NOM - DEAD, NOM, NOM + DEAD, NOM + HALF]).forEach(v => { g.beginPath(); g.moveTo(x(v), mid + 40); g.lineTo(x(v), mid + 46); g.stroke(); g.fillText(v.toFixed(3), x(v), mid + 60); });
+    g.fillText("tolerance", x(NOM - HALF * .64), mid - 46); g.fillText("deadband", x(NOM), mid + 76);
+    const mx = x(m), col = r.state === "hold" ? css("--ok") : css("--red");
+    g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2; g.beginPath(); g.moveTo(mx, mid - 40); g.lineTo(mx, mid + 40); g.stroke(); g.beginPath(); g.arc(mx, mid - 8, 4.5, 0, 6.283); g.fill();
+    const right = mx > W - 130; g.textAlign = right ? "right" : "left"; g.fillText("measured " + m.toFixed(3), mx + (right ? -8 : 8), mid - 26);
+    if (r.out !== 0) { const tx = x(m + r.out), d = Math.sign(tx - mx) || 1; g.strokeStyle = css("--ink"); g.fillStyle = css("--ink"); g.lineWidth = 1.5;
+      g.beginPath(); g.moveTo(mx, mid + 20); g.lineTo(tx, mid + 20); g.stroke(); g.beginPath(); g.moveTo(tx, mid + 20); g.lineTo(tx - 7 * d, mid + 16); g.lineTo(tx - 7 * d, mid + 24); g.closePath(); g.fill();
+      g.textAlign = d > 0 ? "left" : "right"; g.fillText("offset " + sgn(r.out), tx + 8 * d, mid + 11); }
+    $("mVal").textContent = m.toFixed(3); $("r-dev").textContent = sgn(r.dev); $("r-raw").textContent = r.state === "hold" ? "0.000" : sgn(r.raw); $("r-out").textContent = sgn(r.out);
+    const v = $("verdict"); v.dataset.state = r.state;
+    v.textContent = r.state === "hold" ? "Inside the deadband. Nothing is written, so in-spec noise never moves the machine."
+      : r.state === "clamp" ? "The correction exceeds the per-step limit, so it is clamped. The cell walks back to nominal across parts instead of overshooting on one."
+      : "Within limits. The correction goes to the offset register and the next part lands closer to nominal.";
+  }
+  function size(){ const d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth || 600; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); draw(); }
+  sl.addEventListener("input", draw); addEventListener("resize", size); redraws.push(draw); size();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
+})();
+
+/* ---------- Fig. 2: deploy pipeline, Fig. 6: network trace ---------- */
 (function(){
   const stages = [
-    { n: "Push", s: "gitea webhook", log: [["c", "remote: webhook → deployer (main@a41f9c2)"]] },
-    { n: "Build", s: "docker build", log: [["d", "step 1/9 FROM python:3.12-slim"], ["d", "step 9/9 CMD uvicorn app.main:app"], ["", "built quoting-api:a41f9c2"]] },
-    { n: "Test", s: "pytest · lint", log: [["", "ruff check … clean"], ["ok", "tests passed · 0 failed"]] },
-    { n: "Migrate", s: "schema", log: [["", "alembic upgrade head"], ["ok", "migrations applied, rollback script stored"]] },
-    { n: "Publish", s: "registry", log: [["", "push registry.local/quoting-api:a41f9c2"], ["ok", "tagged release v2.14.0"]] },
-    { n: "Roll out", s: "helm · k8s", log: [["", "helm upgrade quoting -f sites/plant-a.yaml"], ["", "deployment \"quoting-api\" rolling 1/2 … 2/2"], ["ok", "rollout complete, 0 dropped requests"]] },
-    { n: "Verify", s: "health · status", log: [["", "GET /healthz 200 · GET /v1/items/ping 200"], ["ok", "status page: all systems operational"]] }
+    ["Push", "gitea webhook", [["c", "remote: webhook → deployer (main@a41f9c2)"]]],
+    ["Build", "docker build", [["d", "step 1/9 FROM python:3.12-slim"], ["", "built quoting-api:a41f9c2"]]],
+    ["Test", "pytest · lint", [["", "ruff check … clean"], ["ok", "tests passed · 0 failed"]]],
+    ["Migrate", "schema", [["", "alembic upgrade head"], ["ok", "migrations applied, rollback stored"]]],
+    ["Publish", "registry", [["", "push registry.local/quoting-api:a41f9c2"], ["ok", "tagged release v2.14.0"]]],
+    ["Roll out", "helm · k8s", [["", "helm upgrade quoting -f sites/plant-a.yaml"], ["ok", "rollout 2/2, 0 dropped requests"]]],
+    ["Verify", "health · status", [["", "GET /healthz 200"], ["ok", "status page: all systems operational"]]]
   ];
-  const pipe = $("pipe"), con = $("console"), btn = $("runPipe"), tm = $("pipeTime");
-  pipe.innerHTML = stages.map((s, i) => '<div class="stage" data-i="' + i + '"><div class="si">' + (i + 1) + '</div><strong>' + s.n + '</strong><span>' + s.s + '</span></div>').join("");
+  const pipe = $("pipe"), con = $("console");
+  pipe.innerHTML = stages.map((s, i) => '<div class="stage"><div class="si">' + (i + 1) + '</div><strong>' + s[0] + '</strong><span>' + s[1] + '</span></div>').join("");
   const els = [...pipe.children];
-  function line(cls, txt){ const d = document.createElement("div"); if (cls) d.className = cls; d.textContent = txt; con.appendChild(d); con.scrollTop = con.scrollHeight; }
+  const line = (cls, txt) => { const d = document.createElement("div"); if (cls) d.className = cls; d.textContent = txt; con.appendChild(d); con.scrollTop = con.scrollHeight; };
   async function deploy(wait){
-    con.innerHTML = ""; els.forEach(e => e.className = "stage"); els.forEach((e, i) => e.querySelector(".si").textContent = i + 1);
-    const t0 = performance.now();
+    con.innerHTML = ""; els.forEach((e, i) => { e.className = "stage"; e.querySelector(".si").textContent = i + 1; });
     line("c", "$ git push origin main");
     for (let i = 0; i < stages.length; i++) {
-      els[i].classList.add("run"); els[i].querySelector(".si").textContent = "";
-      for (const l of stages[i].log) { await wait(reduce ? 180 : 260 + Math.random() * 260); line(l[0], (l[0] === "ok" ? "✓ " : "  ") + l[1]); }
+      els[i].classList.add("run");
+      for (const l of stages[i][2]) { await wait(reduce ? 220 : 300 + Math.random() * 260); line(l[0], (l[0] === "ok" ? "✓ " : "  ") + l[1]); }
       els[i].classList.remove("run"); els[i].classList.add("ok"); els[i].querySelector(".si").textContent = "✓";
-      tm.textContent = ((performance.now() - t0) / 1000).toFixed(1) + "s (sped up)";
     }
     line("ok", "deployed quoting-api v2.14.0 to plant-a · nobody touched a server");
   }
-  loopDemo(pipe, btn, deploy, 5000);
-})();
 
-/* ============ network trace ============ */
-(function(){
-  const osiL = [[7,"Application","HTTP · WebSocket · RFB"],[6,"Presentation","TLS"],[5,"Session","upgrade · keep-alive"],[4,"Transport","TCP"],[3,"Network","IP · routing · VPN"],[2,"Data link","Ethernet"],[1,"Physical","plant LAN"]];
+  const osiL = [[7, "Application", "HTTP · WebSocket · RFB"], [6, "Presentation", "TLS"], [5, "Session", "upgrade · keep-alive"], [4, "Transport", "TCP"], [3, "Network", "IP · routing · VPN"], [2, "Data link", "Ethernet"], [1, "Physical", "plant LAN"]];
   const hops = [
-    { n: "Browser", t: "noVNC client", L: [7,6,5,4], h: "noVNC in the browser", p: "A JavaScript VNC client. It opens a secure WebSocket and sends keyboard and mouse events as RFB messages inside binary WebSocket frames.",
-      code: '<span class="c"># the only thing the browser ever sends</span>\nGET /vnc/vm-12 HTTP/1.1\nHost: desk.example.internal\n<span class="k2">Upgrade</span>: websocket\n<span class="k2">Connection</span>: Upgrade\nSec-WebSocket-Protocol: binary\n\n<span class="s">&larr; 101 Switching Protocols</span>' },
-    { n: "nginx", t: "TLS · L7 proxy", L: [7,6,5,4], h: "nginx terminates TLS and routes", p: "Decrypts on 443, picks the backend by host and path, and passes the WebSocket upgrade through. Long read timeouts keep an idle desktop session alive.",
+    { n: "Browser", t: "noVNC client", L: [7, 6, 5, 4], h: "noVNC in the browser", p: "A JavaScript VNC client. It opens a secure WebSocket and sends keyboard and mouse events as RFB messages inside binary frames.",
+      code: '<span class="c"># all the browser ever sends</span>\nGET /vnc/vm-12 HTTP/1.1\nHost: desk.example.internal\n<span class="k2">Upgrade</span>: websocket\n<span class="k2">Connection</span>: Upgrade\n\n<span class="s">&larr; 101 Switching Protocols</span>' },
+    { n: "nginx", t: "TLS · L7 proxy", L: [7, 6, 5, 4], h: "nginx terminates TLS and routes", p: "Decrypts on 443, picks the backend by host and path, and passes the WebSocket upgrade through. Long read timeouts keep an idle desktop alive.",
       code: 'location /vnc/ {\n  proxy_pass http://127.0.0.1:6080/;\n  proxy_http_version 1.1;\n  proxy_set_header <span class="k2">Upgrade</span> $http_upgrade;\n  proxy_set_header <span class="k2">Connection</span> "upgrade";\n  proxy_read_timeout 3600s;\n}' },
-    { n: "websockify", t: "WS ↔ TCP", L: [7,4], h: "websockify converts layers", p: "The bridge. It strips WebSocket framing from each message and writes the payload as a plain TCP byte stream to the VNC port, and does the reverse on the way back.",
-      code: '<span class="c"># WebSocket frames in, raw TCP out</span>\nwebsockify 127.0.0.1:6080 127.0.0.1:5900\n\n<span class="c"># frame: FIN=1 opcode=0x2 (binary) len=8</span>\n<span class="c"># payload &rarr; TCP: 04 01 00 00 00 00 ff 0d</span>\n<span class="c">#   RFB KeyEvent: down, keysym Return</span>' },
-    { n: "VNC server", t: "RFB on TCP 5900", L: [7,4], h: "The VM's VNC server", p: "Speaks RFB, the remote framebuffer protocol: framebuffer updates out, key and pointer events in. It listens on loopback only, so nothing outside the host can reach it directly.",
-      code: '<span class="c"># bound to loopback, invisible to the LAN</span>\nLISTEN 127.0.0.1:5900  (vnc server)\nLISTEN 127.0.0.1:6080  (websockify)\nLISTEN 0.0.0.0:443     (nginx)\n\n"RFB 003.008"  <span class="s">&larr; handshake</span>' },
-    { n: "Firewall", t: "L3/L4 policy", L: [4,3,2,1], h: "Firewall and tunnels", p: "Inbound policy allows 443 and nothing else from user networks. Administration happens over WireGuard or Tailscale, so management ports never face the LAN.",
-      code: '<span class="c"># inbound policy, simplified</span>\nallow  tcp  any        &rarr; host:443\nallow  udp  admin-vpn  &rarr; host:51820  <span class="c"># WireGuard</span>\ndeny   tcp  any        &rarr; host:5900\ndeny   tcp  any        &rarr; host:6080\ndeny   any  any        &rarr; host:*' }
+    { n: "websockify", t: "WS ↔ TCP", L: [7, 4], h: "websockify converts the layers", p: "The bridge. It strips the WebSocket framing from each message and writes the payload as a plain TCP byte stream to the VNC port, and the reverse on the way back.",
+      code: '<span class="c"># WebSocket frames in, raw TCP out</span>\nwebsockify 127.0.0.1:6080 127.0.0.1:5900\n\n<span class="c"># frame: FIN=1 opcode=0x2 (binary) len=8</span>\n<span class="c"># &rarr; TCP: 04 01 00 00 00 00 ff 0d</span>\n<span class="c">#   RFB KeyEvent: down, Return</span>' },
+    { n: "VNC server", t: "RFB · TCP 5900", L: [7, 4], h: "The VM's VNC server", p: "Speaks RFB, the remote framebuffer protocol: screen updates out, key and pointer events in. It listens on loopback only, so nothing off the host can reach it.",
+      code: '<span class="c"># bound to loopback, invisible to the LAN</span>\nLISTEN 127.0.0.1:5900  (vnc)\nLISTEN 127.0.0.1:6080  (websockify)\nLISTEN 0.0.0.0:443     (nginx)\n\n"RFB 003.008"  <span class="s">&larr; handshake</span>' },
+    { n: "Firewall", t: "L3 / L4 policy", L: [4, 3, 2, 1], h: "Firewall and tunnels", p: "Inbound policy allows 443 and nothing else from user networks. Administration runs over WireGuard or Tailscale, so management ports never face the LAN.",
+      code: '<span class="c"># inbound policy, simplified</span>\nallow tcp any       &rarr; host:443\nallow udp admin-vpn &rarr; host:51820\ndeny  tcp any       &rarr; host:5900\ndeny  tcp any       &rarr; host:6080\ndeny  any any       &rarr; host:*' }
   ];
-  const osi = $("osi"), hb = $("hops"), hd = $("hopd"), dot = $("wireDot");
+  const osi = $("osi"), hb = $("hops"), hd = $("hopd"); let cur = 0;
   osi.innerHTML = osiL.map(l => '<div data-l="' + l[0] + '"><b>L' + l[0] + '</b><span>' + l[1] + '<small>' + l[2] + '</small></span></div>').join("");
   hb.innerHTML = hops.map((h, i) => '<button class="hop" data-i="' + i + '" aria-pressed="false"><div class="hn">HOP ' + (i + 1) + '</div><strong>' + h.n + '</strong><span>' + h.t + '</span></button>').join("");
-  let timer = null;
   function sel(i){
-    const h = hops[i];
+    cur = i; const h = hops[i];
     hb.querySelectorAll(".hop").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.i === i)));
     osi.querySelectorAll("div").forEach(d => d.classList.toggle("on", h.L.includes(+d.dataset.l)));
-    dot.style.left = (i / (hops.length - 1) * 82) + "%";
-    hd.innerHTML = '<div><div class="k">Hop ' + (i + 1) + ' of ' + hops.length + '</div><h3>' + h.h + '</h3><p>' + h.p + '</p><div class="k">Works at</div><p class="mono" style="font-size:.78rem">' + h.L.map(l => "L" + l).join(" · ") + '</p></div><pre>' + h.code + '</pre>';
+    hd.innerHTML = '<div><span class="lbl">Hop ' + (i + 1) + ' of ' + hops.length + ' · works at ' + h.L.map(l => "L" + l).join(" ") + '</span><h3 style="margin-top:6px">' + h.h + '</h3><p>' + h.p + '</p></div><pre>' + h.code + '</pre>';
   }
-  hb.addEventListener("click", e => { const b = e.target.closest(".hop"); if (b) { clearInterval(timer); sel(+b.dataset.i); } });
   sel(0);
-  if ("IntersectionObserver" in window && !reduce) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.disconnect(); let k = 0; timer = setInterval(() => { k++; if (k >= hops.length) { clearInterval(timer); return; } sel(k); }, 1900); } }), { threshold: .5 });
-    io.observe(hb);
-  }
+  async function trace(wait){ await wait(2800); sel((cur + 1) % hops.length); }
+
+  const loopD = loopDemo(pipe, $("runPipe"), deploy, 4500), loopN = loopDemo(hb, $("runPlat"), trace, 0);
+  $("runPipe").addEventListener("click", loopD.toggle);
+  $("runPlat").addEventListener("click", loopN.toggle);
+  hb.addEventListener("click", e => { const b = e.target.closest(".hop"); if (b) { sel(+b.dataset.i); loopN.pause(); } });
 })();
 
-/* ============ economics ============ */
+/* ---------- architecture explorer ---------- */
 (function(){
-  const PREMIUM = 99.50, BLEND = 42.60, CAP = .35, BASE = (BLEND - CAP * PREMIUM) / (1 - CAP);
-  const cv = $("costCanvas"), g = cv.getContext("2d"), esc = $("esc"); let W = 600; const H = 250;
-  const cost = e => BASE + e * (PREMIUM - BASE);
-  const acc = e => Math.min(92, 85 + e / CAP * 5);
-  function size(){ const dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth || 600; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); draw(); }
-  function draw(){
-    const e = esc.value / 100, c = cost(e), padL = 50, padR = 16, padT = 18, padB = 30, w = W - padL - padR, h = H - padT - padB, y0 = padT + h;
-    const X = v => padL + v * w, Y = v => y0 - v / PREMIUM * h;
-    g.clearRect(0, 0, W, H);
-    g.font = "10.5px 'IBM Plex Mono', monospace"; g.fillStyle = css("--fg-dim"); g.strokeStyle = css("--line"); g.lineWidth = 1;
-    [0, 25, 50, 75, 100].forEach(v => { g.beginPath(); g.moveTo(padL, Y(v)); g.lineTo(padL + w, Y(v)); g.stroke(); g.textAlign = "right"; g.fillText("$" + v, padL - 8, Y(v) + 3); });
-    g.textAlign = "center"; [0, .25, .5, .75, 1].forEach(v => g.fillText(Math.round(v * 100) + "%", X(v), y0 + 18));
-    const grad = g.createLinearGradient(padL, 0, padL + w, 0); grad.addColorStop(0, css("--c1")); grad.addColorStop(1, css("--c2"));
-    g.beginPath(); g.moveTo(X(0), Y(cost(0))); g.lineTo(X(1), Y(cost(1))); g.strokeStyle = grad; g.lineWidth = 2.5; g.stroke();
-    g.lineTo(X(1), y0); g.lineTo(X(0), y0); g.closePath(); g.globalAlpha = .08; g.fillStyle = css("--c1"); g.fill(); g.globalAlpha = 1;
-    g.setLineDash([4, 4]); g.strokeStyle = css("--c3"); g.lineWidth = 1; g.beginPath(); g.moveTo(X(CAP), y0); g.lineTo(X(CAP), Y(BLEND)); g.stroke(); g.setLineDash([]);
-    g.fillStyle = css("--c3"); g.beginPath(); g.arc(X(CAP), Y(BLEND), 4, 0, 6.283); g.fill(); g.textAlign = "left"; g.fillText("shipped cap · $42.60", X(CAP) + 8, Y(BLEND) - 9);
-    g.beginPath(); g.arc(X(e), Y(c), 6, 0, 6.283); g.fillStyle = css("--fg"); g.fill(); g.strokeStyle = css("--c1"); g.lineWidth = 2; g.stroke();
-    $("escPct").textContent = esc.value + "%"; $("escCost").textContent = "$" + c.toFixed(2);
-    $("escSave").textContent = "−" + Math.round((1 - c / PREMIUM) * 100) + "%"; $("escAcc").textContent = Math.round(acc(e)) + "%";
-  }
-  esc.addEventListener("input", draw); addEventListener("resize", size); redraws.push(draw); size();
-
-  const rungs = [
-    { t: "A", n: "Parse the text layer", c: "no model call", s: 12, b: "About 12% of drawings carry a real text layer. Parsing those is free and exact, so they never reach a model at all." },
-    { t: "B", n: "One vision read, checked against OCR", c: "85% on a golden set", s: 55, b: "A single read per drawing, cross-checked against local OCR. Numbers the OCR cannot corroborate lower the confidence score instead of passing silently." },
-    { t: "C", n: "Second read and adjudication", c: "capped at 35%", s: 28, b: "Only rows that fail validation or score below 0.80 get a second independent read, with core fields verified at about 90%. Caching and batching keep the blended cost at $42.60." },
-    { t: "D", n: "Human review", c: "flagged with a reason", s: 5, b: "Anything still uncertain ships flagged with the reason attached, so a person checks a short list instead of re-reading 1,800 drawings." }
+  const tiers = [
+    ["Experience", [
+      ["quote", "Quoting platform", "React · Vite", "Estimators build quotes against live ERP prices and recursive cost roll-ups.", "The front end talks only to the API layer, so the ERP can change without a front-end release.", ["api", "auth", "pg"]],
+      ["dash", "Shop dashboards", "Next.js", "Live control limits, machine status and cell health for supervisors.", "Served with read-only database roles. A dashboard bug can never write to production data.", ["api", "loop", "pg"]],
+      ["mobile", "Mobile app", "React Native", "Time tracking on iOS and Android with optimistic clock-in and out.", "Silent token renewal, so nobody is bounced to a login screen mid-shift.", ["auth", "api"]],
+      ["assistant", "AI assistant", "MCP clients", "Plain-language questions over ERP, catalogue and code.", "The agent only sees narrow, typed tools. It cannot run arbitrary SQL against a system of record.", ["mcp", "router"]]]],
+    ["AI", [
+      ["router", "Model router", "budget + complexity gate", "Routine work goes to local models; a premium model is called only past a complexity gate with budget left.", "One shared rate limiter across agent instances, so cost and quota are enforced in one place.", ["local", "vision", "assistant"]],
+      ["local", "Local models", "Ollama · Qwen", "Coder models under a 4 GB memory cap on ordinary laptops.", "Data stays on site and the marginal cost is zero.", ["router"]],
+      ["vision", "Vision extraction", "OCR + vision model", "Reads scanned engineering drawings into catalogue-valid rows.", "Confidence comes from physical cross-checks, so escalation is decided by evidence.", ["router", "api"]],
+      ["mcp", "MCP + knowledge graph", "tree-sitter · Neo4j", "A deterministic MCP server with 16 tools over a multi-repository code graph.", "Compact graph context instead of raw files: cheaper prompts, and answers that cite their source.", ["assistant", "api"]]]],
+    ["Integration", [
+      ["api", "Data services", "FastAPI · async SQLAlchemy", "The single front door to every system of record.", "A material-code proxy hides ERP quirks behind stable contracts that apps and agents depend on.", ["as400", "pg", "sqlsrv", "quote", "dash", "mcp", "vision"]],
+      ["auth", "Identity", "SAML · OIDC", "Single sign-on for every app, with one-click access provisioning.", "Access is granted once at the identity layer instead of toggled by hand in each system.", ["quote", "mobile", "api"]],
+      ["flows", "Workflow automation", "Power Automate · events", "Moves an order from entry to invoicing across teams.", "Change-driven notifications go to the owning team, so nothing waits in an inbox.", ["sp", "api"]],
+      ["loop", "Control loop", "C# · .NET", "Reads gauges and writes tool-offset corrections back to CNC cells.", "Deadband plus per-step clamp: the loop cannot overreact to noise.", ["cnc", "dash"]]]],
+    ["Systems of record", [
+      ["as400", "AS/400 ERP", "DB2 for i · ODBC", "Decades of pricing, inventory and routing data behind green screens.", "Wrapped, not replaced. The business keeps its system and gains an API.", ["api"]],
+      ["pg", "PostgreSQL", "application data", "Quotes, cost roll-ups with cycle guards, attachments.", "Migrations run in the pipeline; dashboards get separate read-only roles.", ["api", "quote", "dash"]],
+      ["sqlsrv", "SQL Server", "Always On", "Enterprise data on availability groups.", "Failover is tested, not assumed.", ["api"]],
+      ["sp", "SharePoint", "lists", "Where the business already tracks orders.", "Meet people where they work instead of forcing a new tool on day one.", ["flows"]],
+      ["cnc", "CNC & gauges", "Siemens · Keyence", "Machine controllers and in-line measurement.", "Remote access only over WireGuard or Tailscale.", ["loop"]]]],
+    ["Platform", [
+      ["git", "Push-to-deploy", "Gitea · webhooks", "Self-hosted Git that builds and deploys on push to main.", "No cloud CI on a plant network, so the pipeline lives on site.", ["k8s"]],
+      ["k8s", "Containers", "Docker · Kubernetes · Helm", "Every service containerised, with per-site config externalised.", "The same images run on site or on cloud Kubernetes.", ["git", "obs", "api", "edge"]],
+      ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and browser desktop.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
+      ["obs", "Monitoring", "status pages", "Health checks and a status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
   ];
-  const lad = $("ladder");
-  lad.innerHTML = rungs.map((r, i) =>
-    '<button class="rung" data-i="' + i + '" aria-expanded="' + (i === 0) + '" aria-controls="rb' + i + '"><span class="t">' + r.t + '</span>' +
-    '<span><strong>' + r.n + '</strong><span class="bar"><i style="width:' + r.s + '%"></i></span></span><span class="c">' + r.c + '</span></button>' +
-    '<p class="rung-body" id="rb' + i + '"' + (i === 0 ? "" : " hidden") + '>' + r.b + '</p>').join("");
-  lad.addEventListener("click", e => {
-    const b = e.target.closest(".rung"); if (!b) return;
-    const body = $("rb" + b.dataset.i), open = b.getAttribute("aria-expanded") === "true";
-    b.setAttribute("aria-expanded", String(!open)); body.hidden = open;
-  });
+  const all = {}; tiers.forEach(t => t[1].forEach(n => all[n[0]] = { id: n[0], name: n[1], tech: n[2], what: n[3], why: n[4], l: n[5], tier: t[0] }));
+  const host = $("tiers"), det = $("archDetail");
+  host.innerHTML = tiers.map(t => '<div class="tier"><div class="tier-l">' + t[0] + '</div><div class="tier-n">' + t[1].map(n => '<button class="an" data-id="' + n[0] + '"><strong>' + n[1] + '</strong><span>' + n[2] + '</span></button>').join("") + "</div></div>").join("");
+  function sel(id){
+    const n = all[id]; if (!n) return;
+    const rel = new Set(n.l); Object.values(all).forEach(m => { if (m.l.includes(id)) rel.add(m.id); });
+    host.classList.add("focus");
+    host.querySelectorAll(".an").forEach(b => { b.classList.toggle("sel", b.dataset.id === id); b.classList.toggle("rel", rel.has(b.dataset.id) && b.dataset.id !== id); b.setAttribute("aria-pressed", String(b.dataset.id === id)); });
+    det.innerHTML = '<span class="lbl" style="margin-top:0">' + n.tier + ' layer</span><h3>' + n.name + '</h3><div class="tech">' + n.tech + '</div><span class="lbl">What it does</span><p>' + n.what + '</p><span class="lbl">Design decision</span><p>' + n.why + '</p><span class="lbl">Talks to</span><div class="links">' + [...rel].filter(x => all[x]).map(x => '<button data-go="' + x + '">' + all[x].name + '</button>').join("") + '</div>';
+  }
+  host.addEventListener("click", e => { const b = e.target.closest(".an"); if (b) sel(b.dataset.id); });
+  det.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) sel(b.dataset.go); });
+  sel("api");
 })();
 
-/* ============ control loop ============ */
-(function(){
-  const NOM = 25.000, HALF = .050, DEAD = .3 * HALF, GAIN = .6, CLAMP = .030;
-  const cv = $("loopCanvas"), g = cv.getContext("2d"), sl = $("measured"); let W = 640; const H = 280;
-  const sgn = (n, d = 3) => (n > 0 ? "+" : n < 0 ? "-" : "") + Math.abs(n).toFixed(d);
-  function compute(m){
-    const dev = m - NOM;
-    if (Math.abs(dev) <= DEAD) return { dev, raw: 0, out: 0, state: "hold" };
-    const raw = -dev * GAIN, out = Math.max(-CLAMP, Math.min(CLAMP, raw));
-    return { dev, raw, out, state: Math.abs(raw) > CLAMP ? "clamp" : "correct" };
-  }
-  function draw(){
-    const pad = 40, mid = H / 2, m = parseFloat(sl.value), r = compute(m);
-    const lo = NOM - HALF * 2.4, hi = NOM + HALF * 2.4, x = v => pad + (v - lo) / (hi - lo) * (W - pad * 2);
-    g.clearRect(0, 0, W, H);
-    g.fillStyle = css("--line"); g.globalAlpha = .7; g.fillRect(x(NOM - HALF), mid - 44, x(NOM + HALF) - x(NOM - HALF), 88);
-    g.globalAlpha = 1; g.fillStyle = css("--panel2"); g.fillRect(x(NOM - DEAD), mid - 44, x(NOM + DEAD) - x(NOM - DEAD), 88);
-    g.strokeStyle = css("--line2"); g.lineWidth = 1; g.beginPath(); g.moveTo(pad, mid + 44); g.lineTo(W - pad, mid + 44); g.stroke();
-    g.font = "10.5px 'IBM Plex Mono', monospace"; g.fillStyle = css("--fg-dim"); g.textAlign = "center";
-    const ticks = W < 460 ? [NOM - HALF, NOM, NOM + HALF] : [NOM - HALF, NOM - DEAD, NOM, NOM + DEAD, NOM + HALF];
-    ticks.forEach(v => { g.beginPath(); g.moveTo(x(v), mid + 44); g.lineTo(x(v), mid + 50); g.stroke(); g.fillText(v.toFixed(3), x(v), mid + 64); });
-    g.fillText("tolerance", x(NOM + HALF * .66), mid - 50);
-    g.save(); g.setLineDash([4, 4]); g.strokeStyle = css("--fg-dim"); g.beginPath(); g.moveTo(x(NOM), mid - 44); g.lineTo(x(NOM), mid + 44); g.stroke(); g.restore();
-    const mx = x(m), col = r.state === "hold" ? css("--good") : css("--c3");
-    g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2; g.beginPath(); g.moveTo(mx, mid - 44); g.lineTo(mx, mid + 44); g.stroke();
-    g.beginPath(); g.arc(mx, mid, 5, 0, 6.283); g.fill();
-    const right = mx > W - 130; g.textAlign = right ? "right" : "left"; g.fillText("measured " + m.toFixed(3), mx + (right ? -8 : 8), mid - 30);
-    if (r.out !== 0) {
-      const tx = x(m + r.out), dir = Math.sign(tx - mx) || 1;
-      g.strokeStyle = css("--c1"); g.fillStyle = css("--c1"); g.lineWidth = 2;
-      g.beginPath(); g.moveTo(mx, mid + 22); g.lineTo(tx, mid + 22); g.stroke();
-      g.beginPath(); g.moveTo(tx, mid + 22); g.lineTo(tx - 7 * dir, mid + 18); g.lineTo(tx - 7 * dir, mid + 26); g.closePath(); g.fill();
-      g.textAlign = dir > 0 ? "left" : "right"; g.fillText("offset " + sgn(r.out), tx + 9 * dir, mid + 12);
-    }
-    $("mVal").textContent = m.toFixed(3); $("r-dev").textContent = sgn(r.dev);
-    $("r-raw").textContent = r.state === "hold" ? "0.000" : sgn(r.raw); $("r-out").textContent = sgn(r.out);
-    const v = $("verdict"); v.dataset.state = r.state;
-    v.textContent = r.state === "hold" ? "Inside the deadband. Nothing is written, so in-spec noise never moves the machine."
-      : r.state === "clamp" ? "Correction exceeds the per-step limit, so it is clamped. The cell walks back to nominal across parts instead of overshooting on one."
-      : "Within limits. The correction goes to the offset register and the next part lands closer to nominal.";
-  }
-  function size(){ const dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth || 640; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); draw(); }
-  sl.addEventListener("input", draw); addEventListener("resize", size); redraws.push(draw); size();
-})();
-
-/* ============ skills ============ */
-(function(){
-  const skills = [
-    { k: "Rust", l: "going forward", c: "build", w: ["Language of choice for new services from here on", "Protocol bridges and edge agents that sit next to machines", "Memory safety and predictable latency for long-running plant software"] },
-    { k: "Python", l: "daily", c: "build", w: ["Quoting platform in FastAPI with async SQLAlchemy and PostgreSQL", "AS/400 data service exposing DB2 for i as JSON", "Extraction pipeline with deterministic confidence scoring"] },
-    { k: "FastAPI", l: "daily", c: "build", w: ["Single front door to every system of record", "Material-code proxy for live ERP pricing and stock", "Typed contracts shared by apps and agents"] },
-    { k: "C# / .NET", l: "4 yrs", c: "build", w: ["Closed-loop CNC controller on .NET 4.8, scrap 4-5% to 1-2%", "WiX installer that made client installs repeatable", "Database automation with SMO and failover testing"] },
-    { k: "React", l: "daily", c: "build", w: ["Quoting front end in React 19 and Vite", "Two publishable micro frontends, 38 of 40 commits", "GraphQL schema explorer with a React Flow visualiser"] },
-    { k: "TypeScript", l: "daily", c: "build", w: ["Micro frontends with typed host contracts and mock drivers", "Next.js dashboard with live control limits", "React Native app, about 5.3K lines"] },
-    { k: "React Native", l: "shipped", c: "build", w: ["Designed and built a time-tracking app for iOS and Android", "68 tests with Jest and MSW", "Silent token renewal and optimistic clock in and out"] },
-    { k: "AI pipelines", l: "designs", c: "ai", w: ["Four-tier escalation ladder, 1,800 drawings for about $150", "Confidence from geometry and mass checks, not self-reports", "Shared rate limiter across five agent instances"] },
-    { k: "MCP servers", l: "built", c: "ai", w: ["Deterministic MCP server over tree-sitter and Neo4j, 16 tools", "111 automated tests across 6 deployment topologies", "Knowledge graph across 14 repositories"] },
-    { k: "Local models", l: "runs", c: "ai", w: ["Qwen coder models under a 4 GB cap through Ollama", "Escalation to a premium model only past a complexity gate", "80% local resolution target across 50 laptops"] },
-    { k: "AI economics", l: "prices", c: "ai", w: ["$99.50 to $42.60 per pass through routing and caching", "Credit-metered trial on the same meter as paid usage", "Golden-set benchmarks with accept and escalate thresholds"] },
-    { k: "System design", l: "owns", c: "design", w: ["Five-layer plant architecture: experience, AI, integration, records, platform", "High availability with availability groups, 99.99% uptime", "Per-site config instead of forks across three regions"] },
-    { k: "Kubernetes", l: "operates", c: "platform", w: ["About 20 containerised services across Docker and Kubernetes", "Helm charts with per-site config externalised", "Cloud-ready packaging so a new site runs the same release"] },
-    { k: "CI/CD", l: "owns", c: "platform", w: ["Push-to-deploy webhooks across about 11 services", "semantic-release to an artifact registry with versioned contracts", "Build and test on dedicated instances, images to a registry"] },
-    { k: "AWS", l: "builds on", c: "cloud", w: ["ETL onto Spark with RDS and S3 for high availability", "PySpark on EMR and Glue, orchestrated with Step Functions", "AppSync and ECS on client front ends"] },
-    { k: "Networking", l: "L1–L7", c: "platform", w: ["Plant LAN and a Sophos XGS firewall, documented for handover", "WireGuard and Tailscale for remote access", "Routing, NAT, ports and firewall rules debugged from the wire up"] },
-    { k: "noVNC & websockify", l: "TCP → HTTP", c: "platform", w: ["Raw RFB-over-TCP bridged into WebSockets for in-browser desktops", "Behind nginx with WebSocket upgrade headers and long timeouts", "No VNC port ever exposed; only 443"] },
-    { k: "nginx & TLS", l: "operates", c: "platform", w: ["Reverse proxy routing each app by hostname over HTTPS", "Wildcard certificate from an internal AD certificate authority", "Direct IP:port access firewalled off"] },
-    { k: "Cloud architecture", l: "designs", c: "cloud", w: ["Hybrid split: latency-sensitive plant workloads on site, analytics in AWS", "Same container images and Helm charts run on site or on cloud Kubernetes", "High availability with RDS, S3 and failover testing"] },
-    { k: "AWS data services", l: "built on", c: "cloud", w: ["PySpark on EMR and Glue", "Step Functions orchestration", "Least-privilege IAM per job"] },
-    { k: "DB2 for i", l: "integrates", c: "data", w: ["Live ERP pricing and stock through a material-code proxy", "Catalogue snapshots and work-order routes over ODBC", "One-click access provisioning that replaced manual toggling"] },
-    { k: "PostgreSQL", l: "daily", c: "data", w: ["Recursive cost roll-up with cycle guards", "Read-only roles for shop-floor dashboards", "Schema migrations and attachment storage moves"] },
-    { k: "SQL Server", l: "4 yrs", c: "data", w: ["Always On availability groups, 99.99% uptime, zero data loss", "Plan and index tuning, 65% faster queries", "SSIS pipelines at 10M+ records a day"] },
-    { k: "Spark", l: "migrated to", c: "data", w: ["Moved ETL off on-premises SQL Server onto Spark", "Batch transformations reading and writing through S3"] },
-    { k: "Neo4j", l: "models", c: "data", w: ["Knowledge graph of 1,515 entities across 14 repos", "Per-developer graphs syncing into one shared graph"] },
-    { k: "Power Automate", l: "automates", c: "business", w: ["Order lifecycle across 12+ teams, roughly 120 users", "CMS and order management into SharePoint lists", "Change-driven Exchange notifications to the owning team"] },
-    { k: "Discovery", l: "first step", c: "business", w: ["Sit with operators before writing code: the real bottleneck was hand-configured installs, not the product", "Model what people actually do, then build against that"] },
-    { k: "Pricing & metrics", l: "owns", c: "business", w: ["Trial to paid 11% → 18% by moving the paywall after first value", "Three-tier plans, revenue per customer +22%", "8-12 concurrent experiments with thresholds set up front"] },
-    { k: "Industrial OT", l: "field", c: "business", w: ["Keyence TM-X gauges and Siemens 828D cells", "OPC status snapshots on a live dashboard", "USB HID barcode flows for inspection"] }
-  ];
-  const cats = [["all", "All"], ["ai", "AI"], ["build", "Build"], ["design", "Design"], ["cloud", "Cloud"], ["platform", "Platform & network"], ["data", "Data"], ["business", "Business & field"]];
-  const cloud = $("cloud"), proof = $("proof"), filt = $("filters"); let cur = 0, cat = "all";
-  filt.innerHTML = cats.map(c => '<button data-c="' + c[0] + '" aria-pressed="' + (c[0] === "all") + '">' + c[1] + "</button>").join("");
-  function render(){
-    cloud.innerHTML = skills.map((s, i) => (cat === "all" || s.c === cat) ? '<button class="sk" data-i="' + i + '" aria-pressed="' + (i === cur) + '">' + s.k + '<span class="lvl">' + s.l + "</span></button>" : "").join("");
-  }
-  function show(i){
-    cur = i; const s = skills[i];
-    proof.innerHTML = '<div class="k">Where it shows up</div><h3>' + s.k + "</h3><ul>" + s.w.map(x => "<li>" + x + "</li>").join("") + "</ul>";
-    cloud.querySelectorAll(".sk").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.i === i)));
-  }
-  filt.addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return; cat = b.dataset.c;
-    filt.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-    render(); const first = cloud.querySelector(".sk"); if (first && (cat !== "all") && skills[cur].c !== cat) show(+first.dataset.i); else show(cur);
-  });
-  cloud.addEventListener("click", e => { const b = e.target.closest(".sk"); if (b) show(+b.dataset.i); });
-  render(); show(0);
-})();
-
-/* ============ projects ============ */
-(function(){
-  const card = p => '<article class="card"><h3>' + p.n + '</h3><p class="m">' + p.m + '</p><p>' + p.d + '</p><div class="tags">' + p.t.map(t => "<span>" + t + "</span>").join("") + "</div></article>";
-  $("cards").innerHTML = [
-    { n: "Unified Knowledge Graph", m: "14 repos · 1,515 entities", d: "Per-developer code graphs syncing into one shared graph, with a deterministic MCP server over tree-sitter and Neo4j so AI tools get compact context instead of raw files.", t: ["Python", "Neo4j", "MCP"] },
-    { n: "Model escalation harness", m: "$99.50 → $42.60 a pass", d: "Small local models take routine work and a premium model is called only past a complexity gate with budget left, behind one shared rate limiter.", t: ["Ollama", "Qwen", "FastAPI"] },
-    { n: "Melody voice agent", m: "hands-free build mode", d: "Speech streamed over WebSockets, transcribed with faster-whisper, answered with synthesised speech.", t: ["WebSockets", "Whisper"] },
-    { n: "AI Mode chat bridge", m: "about 7s a turn", d: "A REST chat service driving a headless browser session for terminal and low-power clients, with an isolated container workspace for file writes.", t: ["Python", "CDP"] },
-    { n: "DSA practice arena", m: "runs in 250 MB", d: "A zero-distraction practice box on a rooted 1 GB Android phone, reachable through a browser terminal, where AI answers questions but never writes the code.", t: ["Termux", "tmux", "ttyd"] },
-    { n: "Android pocket server", m: "7,651 restarts fixed", d: "A rooted phone running as a Tailscale-connected server, with single-instance boot guards that ended a duplicate-daemon restart loop.", t: ["Magisk", "Tailscale"] },
-    { n: "myOS", m: "browser desktop", d: "A desktop environment in the browser with its own app shell: admin roles, per-user app visibility, linked notes and tasks.", t: ["Python", "JS"] },
-    { n: "tex2resume", m: "13 unit tests", d: "A LaTeX to Word converter packaged for pip, plus a resume toolkit with templates and a reviewer scorecard.", t: ["Python", "python-docx"] }
-  ].map(card).join("");
-  $("researchCards").innerHTML = [
-    { n: "ResNet from scratch", m: "PyTorch · deep learning", d: "Residual network written from the block up: configurable depth and width, LR schedule, seeded deterministic training, confusion-matrix evaluation on a held-out set.", t: ["PyTorch", "CUDA"] },
-    { n: "Credit-risk EDA", m: "Lending Club loan book", d: "Which borrower attributes separate default from repayment, framed as the lender's decision rather than a classification score.", t: ["pandas", "risk"] },
-    { n: "Regularised regression", m: "ridge and lasso", d: "Housing price prediction with a lambda search and an argument about which variables actually carry the signal.", t: ["scikit-learn"] },
-    { n: "Investment analysis", m: "global funding trends", d: "Where an asset manager should invest, answered from funding-round data by sector, stage and country, stated as a decision.", t: ["pandas", "analysis"] }
-  ].map(card).join("");
-})();
-
-/* ============ copy email ============ */
+/* ---------- copy email ---------- */
 $("copy").addEventListener("click", async () => {
   const t = $("toast");
   try { await navigator.clipboard.writeText($("mail").textContent.trim()); t.hidden = false; setTimeout(() => t.hidden = true, 1600); }
