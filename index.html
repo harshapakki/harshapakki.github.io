@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Harsha Pakki — AI / Forward Deployed Engineer</title>
-<meta name="description" content="Harsha Prakash Pakki, AI / Forward Deployed Engineer. I wrap legacy ERPs, databases and machines in modern APIs, put AI on top where it pays for itself, and ship it on deployment pipelines I build and run.">
+<meta name="description" content="Harsha Prakash Pakki, AI / Forward Deployed Engineer. I build AI agents and machine-learning systems on top of the software a business already runs, full stack from the legacy ERP and its API to the model, the app and the deployment pipeline.">
 <meta name="author" content="Harsha Prakash Pakki">
 <meta name="theme-color" content="#f3f0e8">
 <meta property="og:title" content="Harsha Pakki — AI / Forward Deployed Engineer">
-<meta property="og:description" content="Legacy systems in, AI-powered operations out. Three case studies, a system design, and the platform underneath.">
+<meta property="og:description" content="Legacy systems in, AI-powered operations out. Four case studies, a system design, and the platform underneath.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harshapakki.github.io/">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI / Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Agentic engineering","Applied AI","System design","Cybersecurity","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
+{"@context":"https://schema.org","@type":"Person","name":"Harsha Prakash Pakki","jobTitle":"AI / Forward Deployed Engineer","url":"https://harshapakki.github.io/","email":"mailto:harshapakki@gmail.com","sameAs":["https://github.com/harshapakki","https://www.linkedin.com/in/hpakki/"],"address":{"@type":"PostalAddress","addressLocality":"Bettendorf","addressRegion":"IA","addressCountry":"US"},"alumniOf":["University of Florida","IIIT Bangalore","GITAM"],"knowsAbout":["Forward deployed engineering","Machine learning","AI system design","Full-stack development","Agentic engineering","Applied AI","System design","Cybersecurity","Legacy modernization","API design","Networking","Cloud","CI/CD","Kubernetes","Python","Rust","C#/.NET","React"]}
 </script>
 <style>
 /* Drafting paper in light, blueprint in dark. Sharp corners, ink lines, redline results. */
@@ -267,6 +267,18 @@ input[type=range]{width:100%; accent-color:var(--red)}
   .trade td[data-l]::before{content:attr(data-l); display:block; font-family:var(--cond); font-weight:600; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
 }
 
+/* ---------- bars, quotes ---------- */
+.bars{display:grid; gap:14px}
+.bar-row{display:grid; grid-template-columns:minmax(0,9.5rem) minmax(0,1fr) auto; gap:10px; align-items:center; font-size:.86rem}
+.bar-row span{color:var(--soft)}
+.bar-row i{display:block; height:1.1rem; background:var(--fill); border:1px solid var(--line)}
+.bar-row i u{display:block; height:100%; background:var(--dim)}
+.bar-row.win i u{background:var(--red)}
+.bar-row b{font-family:var(--mono); font-size:.82rem; font-weight:500}
+.bar-h{font-family:var(--cond); font-weight:600; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin-bottom:-4px}
+@media (max-width:480px){.bar-row{grid-template-columns:minmax(0,1fr) auto} .bar-row i{grid-column:1 / -1; grid-row:2}}
+.cell .q{font-family:var(--head); font-size:1.02rem; line-height:1.4; color:var(--ink); margin-bottom:10px}
+
 /* ---------- architecture ---------- */
 .arch{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,20.6rem); gap:18px; align-items:start}
 @media (max-width:900px){.arch{grid-template-columns:1fr}}
@@ -369,7 +381,7 @@ footer .tblock{font-size:.68rem}
     <div>
       <span class="role">AI / Forward Deployed Engineer</span>
       <h1>I connect the systems a business already runs on <em>to the AI it wants to use.</em></h1>
-      <p class="lede">I wrap legacy ERPs, databases and machines in modern APIs, put AI agents on top where they pay for themselves, and ship it on deployment pipelines I build and run. Currently embedded with a manufacturer, with 8+ systems in production.</p>
+      <p class="lede">I build AI agents and machine-learning systems on top of the software a business already runs. Full stack: from the legacy ERP and its API to the model, the app and the deployment pipeline. Currently embedded with a manufacturer, with 8+ systems in production.</p>
       <div class="cta">
         <a class="btn pri" href="#work">Read the case studies</a>
         <a class="btn" href="mailto:harshapakki@gmail.com">Email me</a>
@@ -383,8 +395,10 @@ footer .tblock{font-size:.68rem}
       <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
       <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
       <tr><td>AI</td><td>AI agents · multi-agent orchestration · MCP · context engineering</td></tr>
+      <tr><td>ML</td><td>Model training · benchmarks against baselines · document AI</td></tr>
+      <tr><td>Build</td><td>Full stack: API · web · mobile · data · deploy</td></tr>
       <tr><td>Agents</td><td>LangChain · LangGraph · Claude Agent SDK · Claude Code</td></tr>
-      <tr><td>Depth</td><td>Scalable system design · performance engineering · security · networking</td></tr>
+      <tr><td>Depth</td><td>AI system design · scalable systems · security · networking</td></tr>
       <tr><td>Lens</td><td>Business case first</td></tr>
       <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
     </table>
@@ -435,7 +449,7 @@ footer .tblock{font-size:.68rem}
 <section id="work">
   <div class="wrap">
     <div class="sheet-h"><span class="no">01 / 05</span><span class="lbl">Case studies</span><span class="rule"></span></div>
-    <h2>Three problems, from the shop floor up</h2>
+    <h2>Four problems, from the shop floor up</h2>
     <p class="intro">Each started with sitting next to the people doing the work. Results are in the customer's own numbers.</p>
 
     <article class="cs reveal">
@@ -534,13 +548,50 @@ footer .tblock{font-size:.68rem}
       </div>
     </article>
 
+    <article class="cs reveal">
+      <div>
+        <div class="tag">CASE D · MACHINE LEARNING FOR PLANNING</div>
+        <h3>Scheduling a shop from two ERPs and two years of labor history</h3>
+        <dl class="pbr">
+          <dt>Problem</dt><dd>Planners ran the shop from three spreadsheets. The run-time standards in the ERP understated real run time by about a third, so every schedule started from the wrong numbers.</dd>
+          <dt>Built</dt><dd>A scheduling app that joins customer orders from one ERP with work orders, routings and labor from another, over a <b>strictly read-only</b> interface refreshed every 15 minutes. A <b>model trained on two years of labor history</b> estimates run time, and a <b>minimum-lateness search</b> sequences the jobs. Prices and order values are stripped before any AI call.</dd>
+          <dt>Result</dt><dd>Three estimation methods were benchmarked on 12,344 historical job steps, and the model was kept only because it beat the ERP standards. Version 1 is running as a prototype, ahead of production.
+            <div class="dim">typical error 39.1% → 27.9%</div>
+            <div class="dim">weighted lateness −38% on 719 open jobs</div></dd>
+        </dl>
+        <div class="stack">Infor LN · Epicor CMS on IBM i · machine learning · schedule optimisation · Windows authentication</div>
+      </div>
+      <div class="fig" style="margin-top:0">
+        <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Kept only because it beat the baseline</span></div>
+        <div class="fig-b">
+          <div class="bars">
+            <div class="bar-h">Run-time estimate, typical error · 12,344 job steps</div>
+            <div class="bar-row"><span>ERP standards</span><i><u style="width:78.2%"></u></i><b>39.1%</b></div>
+            <div class="bar-row win"><span>Trained model</span><i><u style="width:55.8%"></u></i><b>27.9%</b></div>
+            <div class="bar-h" style="margin-top:8px">Late jobs · 300-job sample</div>
+            <div class="bar-row"><span>Date-order sequence</span><i><u style="width:96.7%"></u></i><b>145</b></div>
+            <div class="bar-row win"><span>Minimum-lateness search</span><i><u style="width:91.3%"></u></i><b>137</b></div>
+          </div>
+          <p class="fnote">Lower is better in both. A later whole-route simulation cut weighted lateness by 38% across 719 open jobs.</p>
+        </div>
+      </div>
+    </article>
+
     <div class="sub-h" id="agentic"><span class="lbl">Agentic engineering</span><h3>Agents that can be trusted with real systems</h3></div>
     <p class="sub-p">An agent is only as good as the tools, context and limits it is given. I engineer all three, so an agent can act on an ERP or a codebase without being able to damage either.</p>
     <div class="grid4 reveal">
       <div class="cell"><div class="k">TOOLS</div><h4>Typed tools, not open prompts</h4><p>A deterministic MCP server with 16 narrow tools, covered by 111 automated tests across 6 deployment topologies. Agents call functions; they never write raw SQL.</p></div>
       <div class="cell"><div class="k">CONTEXT</div><h4>Structure instead of raw files</h4><p>A knowledge graph of code and data, built with tree-sitter and Neo4j, gives an agent compact, exact context, which means cheaper prompts and answers that cite their source.</p></div>
-      <div class="cell"><div class="k">ORCHESTRATION</div><h4>Many agents, one budget</h4><p>Several agent instances share one rate limiter and spend cap. Routine steps run on local models, and a premium model is called only past a complexity gate.</p></div>
-      <div class="cell"><div class="k">GUARDRAILS</div><h4>Verified, then trusted</h4><p>Golden-set evaluations, confidence from deterministic checks, read-only access by default, and a person in the loop for anything still uncertain.</p></div>
+      <div class="cell"><div class="k">ORCHESTRATION</div><h4>Many agents, one budget</h4><p>A coding workflow split across orchestrator, researcher, implementer and reviewer agents, all sharing one rate limiter and spend cap. Routine steps run on local models; a premium model is called only past a complexity gate.</p></div>
+      <div class="cell"><div class="k">GUARDRAILS</div><h4>Verified, then trusted</h4><p>Golden-set evaluations, confidence from deterministic checks, read-only access by default, and a person in the loop for anything still uncertain. An unattended extraction agent verifies its own output before anything is saved.</p></div>
+    </div>
+
+    <div class="sub-h" id="adoption"><span class="lbl">AI adoption</span><h3>Getting a plant to actually use it</h3></div>
+    <p class="sub-p">A model nobody uses has no return. Alongside the systems, I build the training, the everyday agents and the clean data that make AI part of the working day.</p>
+    <div class="grid3 reveal">
+      <div class="cell"><div class="k">TRAINING</div><h4>A curriculum, not a demo</h4><p>A four-tier, 12-week AI curriculum for staff. The first session, AI 101 with Microsoft Copilot, reached about 65 people across two sites, with paid licences moved to the people using them.</p></div>
+      <div class="cell"><div class="k">EVERYDAY AGENTS</div><h4>Five agents for real questions</h4><p>Copilot agents for IT how-to answers, engineering print analysis and coding, plus a part matcher that reads an uploaded drawing and ranks the ten most similar existing parts with reasons.</p></div>
+      <div class="cell"><div class="k">AGENT-READY DATA</div><h4>Clean sources before clever prompts</h4><p>27 print-family datasets merged into one part master with quality flags, document libraries structured for retrieval, and ERP routing data exposed through a read-only API.</p></div>
     </div>
 
     <div class="sub-h"><span class="lbl">The business side</span><h3>How I decide what is worth building</h3></div>
@@ -562,7 +613,7 @@ footer .tblock{font-size:.68rem}
     <p class="intro">A plant network has no cloud CI and no public internet, so I designed the delivery platform and the access path the case studies run on. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
 
     <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
       </div>
       <div class="fig-b">
@@ -581,6 +632,29 @@ footer .tblock{font-size:.68rem}
       <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
       <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
       <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
+    </div>
+
+    <div class="sub-h" id="hardening"><span class="lbl">Production hardening</span><h3>From apps on raw ports to a managed platform</h3></div>
+    <p class="sub-p">Three weeks of work on one production server, measured by what an outage or a lost disk would now cost.</p>
+    <table class="trade reveal">
+      <thead><tr><th>Area</th><th>Before</th><th>Now</th></tr></thead>
+      <tbody>
+        <tr><td>Access</td><td data-l="Before">Raw IP and port over plain HTTP</td><td data-l="Now">Five apps on named HTTPS addresses, HTTP redirected, direct ports blocked at the firewall</td></tr>
+        <tr><td>Certificates</td><td data-l="Before">None</td><td data-l="Now">One wildcard certificate from the internal certificate authority, trusted on every domain PC</td></tr>
+        <tr><td>Database backups</td><td data-l="Before">None scheduled</td><td data-l="Now">Nightly dumps with completeness checks, 14-day retention, off-server copies and verified restores</td></tr>
+        <tr><td>Code and config</td><td data-l="Before">Only on the server</td><td data-l="Now">Mirrored off site, with secrets masked and a leak scan before every push</td></tr>
+        <tr><td>Monitoring</td><td data-l="Before">A basic status page</td><td data-l="Now">29 monitors across web addresses, databases, containers, backup jobs and certificate expiry</td></tr>
+        <tr><td>Resilience</td><td data-l="Before">Restarting Docker took every app down</td><td data-l="Now">Live restore, so the daemon restarts or upgrades without interrupting running apps</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-h" id="incidents"><span class="lbl">Operations</span><h3>Incidents and findings, closed at the root cause</h3></div>
+    <p class="sub-p">The first plausible answer is often wrong. I keep going until the fix is verified and written down.</p>
+    <div class="grid4 reveal">
+      <div class="cell"><div class="k">ERP OUTAGE</div><h4>Two faults behind one outage</h4><p>After a hosting outage the ERP stayed down. A sample web server was holding port 80, so the ERP web instance could not start, and damaged Java files were blocking logins. Restored, with the permanent fix documented.</p></div>
+      <div class="cell"><div class="k">ACCESS</div><h4>49 people locked out of their files</h4><p>Traced to 24 folders with broken permission inheritance tied to an empty legacy group. Access restored and a root-cause analysis published.</p></div>
+      <div class="cell"><div class="k">CAPACITY</div><h4>A file server filling by 9 GB a day</h4><p>Free space taken from 43 GB to 115 GB in a day, with the growth analysed and 100 GB of stale patches identified.</p></div>
+      <div class="cell"><div class="k">FLEET</div><h4>Security findings closed by automation</h4><p>A remote-rollout tool I built patched Java across a fleet of about 100 PCs, with offline machines queued to update on reconnect. Legacy TLS disabled on the affected hosts.</p></div>
     </div>
 
     <div class="sub-h" id="security"><span class="lbl">Cybersecurity</span><h3>Defence in depth, from the firewall to the agent</h3></div>
@@ -615,6 +689,17 @@ footer .tblock{font-size:.68rem}
       <li><b>Leave it runnable.</b> Runbooks and status pages, so the customer's team carries on without me.</li>
     </ol>
 
+    <div class="sub-h" id="aidesign"><span class="lbl">AI system design</span><h3>How the AI parts are put together</h3></div>
+    <p class="sub-p">A model is one component. These are the design rules around it that make an AI system safe to run against a business.</p>
+    <div class="grid3 reveal">
+      <div class="cell"><div class="k">GATEWAY</div><h4>One way in to every model</h4><p>Apps and agents call models through one internal gateway, so routing, budgets and logging are decided in one place instead of in each app.</p></div>
+      <div class="cell"><div class="k">DATA PLANE</div><h4>Read-only by construction</h4><p>AI reads systems of record through restricted accounts and typed endpoints. Writes go through narrow, audited services, never through a prompt.</p></div>
+      <div class="cell"><div class="k">PRIVACY</div><h4>Redact before inference</h4><p>Prices and order values are stripped in code before a request reaches an AI service, and sensitive work stays on local models.</p></div>
+      <div class="cell"><div class="k">RETRIEVAL</div><h4>Structure before search</h4><p>A knowledge graph for code and data relationships, a vector store for documents, and curated libraries, so answers come from a known source.</p></div>
+      <div class="cell"><div class="k">EVALUATION</div><h4>Ground truth decides</h4><p>Every model is benchmarked on historical data and kept only if it beats the baseline already in use. Extraction is scored against golden sets.</p></div>
+      <div class="cell"><div class="k">COST</div><h4>Escalate on evidence</h4><p>Cheap and local first, a premium model only past a gate, and cost tracked per unit of work so the system can be priced.</p></div>
+    </div>
+
     <div class="sub-h" id="tradeoffs"><span class="lbl">Decision record</span><h3>Trade-offs I made, and what each one cost</h3></div>
     <p class="sub-p">Every design choice gives something up. These are the ones that shaped the system, with the price stated.</p>
     <table class="trade reveal">
@@ -648,6 +733,7 @@ footer .tblock{font-size:.68rem}
               <li>Technical lead on site, owning delivery from requirements to operations.</li>
               <li><b>Order automation across 12+ teams</b> and about 120 users, so an order moves itself from entry to invoicing.</li>
               <li>Plant network, firewall and remote access, documented for handover.</li>
+              <li><b>ML-assisted production scheduling</b>, a hardened HTTPS app platform with verified backups, and an AI training series for about 65 staff.</li>
             </ul></div>
         </article>
         <article class="job">
@@ -685,18 +771,18 @@ footer .tblock{font-size:.68rem}
         <table class="bom">
           <caption class="lbl">Bill of materials</caption>
           <tr><th>#</th><th>Part</th><th>What I use</th></tr>
-          <tr><td>01</td><td>AI</td><td>AI agents, multi-agent orchestration, MCP servers and tool design, context engineering with knowledge graphs, LLM evaluation, model routing, vision pipelines</td></tr>
-          <tr><td>02</td><td>Agent frameworks</td><td>LangChain, LangGraph, Claude Agent SDK, Claude Code, Model Context Protocol, Ollama for local models</td></tr>
+          <tr><td>01</td><td>AI and ML</td><td>AI agents, multi-agent orchestration, MCP servers and tool design, context engineering with knowledge graphs, retrieval, LLM evaluation, model routing, vision pipelines, ML models trained and benchmarked on plant data, schedule optimisation</td></tr>
+          <tr><td>02</td><td>Agent frameworks</td><td>LangChain, LangGraph, Claude Agent SDK, Claude Code, Model Context Protocol, Microsoft Copilot Studio, Ollama for local models</td></tr>
           <tr><td>03</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>04</td><td>Scalable systems</td><td>Built to grow and stay fast: distributed services, high availability, performance tuning, caching and rate limiting, with the right algorithm and data structure for each workload</td></tr>
           <tr><td>05</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
           <tr><td>06</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
-          <tr><td>07</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, monitoring</td></tr>
+          <tr><td>07</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, Uptime Kuma, automated backups</td></tr>
           <tr><td>08</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
           <tr><td>09</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
           <tr><td>10</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
           <tr><td>11</td><td>Web</td><td>FastAPI, React, Next.js, React Native, GraphQL</td></tr>
-          <tr><td>12</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate</td></tr>
+          <tr><td>12</td><td>Shop floor</td><td>Siemens 828D, Keyence gauges, OPC, Power Automate, Infor LN, Epicor CMS on IBM i</td></tr>
           <tr><td>13</td><td>Business</td><td>Operator discovery, unit economics, pricing and packaging, experiment design</td></tr>
         </table>
         <div class="side">
@@ -710,6 +796,14 @@ footer .tblock{font-size:.68rem}
           </ul>
         </div>
       </div>
+    </div>
+
+    <div class="sub-h" id="feedback"><span class="lbl">Feedback</span><h3>From the people who use what I build</h3></div>
+    <p class="sub-p">Unprompted messages from colleagues at the plant. Names are shortened for privacy.</p>
+    <div class="grid3 reveal">
+      <div class="cell"><p class="q">“Awesome work on this project! It looks great and I think its huge step in the right direction!”</p><div class="k">J***N · LIVE PRODUCTION DASHBOARD</div></div>
+      <div class="cell"><p class="q">“Very cool! I really appreciate your work on this.”</p><div class="k">D***T · BARCODE INSPECTION SCANNER</div></div>
+      <div class="cell"><p class="q">“Great job on this machine tracker.”</p><div class="k">J***Y · MACHINE NETWORK PROGRAMME</div></div>
     </div>
   </div>
 </section>
@@ -984,7 +1078,7 @@ function loopDemo(el, btn, cycle, gap){
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
 })();
 
-/* ---------- Fig. 3: deploy pipeline, Fig. 7: network trace ---------- */
+/* ---------- Fig. 3: deploy pipeline, Fig. 8: network trace ---------- */
 (function(){
   const stages = [
     ["Push", "gitea webhook", [["c", "remote: webhook → deployer (main@a41f9c2)"]]],
