@@ -401,17 +401,11 @@ footer .tblock{font-size:.68rem}
       </div>
     </div>
     <table class="tblock" aria-label="Summary">
-      <tr><td>Name</td><td><b>Harsha Prakash Pakki</b></td></tr>
+      <tr><td>Name</td><td>Harsha Prakash Pakki</td></tr>
       <tr><td>Role</td><td>AI / Forward Deployed Engineer</td></tr>
-      <tr><td>Field</td><td>Manufacturing · legacy to AI</td></tr>
+      <tr><td>Focus</td><td>AI agents · ML · full stack</td></tr>
       <tr><td>Stack</td><td>Python · Rust · C# · TypeScript</td></tr>
-      <tr><td>Cloud</td><td>AWS · Kubernetes · hybrid</td></tr>
-      <tr><td>AI</td><td>AI agents · multi-agent orchestration · MCP · context engineering</td></tr>
-      <tr><td>ML</td><td>Model training · benchmarks against baselines · document AI</td></tr>
-      <tr><td>Build</td><td>Full stack: API · web · mobile · data · deploy</td></tr>
-      <tr><td>Agents</td><td>LangChain · LangGraph · Claude Agent SDK · Claude Code</td></tr>
-      <tr><td>Depth</td><td>AI system design · scalable systems · security · networking</td></tr>
-      <tr><td>Lens</td><td>Business case first</td></tr>
+      <tr><td>Cloud</td><td>Hybrid · AWS · Kubernetes</td></tr>
       <tr><td>Based</td><td>Bettendorf, Iowa</td></tr>
     </table>
   </div>
@@ -425,56 +419,6 @@ footer .tblock{font-size:.68rem}
         <div class="pane"><div class="pane-h"><span class="bal">2</span>Data service · REST<span class="st" id="st1">idle</span></div><pre class="code" id="apiOut"></pre></div>
         <div class="pane"><div class="pane-h"><span class="bal">1</span>Agent · tool call<span class="st" id="st2">idle</span></div><div class="chat" id="chat"></div></div>
       </div>
-    </div>
-  </div>
-
-  <div class="fig" id="kgFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 2</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
-      <button class="btn sm" id="runKg" aria-pressed="false">❚❚ Pause</button></div>
-    <div class="fig-b">
-      <div class="kg">
-        <canvas id="kgCanvas" height="300" aria-label="Graph of repositories and code entities, with the path an agent query follows highlighted"></canvas>
-        <div class="kg-side">
-          <div class="kg-log" id="kgLog"><span class="d"># waiting for a question…</span></div>
-          <div class="kg-facts">
-            <div><b>14</b><span>repositories</span></div>
-            <div><b>1,515</b><span>code entities</span></div>
-            <div><b>16</b><span>MCP tools</span></div>
-          </div>
-        </div>
-      </div>
-      <p class="fnote">Per-developer graphs built with tree-sitter sync into one shared Neo4j graph. A deterministic MCP server answers from structure, so the same question always returns the same slice. Repository names here are illustrative.</p>
-    </div>
-  </div>
-
-  <div class="fig" id="deployFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
-      <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
-    <div class="fig-b">
-      <div class="pipe" id="pipe"></div>
-      <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
-    </div>
-  </div>
-
-  <div class="fig" id="schedFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 4</span><span class="cap">ML-assisted scheduling: learn the real run times, then resequence the shop to cut late jobs</span>
-      <button class="btn sm" id="runSched" aria-pressed="false">❚❚ Pause</button></div>
-    <div class="fig-b">
-      <div class="kg">
-        <div class="gantt" role="img" aria-label="Schedule of twelve jobs on three machines, re-estimated by a model and then resequenced">
-          <div id="gantt" style="display:grid; gap:10px"></div>
-          <div class="g-stat"><span id="gStage">waiting for the open orders…</span><span><i class="g-key"></i>late jobs: <b id="gLate">0</b> of 12</span></div>
-        </div>
-        <div class="kg-side">
-          <div class="kg-log" id="schedLog"><span class="d"># waiting for the open orders…</span></div>
-          <div class="kg-facts">
-            <div><b>27.9%</b><span>model error, against 39.1% for ERP standards</span></div>
-            <div><b>−38%</b><span>weighted lateness, 719 open jobs</span></div>
-            <div><b>12,344</b><span>job steps benchmarked</span></div>
-          </div>
-        </div>
-      </div>
-      <p class="fnote">Orders come from one ERP, routings and two years of labor history from another, over a read-only interface. The twelve jobs here are illustrative; the measured results are in Case D.</p>
     </div>
   </div>
 </div>
@@ -500,7 +444,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Python · FastAPI · ODBC · DB2 for i · PostgreSQL · React · SAML/OIDC</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 5</span><span class="cap">Wrapped, not replaced</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 2</span><span class="cap">Wrapped, not replaced</span></div>
         <div class="fig-b">
           <div class="flowd">
             <div class="col">
@@ -539,7 +483,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Python · vision models · OCR · local models via Ollama · golden-set evals</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Cost per pass against how much is escalated. Drag it.</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap">Cost per pass against how much is escalated. Drag it.</span></div>
         <div class="fig-b">
           <canvas class="chart" id="costCanvas" height="220" aria-label="Blended cost per pass against escalation rate"></canvas>
           <label class="ctl" for="esc"><span>Escalated to the premium model</span><span id="escPct">35%</span></label>
@@ -581,7 +525,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Infor LN · Epicor CMS on IBM i · machine learning · schedule optimisation · Windows authentication</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Kept only because it beat the baseline</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 4</span><span class="cap">Kept only because it beat the baseline</span></div>
         <div class="fig-b">
           <div class="bars">
             <div class="bar-h">Run-time estimate, typical error · 12,344 job steps</div>
@@ -596,8 +540,48 @@ footer .tblock{font-size:.68rem}
       </div>
     </article>
 
+    <div class="fig" id="schedFig" style="margin:0 0 10px">
+      <div class="fig-h"><span class="lbl">Fig. 5</span><span class="cap">ML-assisted scheduling: learn the real run times, then resequence the shop to cut late jobs</span>
+        <button class="btn sm" id="runSched" aria-pressed="false">❚❚ Pause</button></div>
+      <div class="fig-b">
+        <div class="kg">
+          <div class="gantt" role="img" aria-label="Schedule of twelve jobs on three machines, re-estimated by a model and then resequenced">
+            <div id="gantt" style="display:grid; gap:10px"></div>
+            <div class="g-stat"><span id="gStage">waiting for the open orders…</span><span><i class="g-key"></i>late jobs: <b id="gLate">0</b> of 12</span></div>
+          </div>
+          <div class="kg-side">
+            <div class="kg-log" id="schedLog"><span class="d"># waiting for the open orders…</span></div>
+            <div class="kg-facts">
+              <div><b>27.9%</b><span>model error, against 39.1% for ERP standards</span></div>
+              <div><b>−38%</b><span>weighted lateness, 719 open jobs</span></div>
+              <div><b>12,344</b><span>job steps benchmarked</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="fnote">Orders come from one ERP, routings and two years of labor history from another, over a read-only interface. The twelve jobs here are illustrative; the measured results are above.</p>
+      </div>
+    </div>
+
     <div class="sub-h" id="agentic"><span class="lbl">Agentic engineering</span><h3>Agents that can be trusted with real systems</h3></div>
     <p class="sub-p">An agent is only as good as the tools, context and limits it is given. I engineer all three, so an agent can act on an ERP or a codebase without being able to damage either.</p>
+    <div class="fig" id="kgFig" style="margin:6px 0 22px">
+      <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
+        <button class="btn sm" id="runKg" aria-pressed="false">❚❚ Pause</button></div>
+      <div class="fig-b">
+        <div class="kg">
+          <canvas id="kgCanvas" height="300" aria-label="Graph of repositories and code entities, with the path an agent query follows highlighted"></canvas>
+          <div class="kg-side">
+            <div class="kg-log" id="kgLog"><span class="d"># waiting for a question…</span></div>
+            <div class="kg-facts">
+              <div><b>14</b><span>repositories</span></div>
+              <div><b>1,515</b><span>code entities</span></div>
+              <div><b>16</b><span>MCP tools</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="fnote">Per-developer graphs built with tree-sitter sync into one shared Neo4j graph. A deterministic MCP server answers from structure, so the same question always returns the same slice. Repository names here are illustrative.</p>
+      </div>
+    </div>
     <div class="grid4 reveal">
       <div class="cell"><div class="k">TOOLS</div><h4>Typed tools, not open prompts</h4><p>A deterministic MCP server with 16 narrow tools, covered by 111 automated tests across 6 deployment topologies. Agents call functions; they never write raw SQL.</p></div>
       <div class="cell"><div class="k">CONTEXT</div><h4>Structure instead of raw files</h4><p>A knowledge graph of code and data, built with tree-sitter and Neo4j, gives an agent compact, exact context, which means cheaper prompts and answers that cite their source.</p></div>
@@ -632,7 +616,7 @@ footer .tblock{font-size:.68rem}
     <p class="intro">Plant systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
 
     <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
       </div>
       <div class="fig-b">
@@ -655,22 +639,30 @@ footer .tblock{font-size:.68rem}
 
     <div class="sub-h" id="hybrid"><span class="lbl">Hybrid deployment</span><h3>On site where it must be, on AWS where it pays</h3></div>
     <p class="sub-p">Each workload runs where its constraints put it, and one pipeline ships to both.</p>
+    <div class="fig" id="deployFig" style="margin:6px 0 22px">
+      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
+        <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
+      <div class="fig-b">
+        <div class="pipe" id="pipe"></div>
+        <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
+      </div>
+    </div>
     <div class="grid3 reveal">
       <div class="cell"><div class="k">ON SITE · KUBERNETES</div><h4>Next to the ERP and the machines</h4><p>ERP data services, machine control and local AI models run on a cluster in the plant, so production keeps going if the internet link drops and sensitive data stays in the building.</p></div>
-      <div class="cell"><div class="k">AWS</div><h4>Elastic and off-site work</h4><p>Amazon EKS for services that need to scale, ECR for images, S3 for off-site backups and documents, RDS for managed databases, and one least-privilege IAM role per workload.</p></div>
+      <div class="cell"><div class="k">AWS</div><h4>Elastic and off-site work</h4><p>Amazon EKS for services that need to scale, ECR for images, S3 for off-site backups and documents, RDS for managed databases, CloudWatch for alarms, and one least-privilege IAM role per workload.</p></div>
       <div class="cell"><div class="k">ONE PIPELINE</div><h4>Build once, deploy to both</h4><p>The same image and Helm chart go to both clusters, with a values file per environment. Moving a service between site and cloud is a configuration change, not a rewrite.</p></div>
     </div>
 
     <div class="sub-h" id="hardening"><span class="lbl">Production hardening</span><h3>From apps on raw ports to a managed platform</h3></div>
-    <p class="sub-p">Three weeks of work on one production server, measured by what an outage or a lost disk would now cost.</p>
+    <p class="sub-p">The on-site platform was hardened in three weeks, then extended to the AWS side. It is measured by what an outage or a lost disk would now cost.</p>
     <table class="trade reveal">
       <thead><tr><th>Area</th><th>Before</th><th>Now</th></tr></thead>
       <tbody>
         <tr><td>Access</td><td data-l="Before">Raw IP and port over plain HTTP</td><td data-l="Now">Five apps on named HTTPS addresses, HTTP redirected, direct ports blocked at the firewall</td></tr>
         <tr><td>Certificates</td><td data-l="Before">None</td><td data-l="Now">One wildcard certificate from the internal certificate authority, trusted on every domain PC</td></tr>
-        <tr><td>Database backups</td><td data-l="Before">None scheduled</td><td data-l="Now">Nightly dumps with completeness checks, 14-day retention, off-server copies and verified restores</td></tr>
-        <tr><td>Code and config</td><td data-l="Before">Only on the server</td><td data-l="Now">Mirrored off site, with secrets masked and a leak scan before every push</td></tr>
-        <tr><td>Monitoring</td><td data-l="Before">A basic status page</td><td data-l="Now">29 monitors across web addresses, databases, containers, backup jobs and certificate expiry</td></tr>
+        <tr><td>Database backups</td><td data-l="Before">None scheduled</td><td data-l="Now">Nightly dumps with completeness checks, 14-day local retention and verified restores. Copies go off site to Amazon S3 with versioning and lifecycle rules; cloud databases use RDS automated snapshots</td></tr>
+        <tr><td>Code and config</td><td data-l="Before">Only on the server</td><td data-l="Now">Mirrored off site, with secrets masked and a leak scan before every push. Images are kept in ECR, so either cluster can be rebuilt from the registry</td></tr>
+        <tr><td>Monitoring</td><td data-l="Before">A basic status page</td><td data-l="Now">29 on-site monitors across web addresses, databases, containers, backup jobs and certificate expiry, plus CloudWatch metrics and alarms for the AWS workloads, all feeding one status page</td></tr>
         <tr><td>Resilience</td><td data-l="Before">Restarting Docker took every app down</td><td data-l="Now">Live restore, so the daemon restarts or upgrades without interrupting running apps</td></tr>
       </tbody>
     </table>
@@ -803,8 +795,8 @@ footer .tblock{font-size:.68rem}
           <tr><td>03</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>04</td><td>Scalable systems</td><td>Built to grow and stay fast: distributed services, high availability, performance tuning, caching and rate limiting, with the right algorithm and data structure for each workload</td></tr>
           <tr><td>05</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
-          <tr><td>06</td><td>Cloud</td><td>AWS: EKS, ECR, EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud Kubernetes</td></tr>
-          <tr><td>07</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, Uptime Kuma, automated backups</td></tr>
+          <tr><td>06</td><td>Cloud</td><td>AWS: EKS, ECR, EMR, Glue, Step Functions, RDS, S3, CloudWatch, ECS, AppSync, IAM. Hybrid on-site and cloud Kubernetes</td></tr>
+          <tr><td>07</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, Uptime Kuma and CloudWatch monitoring, automated backups to S3</td></tr>
           <tr><td>08</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
           <tr><td>09</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
           <tr><td>10</td><td>Data</td><td>PostgreSQL, SQL Server, DB2 for i, Spark, Neo4j</td></tr>
@@ -1192,7 +1184,7 @@ function loopDemo(el, btn, cycle, gap){
       ["k8s", "Kubernetes", "on site · Amazon EKS · Helm", "Every service containerised, on a cluster in the plant and on Amazon EKS.", "The same images and charts run in both, with a values file per environment.", ["git", "aws", "obs", "api", "edge"]],
       ["aws", "AWS cloud", "EKS · ECR · S3 · RDS · IAM", "Elastic compute, the image registry, off-site backups and managed databases.", "Rent capacity for bursty work; keep plant-critical systems on site.", ["k8s", "git"]],
       ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and browser desktop.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
-      ["obs", "Monitoring", "status pages", "Health checks and a status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
+      ["obs", "Monitoring", "Uptime Kuma · CloudWatch", "Health checks on site and CloudWatch alarms on AWS, feeding one status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
   ];
   const all = {}; tiers.forEach(t => t[1].forEach(n => all[n[0]] = { id: n[0], name: n[1], tech: n[2], what: n[3], why: n[4], l: n[5], tier: t[0] }));
   const host = $("tiers"), det = $("archDetail");
