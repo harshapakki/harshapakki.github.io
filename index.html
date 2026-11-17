@@ -258,6 +258,7 @@ input[type=range]{width:100%; accent-color:var(--red)}
 .grid4{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--ink); background:var(--card)}
 .grid3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--ink); background:var(--card)}
 @media (max-width:900px){.grid4,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:541px) and (max-width:900px){.grid3 .cell:last-child:nth-child(odd),.grid4 .cell:last-child:nth-child(odd){grid-column:1 / -1}}
 @media (max-width:540px){.grid4,.grid3{grid-template-columns:1fr}}
 .cell{padding:15px 16px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 -1px -1px 0}
 .cell .k{font-family:var(--mono); font-size:.66rem; color:var(--red); letter-spacing:.06em}
