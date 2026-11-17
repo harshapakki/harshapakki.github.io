@@ -673,7 +673,7 @@ footer .tblock{font-size:.68rem}
     <div class="grid4 reveal">
       <div class="cell"><div class="k">ERP OUTAGE</div><h4>Two faults behind one outage</h4><p>After a hosting outage the ERP stayed down. A sample web server was holding port 80, so the ERP web instance could not start, and damaged Java files were blocking logins. Restored, with the permanent fix documented.</p></div>
       <div class="cell"><div class="k">ACCESS</div><h4>49 people locked out of their files</h4><p>Traced to 24 folders with broken permission inheritance tied to an empty legacy group. Access restored and a root-cause analysis published.</p></div>
-      <div class="cell"><div class="k">CAPACITY</div><h4>A file server filling by 9 GB a day</h4><p>Free space taken from 43 GB to 115 GB in a day, with the growth analysed and 100 GB of stale patches identified.</p></div>
+      <div class="cell"><div class="k">DATA INTEGRITY</div><h4>Planner notes landing on the wrong orders</h4><p>The ERP renumbered schedule lines on every customer release, so 133 planner comments had drifted onto the wrong lines. Re-keyed by order, item and ship date: 1,172 of 1,219 comments preserved, and the other 47 belonged to closed orders.</p></div>
       <div class="cell"><div class="k">FLEET</div><h4>Security findings closed by automation</h4><p>A remote-rollout tool I built patched Java across a fleet of about 100 PCs, with offline machines queued to update on reconnect. Legacy TLS disabled on the affected hosts.</p></div>
     </div>
 
