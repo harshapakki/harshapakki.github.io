@@ -590,7 +590,7 @@ footer .tblock{font-size:.68rem}
       <div class="cell"><div class="k">GUARDRAILS</div><h4>Verified, then trusted</h4><p>Golden-set evaluations, confidence from deterministic checks, read-only access by default, and a person in the loop for anything still uncertain. An unattended extraction agent verifies its own output before anything is saved.</p></div>
     </div>
 
-    <div class="sub-h" id="adoption"><span class="lbl">AI adoption</span><h3>Getting a plant to actually use it</h3></div>
+    <div class="sub-h" id="adoption"><span class="lbl">AI adoption</span><h3>Getting people to actually use it</h3></div>
     <p class="sub-p">A model nobody uses has no return. Alongside the systems, I build the training, the everyday agents and the clean data that make AI part of the working day.</p>
     <div class="grid3 reveal">
       <div class="cell"><div class="k">TRAINING</div><h4>A curriculum, not a demo</h4><p>A four-tier, 12-week AI curriculum for staff. The first session, AI 101 with Microsoft Copilot, reached about 65 people across two sites, with paid licences moved to the people using them.</p></div>
@@ -614,7 +614,7 @@ footer .tblock{font-size:.68rem}
   <div class="wrap">
     <div class="sheet-h"><span class="no">02 / 05</span><span class="lbl">The platform underneath</span><span class="rule"></span></div>
     <h2>A desktop in a browser tab, traced through the network layers</h2>
-    <p class="intro">Plant systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
+    <p class="intro">Core operational systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
 
     <div class="fig reveal">
       <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
@@ -649,7 +649,7 @@ footer .tblock{font-size:.68rem}
       </div>
     </div>
     <div class="grid3 reveal">
-      <div class="cell"><div class="k">ON SITE · KUBERNETES</div><h4>Next to the ERP and the machines</h4><p>ERP data services, machine control and local AI models run on a cluster in the plant, so production keeps going if the internet link drops and sensitive data stays in the building.</p></div>
+      <div class="cell"><div class="k">ON SITE · KUBERNETES</div><h4>Next to the ERP and the machines</h4><p>ERP data services, machine control and local AI models run on an on-site cluster, so production keeps going if the internet link drops and sensitive data stays in the building.</p></div>
       <div class="cell"><div class="k">AWS</div><h4>Elastic and off-site work</h4><p>Amazon EKS for services that need to scale, ECR for images, S3 for off-site backups and documents, RDS for managed databases, CloudWatch for alarms, and one least-privilege IAM role per workload.</p></div>
       <div class="cell"><div class="k">ONE PIPELINE</div><h4>Build once, deploy to both</h4><p>The same image and Helm chart go to both clusters, with a values file per environment. Moving a service between site and cloud is a configuration change, not a rewrite.</p></div>
     </div>
@@ -694,7 +694,7 @@ footer .tblock{font-size:.68rem}
 <section id="system">
   <div class="wrap">
     <div class="sheet-h"><span class="no">03 / 05</span><span class="lbl">System design</span><span class="rule"></span></div>
-    <h2>The architecture I deploy into a plant</h2>
+    <h2>The architecture I deploy for a customer</h2>
     <p class="intro">Five layers, each replaceable on its own. Select a component to see what it does, the decision behind it, and what it talks to. The trade-offs behind the design are recorded below it.</p>
     <div class="arch reveal" style="margin-top:24px">
       <div class="tiers" id="tiers"></div>
@@ -733,7 +733,7 @@ footer .tblock{font-size:.68rem}
         <tr><td><span class="no">D-06</span>Database availability</td><td data-l="Chose">Availability groups tuned for zero data loss</td><td data-l="Gave up">Some write latency and extra hardware</td><td data-l="Why">For a system of record, losing a committed transaction costs far more than a few milliseconds per write. Failover was tested, not assumed.</td></tr>
         <tr><td><span class="no">D-07</span>Rolling up quote costs</td><td data-l="Chose">One recursive query over the parts graph, with cycle guards</td><td data-l="Gave up">Simplicity; recursive SQL is harder to read than a loop in application code</td><td data-l="Why">A nested bill of materials is a graph. Walking it in the database is one round trip instead of one query per part, and the cycle guard stops a bad parent link from looping forever.</td></tr>
         <tr><td><span class="no">D-08</span>Remote desktops</td><td data-l="Chose">Browser access over one HTTPS port</td><td data-l="Gave up">Native-client performance</td><td data-l="Why">Nothing to install on any laptop, one port to secure and audit, and no desktop port ever exposed to the network.</td></tr>
-        <tr><td><span class="no">D-09</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single plant</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
+        <tr><td><span class="no">D-09</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single site</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
       </tbody>
     </table>
   </div>
@@ -752,7 +752,7 @@ footer .tblock{font-size:.68rem}
             <ul>
               <li>Technical lead on site, owning delivery from requirements to operations.</li>
               <li><b>Order automation across 12+ teams</b> and about 120 users, so an order moves itself from entry to invoicing.</li>
-              <li>Plant network, firewall and remote access, documented for handover.</li>
+              <li>Site network, firewall and remote access, documented for handover.</li>
               <li><b>ML-assisted production scheduling</b>, a hardened HTTPS app platform with verified backups, and an AI training series for about 65 staff.</li>
             </ul></div>
         </article>
@@ -791,7 +791,7 @@ footer .tblock{font-size:.68rem}
         <table class="bom">
           <caption class="lbl">Bill of materials</caption>
           <tr><th>#</th><th>Part</th><th>What I use</th></tr>
-          <tr><td>01</td><td>AI and ML</td><td>AI agents, multi-agent orchestration, MCP servers and tool design, context engineering with knowledge graphs, retrieval, LLM evaluation, model routing, vision pipelines, ML models trained and benchmarked on plant data, schedule optimisation</td></tr>
+          <tr><td>01</td><td>AI and ML</td><td>AI agents, multi-agent orchestration, MCP servers and tool design, context engineering with knowledge graphs, retrieval, LLM evaluation, model routing, vision pipelines, ML models trained and benchmarked on operational data, schedule optimisation</td></tr>
           <tr><td>02</td><td>Agent frameworks</td><td>LangChain, LangGraph, Claude Agent SDK, Claude Code, Model Context Protocol, Microsoft Copilot Studio, Ollama for local models</td></tr>
           <tr><td>03</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>04</td><td>Scalable systems</td><td>Built to grow and stay fast: distributed services, high availability, performance tuning, caching and rate limiting, with the right algorithm and data structure for each workload</td></tr>
@@ -819,7 +819,7 @@ footer .tblock{font-size:.68rem}
     </div>
 
     <div class="sub-h" id="feedback"><span class="lbl">Feedback</span><h3>From the people who use what I build</h3></div>
-    <p class="sub-p">Unprompted messages from colleagues at the plant. Names are shortened for privacy.</p>
+    <p class="sub-p">Unprompted messages from colleagues. Names are shortened for privacy.</p>
     <div class="grid3 reveal">
       <div class="cell"><p class="q">“Awesome work on this project! It looks great and I think its huge step in the right direction!”</p><div class="k">J***N · LIVE PRODUCTION DASHBOARD</div></div>
       <div class="cell"><p class="q">“Very cool! I really appreciate your work on this.”</p><div class="k">D***T · BARCODE INSPECTION SCANNER</div></div>
@@ -1107,7 +1107,7 @@ function loopDemo(el, btn, cycle, gap){
     ["Test", "pytest · lint", [["", "ruff check … clean"], ["ok", "tests passed · 0 failed"]]],
     ["Migrate", "schema", [["", "alembic upgrade head"], ["ok", "migrations applied, rollback stored"]]],
     ["Publish", "ecr", [["", "push ecr/quoting-api:a41f9c2"], ["ok", "tagged release v2.14.0"]]],
-    ["Roll out", "on site · eks", [["", "helm upgrade quoting -f envs/plant-a.yaml   # on-site cluster"], ["", "helm upgrade quoting -f envs/aws-eks.yaml   # Amazon EKS"], ["ok", "rollout complete on both, 0 dropped requests"]]],
+    ["Roll out", "on site · eks", [["", "helm upgrade quoting -f envs/site-a.yaml   # on-site cluster"], ["", "helm upgrade quoting -f envs/aws-eks.yaml   # Amazon EKS"], ["ok", "rollout complete on both, 0 dropped requests"]]],
     ["Verify", "health · status", [["", "GET /healthz 200"], ["ok", "status page: all systems operational"]]]
   ];
   const pipe = $("pipe"), con = $("console");
@@ -1122,10 +1122,10 @@ function loopDemo(el, btn, cycle, gap){
       for (const l of stages[i][2]) { await wait(reduce ? 220 : 300 + Math.random() * 260); line(l[0], (l[0] === "ok" ? "✓ " : "  ") + l[1]); }
       els[i].classList.remove("run"); els[i].classList.add("ok"); els[i].querySelector(".si").textContent = "✓";
     }
-    line("ok", "deployed quoting-api v2.14.0 to plant-a · nobody touched a server");
+    line("ok", "deployed quoting-api v2.14.0 to site-a and EKS · nobody touched a server");
   }
 
-  const osiL = [[7, "Application", "HTTP · WebSocket · RFB"], [6, "Presentation", "TLS"], [5, "Session", "upgrade · keep-alive"], [4, "Transport", "TCP"], [3, "Network", "IP · routing · VPN"], [2, "Data link", "Ethernet"], [1, "Physical", "plant LAN"]];
+  const osiL = [[7, "Application", "HTTP · WebSocket · RFB"], [6, "Presentation", "TLS"], [5, "Session", "upgrade · keep-alive"], [4, "Transport", "TCP"], [3, "Network", "IP · routing · VPN"], [2, "Data link", "Ethernet"], [1, "Physical", "site LAN"]];
   const hops = [
     { n: "Browser", t: "noVNC client", L: [7, 6, 5, 4], h: "noVNC in the browser", p: "A JavaScript VNC client. It opens a secure WebSocket and sends keyboard and mouse events as RFB messages inside binary frames.",
       code: '<span class="c"># all the browser ever sends</span>\nGET /vnc/vm-12 HTTP/1.1\nHost: desk.example.internal\n<span class="k2">Upgrade</span>: websocket\n<span class="k2">Connection</span>: Upgrade\n\n<span class="s">&larr; 101 Switching Protocols</span>' },
@@ -1182,8 +1182,8 @@ function loopDemo(el, btn, cycle, gap){
       ["cnc", "CNC & gauges", "Siemens · Keyence", "Machine controllers and in-line measurement.", "Remote access only over WireGuard or Tailscale.", ["loop"]]]],
     ["Platform", [
       ["git", "Push-to-deploy", "Gitea · webhooks", "Self-hosted Git that builds on push to main and deploys to both clusters.", "One pipeline for site and cloud, so a fix ships the same way everywhere.", ["k8s", "aws"]],
-      ["k8s", "Kubernetes", "on site · Amazon EKS · Helm", "Every service containerised, on a cluster in the plant and on Amazon EKS.", "The same images and charts run in both, with a values file per environment.", ["git", "aws", "obs", "api", "edge"]],
-      ["aws", "AWS cloud", "EKS · ECR · S3 · RDS · IAM", "Elastic compute, the image registry, off-site backups and managed databases.", "Rent capacity for bursty work; keep plant-critical systems on site.", ["k8s", "git"]],
+      ["k8s", "Kubernetes", "on site · Amazon EKS · Helm", "Every service containerised, on an on-site cluster and on Amazon EKS.", "The same images and charts run in both, with a values file per environment.", ["git", "aws", "obs", "api", "edge"]],
+      ["aws", "AWS cloud", "EKS · ECR · S3 · RDS · IAM", "Elastic compute, the image registry, off-site backups and managed databases.", "Rent capacity for bursty work; keep site-critical systems on site.", ["k8s", "git"]],
       ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and browser desktop.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
       ["obs", "Monitoring", "Uptime Kuma · CloudWatch", "Health checks on site and CloudWatch alarms on AWS, feeding one status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
   ];
