@@ -8,7 +8,7 @@
 <meta name="author" content="Harsha Prakash Pakki">
 <meta name="theme-color" content="#f3f0e8">
 <meta property="og:title" content="Harsha Pakki — AI / Forward Deployed Engineer">
-<meta property="og:description" content="Legacy systems in, AI-powered operations out. Four case studies, a system design, and the platform underneath.">
+<meta property="og:description" content="Legacy systems in, AI-powered operations out. Four case studies, a system design, and the hybrid platform underneath.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harshapakki.github.io/">
 <meta name="twitter:card" content="summary">
@@ -612,36 +612,11 @@ footer .tblock{font-size:.68rem}
 <!-- PLATFORM -->
 <section id="platform">
   <div class="wrap">
-    <div class="sheet-h"><span class="no">02 / 05</span><span class="lbl">The platform underneath</span><span class="rule"></span></div>
-    <h2>A desktop in a browser tab, traced through the network layers</h2>
-    <p class="intro">Core operational systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
-
-    <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
-        <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
-      </div>
-      <div class="fig-b">
-        <div class="net">
-          <div class="osi" id="osi"></div>
-          <div>
-            <div class="hops" id="hops"></div>
-            <div class="hopd" id="hopd"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="facts reveal">
-      <div><b>~20 services</b><span>containerised on Kubernetes, on site and on AWS, about 11 on push-to-deploy</span></div>
-      <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
-      <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
-      <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
-    </div>
-
-    <div class="sub-h" id="hybrid"><span class="lbl">Hybrid deployment</span><h3>On site where it must be, on AWS where it pays</h3></div>
-    <p class="sub-p">Each workload runs where its constraints put it, and one pipeline ships to both.</p>
-    <div class="fig" id="deployFig" style="margin:6px 0 22px">
-      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
+    <div class="sheet-h"><span class="no">02 / 05</span><span class="lbl">Hybrid cloud platform</span><span class="rule"></span></div>
+    <h2 id="hybrid">One pipeline, two places to run: on site and on AWS</h2>
+    <p class="intro">Core operational systems cannot depend on an internet link, but not everything belongs in the building. Each workload runs where its constraints put it: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one pipeline that ships to both.</p>
+    <div class="fig" id="deployFig" style="margin:26px 0 22px">
+      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
         <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
       <div class="fig-b">
         <div class="pipe" id="pipe"></div>
@@ -652,6 +627,13 @@ footer .tblock{font-size:.68rem}
       <div class="cell"><div class="k">ON SITE · KUBERNETES</div><h4>Next to the ERP and the machines</h4><p>ERP data services, machine control and local AI models run on an on-site cluster, so production keeps going if the internet link drops and sensitive data stays in the building.</p></div>
       <div class="cell"><div class="k">AWS</div><h4>Elastic and off-site work</h4><p>Amazon EKS for services that need to scale, ECR for images, S3 for off-site backups and documents, RDS for managed databases, CloudWatch for alarms, and one least-privilege IAM role per workload.</p></div>
       <div class="cell"><div class="k">ONE PIPELINE</div><h4>Build once, deploy to both</h4><p>The same image and Helm chart go to both clusters, with a values file per environment. Moving a service between site and cloud is a configuration change, not a rewrite.</p></div>
+    </div>
+
+    <div class="facts reveal">
+      <div><b>~20 services</b><span>containerised on Kubernetes, on site and on AWS, about 11 on push-to-deploy</span></div>
+      <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
+      <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
+      <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
     </div>
 
     <div class="sub-h" id="hardening"><span class="lbl">Production hardening</span><h3>From apps on raw ports to a managed platform</h3></div>
@@ -667,6 +649,23 @@ footer .tblock{font-size:.68rem}
         <tr><td>Resilience</td><td data-l="Before">Restarting Docker took every app down</td><td data-l="Now">Live restore, so the daemon restarts or upgrades without interrupting running apps</td></tr>
       </tbody>
     </table>
+
+    <div class="sub-h" id="network"><span class="lbl">Network access</span><h3>A desktop in a browser tab, traced through the network layers</h3></div>
+    <p class="sub-p">VNC speaks raw TCP; browsers speak HTTP. This is how I bridge them with only HTTPS exposed.</p>
+    <div class="fig reveal">
+      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+        <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
+      </div>
+      <div class="fig-b">
+        <div class="net">
+          <div class="osi" id="osi"></div>
+          <div>
+            <div class="hops" id="hops"></div>
+            <div class="hopd" id="hopd"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="sub-h" id="incidents"><span class="lbl">Operations</span><h3>Incidents and findings, closed at the root cause</h3></div>
     <p class="sub-p">The first plausible answer is often wrong. I keep going until the fix is verified and written down.</p>
