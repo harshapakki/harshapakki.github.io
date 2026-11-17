@@ -153,6 +153,7 @@ section{padding-block:clamp(52px,8vw,92px)}
 .cs{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:34px; align-items:start; padding-block:34px; border-top:1px dashed var(--line)}
 .cs:first-of-type{border-top:0; padding-top:10px}
 @media (max-width:920px){.cs{grid-template-columns:1fr; gap:20px}}
+.cs.solo{grid-template-columns:minmax(0,1fr)} .cs.solo > div{max-width:46rem}
 .cs .tag{font-family:var(--mono); font-size:.72rem; color:var(--red)}
 .cs h3{font-size:clamp(1.3rem,2.4vw,1.7rem); margin:6px 0 16px}
 .pbr{display:grid; grid-template-columns:74px minmax(0,1fr); gap:6px 14px; font-size:.94rem}
@@ -436,7 +437,7 @@ footer .tblock{font-size:.68rem}
   </div>
 
   <div class="fig" id="deployFig" style="margin-top:18px">
-    <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap"><span class="mono">git push origin main</span>, and it is in production. Nobody logs in to a server.</span>
+    <div class="fig-h"><span class="lbl">Fig. 3</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
       <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
     <div class="fig-b">
       <div class="pipe" id="pipe"></div>
@@ -519,7 +520,7 @@ footer .tblock{font-size:.68rem}
       </div>
     </article>
 
-    <article class="cs reveal">
+    <article class="cs solo reveal">
       <div>
         <div class="tag">CASE C · SOFTWARE THAT MOVES METAL</div>
         <h3>Closing the loop between a gauge and a CNC machine</h3>
@@ -530,21 +531,6 @@ footer .tblock{font-size:.68rem}
             <div class="dim">scrap 4-5% → 1-2%</div></dd>
         </dl>
         <div class="stack">C# · .NET · Keyence TM-X · Siemens 828D · OPC</div>
-      </div>
-      <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">The same control math, live. Drag the measurement.</span></div>
-        <div class="fig-b">
-          <canvas class="chart" id="loopCanvas" height="230" aria-label="Tolerance band with the measured value and the applied correction"></canvas>
-          <label class="ctl" for="measured"><span>Measured diameter, mm</span><span id="mVal">25.062</span></label>
-          <input type="range" id="measured" min="24.88" max="25.12" step="0.001" value="25.062">
-          <div class="readout">
-            <div><span>Deviation</span><b id="r-dev">+0.062</b></div>
-            <div><span>Raw correction</span><b id="r-raw">-0.037</b></div>
-            <div><span>Per-step clamp</span><b>0.030</b></div>
-            <div><span>Written to register</span><b id="r-out">-0.030</b></div>
-          </div>
-          <div class="verdict" id="verdict" data-state="clamp"></div>
-        </div>
       </div>
     </article>
 
@@ -562,7 +548,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Infor LN · Epicor CMS on IBM i · machine learning · schedule optimisation · Windows authentication</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Kept only because it beat the baseline</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Kept only because it beat the baseline</span></div>
         <div class="fig-b">
           <div class="bars">
             <div class="bar-h">Run-time estimate, typical error · 12,344 job steps</div>
@@ -610,10 +596,10 @@ footer .tblock{font-size:.68rem}
   <div class="wrap">
     <div class="sheet-h"><span class="no">02 / 05</span><span class="lbl">The platform underneath</span><span class="rule"></span></div>
     <h2>A desktop in a browser tab, traced through the network layers</h2>
-    <p class="intro">A plant network has no cloud CI and no public internet, so I designed the delivery platform and the access path the case studies run on. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
+    <p class="intro">Plant systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
 
     <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
       </div>
       <div class="fig-b">
@@ -628,10 +614,18 @@ footer .tblock{font-size:.68rem}
     </div>
 
     <div class="facts reveal">
-      <div><b>~20 services</b><span>containerised on Docker and Kubernetes, about 11 on push-to-deploy</span></div>
+      <div><b>~20 services</b><span>containerised on Kubernetes, on site and on AWS, about 11 on push-to-deploy</span></div>
       <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
       <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
       <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
+    </div>
+
+    <div class="sub-h" id="hybrid"><span class="lbl">Hybrid deployment</span><h3>On site where it must be, on AWS where it pays</h3></div>
+    <p class="sub-p">Each workload runs where its constraints put it, and one pipeline ships to both.</p>
+    <div class="grid3 reveal">
+      <div class="cell"><div class="k">ON SITE · KUBERNETES</div><h4>Next to the ERP and the machines</h4><p>ERP data services, machine control and local AI models run on a cluster in the plant, so production keeps going if the internet link drops and sensitive data stays in the building.</p></div>
+      <div class="cell"><div class="k">AWS</div><h4>Elastic and off-site work</h4><p>Amazon EKS for services that need to scale, ECR for images, S3 for off-site backups and documents, RDS for managed databases, and one least-privilege IAM role per workload.</p></div>
+      <div class="cell"><div class="k">ONE PIPELINE</div><h4>Build once, deploy to both</h4><p>The same image and Helm chart go to both clusters, with a values file per environment. Moving a service between site and cloud is a configuration change, not a rewrite.</p></div>
     </div>
 
     <div class="sub-h" id="hardening"><span class="lbl">Production hardening</span><h3>From apps on raw ports to a managed platform</h3></div>
@@ -706,7 +700,7 @@ footer .tblock{font-size:.68rem}
       <thead><tr><th>Decision</th><th>Chose</th><th>Gave up</th><th>Why it was right here</th></tr></thead>
       <tbody>
         <tr><td><span class="no">D-01</span>Modernise the ERP</td><td data-l="Chose">Wrap it in a read API</td><td data-l="Gave up">A clean data model; the legacy system stays a dependency</td><td data-l="Why">Value in weeks instead of a multi-year migration, with zero disruption to a system the business trusts. The API also becomes the seam for replacing it later.</td></tr>
-        <tr><td><span class="no">D-02</span>Where the pipeline runs</td><td data-l="Chose">Self-hosted Git and webhooks on site</td><td data-l="Gave up">Managed CI convenience; I own the upkeep</td><td data-l="Why">A plant network cannot depend on an outbound connection to ship a fix, and source and data stay inside the building.</td></tr>
+        <tr><td><span class="no">D-02</span>Where workloads run</td><td data-l="Chose">Hybrid: Kubernetes on site and on AWS, one pipeline</td><td data-l="Gave up">The simplicity of one environment; two clusters to operate and keep in step</td><td data-l="Why">Systems that talk to the ERP and the machines stay beside them and survive a dropped internet link. Elastic work, off-site backups and anything bursty runs on AWS, where capacity is rented by the hour.</td></tr>
         <tr><td><span class="no">D-03</span>Which model does the work</td><td data-l="Chose">Local first, premium only on evidence</td><td data-l="Gave up">Peak accuracy on the first pass; a more complex pipeline</td><td data-l="Why">Cost falls by more than half and most data never leaves the site. The accuracy is recovered by escalating only the uncertain rows.</td></tr>
         <tr><td><span class="no">D-04</span>How to trust AI output</td><td data-l="Chose">Deterministic checks against physics</td><td data-l="Gave up">Generality; each document type needs its own checks</td><td data-l="Why">A model's own confidence score is not calibrated. Geometry and mass either agree with the drawing or they do not.</td></tr>
         <tr><td><span class="no">D-05</span>How hard the controller corrects</td><td data-l="Chose">Deadband and a per-step clamp</td><td data-l="Gave up">Speed; it takes several parts to return to nominal</td><td data-l="Why">One bad gauge reading can never scrap a part or crash a tool. Slow and bounded beats fast and occasionally wrong.</td></tr>
@@ -776,7 +770,7 @@ footer .tblock{font-size:.68rem}
           <tr><td>03</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>04</td><td>Scalable systems</td><td>Built to grow and stay fast: distributed services, high availability, performance tuning, caching and rate limiting, with the right algorithm and data structure for each workload</td></tr>
           <tr><td>05</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
-          <tr><td>06</td><td>Cloud</td><td>AWS: EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud</td></tr>
+          <tr><td>06</td><td>Cloud</td><td>AWS: EKS, ECR, EMR, Glue, Step Functions, RDS, S3, ECS, AppSync, IAM. Hybrid on-site and cloud Kubernetes</td></tr>
           <tr><td>07</td><td>Platform</td><td>Docker, Kubernetes, Helm, Gitea, semantic-release, Uptime Kuma, automated backups</td></tr>
           <tr><td>08</td><td>Network</td><td>OSI L1–L7, TCP/IP, TLS, nginx, WebSockets, noVNC, WireGuard, Tailscale, Sophos XGS</td></tr>
           <tr><td>09</td><td>Security</td><td>Firewalls, VPN, TLS and internal PKI, SAML / OIDC, least-privilege IAM, read-only roles</td></tr>
@@ -1040,53 +1034,15 @@ function loopDemo(el, btn, cycle, gap){
   lad.addEventListener("click", e => { const b = e.target.closest(".rung"); if (!b) return; const body = $("rb" + b.dataset.i), open = b.getAttribute("aria-expanded") === "true"; b.setAttribute("aria-expanded", String(!open)); body.hidden = open; });
 })();
 
-/* ---------- Fig. 6: control loop ---------- */
-(function(){
-  const NOM = 25, HALF = .05, DEAD = .3 * HALF, GAIN = .6, CLAMP = .03;
-  const cv = $("loopCanvas"), g = cv.getContext("2d"), sl = $("measured"); let W = 600; const H = 230;
-  const sgn = n => (n > 0 ? "+" : n < 0 ? "-" : "") + Math.abs(n).toFixed(3);
-  function compute(m){ const dev = m - NOM; if (Math.abs(dev) <= DEAD) return { dev, raw: 0, out: 0, state: "hold" };
-    const raw = -dev * GAIN, out = Math.max(-CLAMP, Math.min(CLAMP, raw)); return { dev, raw, out, state: Math.abs(raw) > CLAMP ? "clamp" : "correct" }; }
-  function draw(){
-    const pad = 34, mid = H / 2 - 6, m = parseFloat(sl.value), r = compute(m), lo = NOM - HALF * 2.4, hi = NOM + HALF * 2.4, x = v => pad + (v - lo) / (hi - lo) * (W - pad * 2);
-    g.clearRect(0, 0, W, H); g.font = "10.5px 'IBM Plex Mono', monospace";
-    g.fillStyle = css("--fill"); g.fillRect(x(NOM - HALF), mid - 40, x(NOM + HALF) - x(NOM - HALF), 80);
-    g.strokeStyle = css("--blue"); g.lineWidth = 1; g.strokeRect(x(NOM - HALF), mid - 40, x(NOM + HALF) - x(NOM - HALF), 80);
-    g.setLineDash([3, 3]); g.strokeStyle = css("--dim"); g.strokeRect(x(NOM - DEAD), mid - 40, x(NOM + DEAD) - x(NOM - DEAD), 80);
-    g.beginPath(); g.moveTo(x(NOM), mid - 52); g.lineTo(x(NOM), mid + 40); g.stroke(); g.setLineDash([]);
-    g.strokeStyle = css("--ink"); g.beginPath(); g.moveTo(pad, mid + 40); g.lineTo(W - pad, mid + 40); g.stroke();
-    g.fillStyle = css("--dim"); g.textAlign = "center";
-    [NOM - HALF, NOM, NOM + HALF].forEach(v => { g.beginPath(); g.moveTo(x(v), mid + 40); g.lineTo(x(v), mid + 46); g.stroke(); g.fillText(v.toFixed(3), x(v), mid + 60); });
-    g.fillText("tolerance", x(NOM - HALF * .64), mid - 46); g.fillText("deadband ±" + DEAD.toFixed(3), x(NOM), mid + 78);
-    const mx = x(m), col = r.state === "hold" ? css("--ok") : css("--red");
-    g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2; g.beginPath(); g.moveTo(mx, mid - 40); g.lineTo(mx, mid + 40); g.stroke(); g.beginPath(); g.arc(mx, mid - 8, 4.5, 0, 6.283); g.fill();
-    const right = mx > W - 130, lx = mx + (right ? -9 : 9); g.textAlign = right ? "right" : "left";
-    g.fillStyle = css("--card"); g.globalAlpha = .9; g.fillRect(right ? lx - 104 : lx - 3, mid - 37, 107, r.out !== 0 ? 30 : 15); g.globalAlpha = 1;
-    g.fillStyle = col; g.fillText("measured " + m.toFixed(3), lx, mid - 26);
-    if (r.out !== 0) { g.fillStyle = css("--ink"); g.fillText("offset " + sgn(r.out), lx, mid - 12); }
-    if (r.out !== 0) { const tx = x(m + r.out), d = Math.sign(tx - mx) || 1; g.strokeStyle = css("--ink"); g.fillStyle = css("--ink"); g.lineWidth = 1.5;
-      g.beginPath(); g.moveTo(mx, mid + 20); g.lineTo(tx, mid + 20); g.stroke(); g.beginPath(); g.moveTo(tx, mid + 20); g.lineTo(tx - 7 * d, mid + 16); g.lineTo(tx - 7 * d, mid + 24); g.closePath(); g.fill();
-      }
-    $("mVal").textContent = m.toFixed(3); $("r-dev").textContent = sgn(r.dev); $("r-raw").textContent = r.state === "hold" ? "0.000" : sgn(r.raw); $("r-out").textContent = sgn(r.out);
-    const v = $("verdict"); v.dataset.state = r.state;
-    v.textContent = r.state === "hold" ? "Inside the deadband. Nothing is written, so in-spec noise never moves the machine."
-      : r.state === "clamp" ? "The correction exceeds the per-step limit, so it is clamped. The cell walks back to nominal across parts instead of overshooting on one."
-      : "Within limits. The correction goes to the offset register and the next part lands closer to nominal.";
-  }
-  function size(){ const d = Math.min(devicePixelRatio || 1, 2), k = parseFloat(getComputedStyle(document.documentElement).fontSize) / 16 || 1, w = cv.clientWidth || 600; W = w / k; cv.style.height = H * k + "px"; cv.width = w * d; cv.height = H * k * d; g.setTransform(d * k, 0, 0, d * k, 0, 0); draw(); }
-  sl.addEventListener("input", draw); addEventListener("resize", size); redraws.push(draw); size();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
-})();
-
-/* ---------- Fig. 3: deploy pipeline, Fig. 8: network trace ---------- */
+/* ---------- Fig. 3: deploy pipeline, Fig. 7: network trace ---------- */
 (function(){
   const stages = [
     ["Push", "gitea webhook", [["c", "remote: webhook → deployer (main@a41f9c2)"]]],
     ["Build", "docker build", [["d", "step 1/9 FROM python:3.12-slim"], ["", "built quoting-api:a41f9c2"]]],
     ["Test", "pytest · lint", [["", "ruff check … clean"], ["ok", "tests passed · 0 failed"]]],
     ["Migrate", "schema", [["", "alembic upgrade head"], ["ok", "migrations applied, rollback stored"]]],
-    ["Publish", "registry", [["", "push registry.local/quoting-api:a41f9c2"], ["ok", "tagged release v2.14.0"]]],
-    ["Roll out", "helm · k8s", [["", "helm upgrade quoting -f sites/plant-a.yaml"], ["ok", "rollout 2/2, 0 dropped requests"]]],
+    ["Publish", "ecr", [["", "push ecr/quoting-api:a41f9c2"], ["ok", "tagged release v2.14.0"]]],
+    ["Roll out", "on site · eks", [["", "helm upgrade quoting -f envs/plant-a.yaml   # on-site cluster"], ["", "helm upgrade quoting -f envs/aws-eks.yaml   # Amazon EKS"], ["ok", "rollout complete on both, 0 dropped requests"]]],
     ["Verify", "health · status", [["", "GET /healthz 200"], ["ok", "status page: all systems operational"]]]
   ];
   const pipe = $("pipe"), con = $("console");
@@ -1160,8 +1116,9 @@ function loopDemo(el, btn, cycle, gap){
       ["sp", "SharePoint", "lists", "Where the business already tracks orders.", "Meet people where they work instead of forcing a new tool on day one.", ["flows"]],
       ["cnc", "CNC & gauges", "Siemens · Keyence", "Machine controllers and in-line measurement.", "Remote access only over WireGuard or Tailscale.", ["loop"]]]],
     ["Platform", [
-      ["git", "Push-to-deploy", "Gitea · webhooks", "Self-hosted Git that builds and deploys on push to main.", "No cloud CI on a plant network, so the pipeline lives on site.", ["k8s"]],
-      ["k8s", "Containers", "Docker · Kubernetes · Helm", "Every service containerised, with per-site config externalised.", "The same images run on site or on cloud Kubernetes.", ["git", "obs", "api", "edge"]],
+      ["git", "Push-to-deploy", "Gitea · webhooks", "Self-hosted Git that builds on push to main and deploys to both clusters.", "One pipeline for site and cloud, so a fix ships the same way everywhere.", ["k8s", "aws"]],
+      ["k8s", "Kubernetes", "on site · Amazon EKS · Helm", "Every service containerised, on a cluster in the plant and on Amazon EKS.", "The same images and charts run in both, with a values file per environment.", ["git", "aws", "obs", "api", "edge"]],
+      ["aws", "AWS cloud", "EKS · ECR · S3 · RDS · IAM", "Elastic compute, the image registry, off-site backups and managed databases.", "Rent capacity for bursty work; keep plant-critical systems on site.", ["k8s", "git"]],
       ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and browser desktop.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
       ["obs", "Monitoring", "status pages", "Health checks and a status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
   ];
