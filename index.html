@@ -142,6 +142,17 @@ button{font:inherit; color:inherit; cursor:pointer}
 .kg-facts b{display:block; font-family:var(--head); font-size:1.1rem}
 .kg-facts span{font-size:.72rem; color:var(--soft)}
 
+/* scheduler figure */
+.gantt{border:1px solid var(--line); background:var(--paper); padding:14px 14px 10px; display:flex; flex-direction:column; justify-content:center; gap:10px; min-width:0}
+.g-row{display:grid; grid-template-columns:2.4rem minmax(0,1fr); align-items:center; gap:8px; font-family:var(--mono); font-size:.7rem; color:var(--dim)}
+.g-track{position:relative; height:2.2rem; border-left:1px solid var(--ink); border-bottom:1px solid var(--line)}
+.g-bar{position:absolute; top:.28rem; bottom:.28rem; background:var(--card); border:1px solid var(--ink); color:var(--ink); display:flex; align-items:center; justify-content:center; font-size:.64rem; overflow:hidden; white-space:nowrap; transition:left .7s ease, width .7s ease, background-color .3s, border-color .3s, color .3s}
+.g-bar.late{background:var(--red); border-color:var(--red); color:var(--card)}
+.g-stat{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-family:var(--mono); font-size:.72rem; color:var(--soft); border-top:1px dashed var(--line); padding-top:8px}
+.g-stat b{color:var(--red); font-weight:500}
+.g-key{display:inline-block; width:.7rem; height:.7rem; background:var(--red); vertical-align:-1px; margin-right:5px}
+@media (prefers-reduced-motion:reduce){.g-bar{transition:none}}
+
 /* ---------- sheets ---------- */
 section{padding-block:clamp(52px,8vw,92px)}
 .sheet-h{display:flex; align-items:center; gap:14px; border-top:2px solid var(--ink); padding-top:12px; margin-bottom:26px}
@@ -444,6 +455,28 @@ footer .tblock{font-size:.68rem}
       <div class="console" id="console" aria-live="off"><span class="d"># waiting for a push…</span></div>
     </div>
   </div>
+
+  <div class="fig" id="schedFig" style="margin-top:18px">
+    <div class="fig-h"><span class="lbl">Fig. 4</span><span class="cap">ML-assisted scheduling: learn the real run times, then resequence the shop to cut late jobs</span>
+      <button class="btn sm" id="runSched" aria-pressed="false">❚❚ Pause</button></div>
+    <div class="fig-b">
+      <div class="kg">
+        <div class="gantt" role="img" aria-label="Schedule of twelve jobs on three machines, re-estimated by a model and then resequenced">
+          <div id="gantt" style="display:grid; gap:10px"></div>
+          <div class="g-stat"><span id="gStage">waiting for the open orders…</span><span><i class="g-key"></i>late jobs: <b id="gLate">0</b> of 12</span></div>
+        </div>
+        <div class="kg-side">
+          <div class="kg-log" id="schedLog"><span class="d"># waiting for the open orders…</span></div>
+          <div class="kg-facts">
+            <div><b>27.9%</b><span>model error, against 39.1% for ERP standards</span></div>
+            <div><b>−38%</b><span>weighted lateness, 719 open jobs</span></div>
+            <div><b>12,344</b><span>job steps benchmarked</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="fnote">Orders come from one ERP, routings and two years of labor history from another, over a read-only interface. The twelve jobs here are illustrative; the measured results are in Case D.</p>
+    </div>
+  </div>
 </div>
 
 <!-- CASE STUDIES -->
@@ -467,7 +500,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Python · FastAPI · ODBC · DB2 for i · PostgreSQL · React · SAML/OIDC</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 4</span><span class="cap">Wrapped, not replaced</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 5</span><span class="cap">Wrapped, not replaced</span></div>
         <div class="fig-b">
           <div class="flowd">
             <div class="col">
@@ -506,7 +539,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Python · vision models · OCR · local models via Ollama · golden-set evals</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 5</span><span class="cap">Cost per pass against how much is escalated. Drag it.</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Cost per pass against how much is escalated. Drag it.</span></div>
         <div class="fig-b">
           <canvas class="chart" id="costCanvas" height="220" aria-label="Blended cost per pass against escalation rate"></canvas>
           <label class="ctl" for="esc"><span>Escalated to the premium model</span><span id="escPct">35%</span></label>
@@ -548,7 +581,7 @@ footer .tblock{font-size:.68rem}
         <div class="stack">Infor LN · Epicor CMS on IBM i · machine learning · schedule optimisation · Windows authentication</div>
       </div>
       <div class="fig" style="margin-top:0">
-        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Kept only because it beat the baseline</span></div>
+        <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Kept only because it beat the baseline</span></div>
         <div class="fig-b">
           <div class="bars">
             <div class="bar-h">Run-time estimate, typical error · 12,344 job steps</div>
@@ -599,7 +632,7 @@ footer .tblock{font-size:.68rem}
     <p class="intro">Plant systems cannot depend on an internet link, but not everything belongs in the building. I designed a hybrid delivery platform: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one access path for both. VNC speaks raw TCP; browsers speak HTTP. Here is how I bridge them with only HTTPS exposed.</p>
 
     <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
       </div>
       <div class="fig-b">
@@ -1000,7 +1033,46 @@ function loopDemo(el, btn, cycle, gap){
   $("runKg").addEventListener("click", loop.toggle);
 })();
 
-/* ---------- Fig. 5: cost curve + ladder ---------- */
+/* ---------- Fig. 4: scheduler ---------- */
+(function(){
+  const T = 48, host = $("gantt"), log = $("schedLog"), stage = $("gStage"), lateEl = $("gLate");
+  // [id, ERP standard hours, model estimate hours, due hour]
+  const machines = [
+    ["M1", [["A", 6, 8, 10], ["B", 8, 11, 40], ["C", 5, 7, 16], ["D", 7, 9, 27]]],
+    ["M2", [["E", 9, 12, 14], ["F", 4, 6, 44], ["G", 6, 8, 22], ["H", 8, 10, 30]]],
+    ["M3", [["I", 7, 10, 9], ["J", 6, 8, 20], ["K", 9, 12, 26], ["L", 5, 7, 46]]]
+  ];
+  host.innerHTML = machines.map((m, i) => '<div class="g-row"><span>' + m[0] + '</span><div class="g-track">' + m[1].map(j => '<div class="g-bar" data-m="' + i + '" data-j="' + j[0] + '">' + j[0] + '</div>').join("") + '</div></div>').join("");
+  const bar = {}; host.querySelectorAll(".g-bar").forEach(b => bar[b.dataset.j] = b);
+  const score = (seq, k) => { let t = 0, late = 0, sum = 0; seq.forEach(j => { t += j[k]; if (t > j[3]) { late++; sum += t - j[3]; } }); return [late, sum]; };
+  const perms = a => a.length < 2 ? [a] : a.flatMap((x, i) => perms(a.filter((_, n) => n !== i)).map(p => [x, ...p]));
+  const best = jobs => perms(jobs).reduce((b, p) => { const s = score(p, 2), t = score(b, 2); return s[0] < t[0] || (s[0] === t[0] && s[1] < t[1]) ? p : b; });
+  const plans = { date: machines.map(m => m[1]), best: machines.map(m => best(m[1])) };
+  function show(plan, k, label){
+    let late = 0;
+    plan.forEach(seq => { let t = 0; seq.forEach(j => { const b = bar[j[0]]; b.style.left = t / T * 100 + "%"; b.style.width = j[k] / T * 100 + "%"; t += j[k]; const l = t > j[3]; b.classList.toggle("late", l); if (l) late++; }); });
+    lateEl.textContent = late; stage.textContent = label; return late;
+  }
+  const line = (c, t) => { const d = document.createElement("div"); d.className = c; d.textContent = t; log.appendChild(d); };
+  show(plans.date, 1, "waiting for the open orders…");
+  async function cycle(wait){
+    log.innerHTML = ""; let n = show(plans.date, 1, "date order · ERP standard times");
+    line("q", "› plan 12 open jobs on 3 machines"); await wait(700);
+    line("c", "→ sequence by date, ERP standard times");
+    line("d", n + " late on paper"); await wait(1700);
+    line("c", "→ re-estimate run time with the trained model");
+    n = show(plans.date, 2, "date order · model run times"); await wait(900);
+    line("d", "standards understate run time · really " + n + " late"); await wait(1900);
+    line("c", "→ minimum-lateness search");
+    n = show(plans.best, 2, "resequenced · model run times"); await wait(900);
+    line("ok", "✓ resequenced · " + n + " late");
+    await wait(3000);
+  }
+  const loop = loopDemo($("schedFig"), $("runSched"), cycle, 1200);
+  $("runSched").addEventListener("click", loop.toggle);
+})();
+
+/* ---------- Fig. 6: cost curve + ladder ---------- */
 (function(){
   const PREMIUM = 99.50, BLEND = 42.60, CAP = .35, BASE = (BLEND - CAP * PREMIUM) / (1 - CAP);
   const cv = $("costCanvas"), g = cv.getContext("2d"), esc = $("esc"); let W = 600; const H = 220;
@@ -1034,7 +1106,7 @@ function loopDemo(el, btn, cycle, gap){
   lad.addEventListener("click", e => { const b = e.target.closest(".rung"); if (!b) return; const body = $("rb" + b.dataset.i), open = b.getAttribute("aria-expanded") === "true"; b.setAttribute("aria-expanded", String(!open)); body.hidden = open; });
 })();
 
-/* ---------- Fig. 3: deploy pipeline, Fig. 7: network trace ---------- */
+/* ---------- Fig. 3: deploy pipeline, Fig. 8: network trace ---------- */
 (function(){
   const stages = [
     ["Push", "gitea webhook", [["c", "remote: webhook → deployer (main@a41f9c2)"]]],
