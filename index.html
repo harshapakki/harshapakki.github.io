@@ -631,9 +631,9 @@ footer .tblock{font-size:.68rem}
 
     <div class="facts reveal">
       <div><b>~20 services</b><span>containerised on Kubernetes, on site and on AWS, about 11 on push-to-deploy</span></div>
-      <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so desktops open in a browser</span></div>
+      <div><b>TCP → WebSocket</b><span>VNC bridged through websockify and nginx, so the robot simulator opens in a browser</span></div>
       <div><b>Only 443 exposed</b><span>internal-CA wildcard TLS, direct ports firewalled, admin over WireGuard</span></div>
-      <div><b>Days → first login</b><span>environment setup, with dev containers and browser-reachable VMs</span></div>
+      <div><b>11 robot models</b><span>simulated in Docker with one-click launchers, no virtual machine needed</span></div>
     </div>
 
     <div class="sub-h" id="hardening"><span class="lbl">Production hardening</span><h3>From apps on raw ports to a managed platform</h3></div>
@@ -650,8 +650,9 @@ footer .tblock{font-size:.68rem}
       </tbody>
     </table>
 
-    <div class="sub-h" id="network"><span class="lbl">Network access</span><h3>A desktop in a browser tab, traced through the network layers</h3></div>
-    <p class="sub-p">VNC speaks raw TCP; browsers speak HTTP. This is how I bridge them with only HTTPS exposed.</p>
+    <div class="sub-h" id="network"><span class="lbl">Robot simulation</span><h3>A robot simulator in a browser tab, with no virtual machine</h3></div>
+    <p class="sub-p">Engineers needed the Universal Robots simulator to write and test robot programs away from the machines. It is normally run as a virtual machine, and company infrastructure did not allow engineers to run their own. I packaged it in Docker instead, with one-click launchers for 11 robot models and programs kept on persistent storage.</p>
+    <p class="sub-p">The simulator's teach-pendant screen is a Linux desktop application, so it has to reach the engineer through a browser. VNC speaks raw TCP and browsers speak HTTP; this is the bridge, with only HTTPS exposed.</p>
     <div class="fig reveal">
       <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
@@ -731,7 +732,7 @@ footer .tblock{font-size:.68rem}
         <tr><td><span class="no">D-05</span>How hard the controller corrects</td><td data-l="Chose">Deadband and a per-step clamp</td><td data-l="Gave up">Speed; it takes several parts to return to nominal</td><td data-l="Why">One bad gauge reading can never scrap a part or crash a tool. Slow and bounded beats fast and occasionally wrong.</td></tr>
         <tr><td><span class="no">D-06</span>Database availability</td><td data-l="Chose">Availability groups tuned for zero data loss</td><td data-l="Gave up">Some write latency and extra hardware</td><td data-l="Why">For a system of record, losing a committed transaction costs far more than a few milliseconds per write. Failover was tested, not assumed.</td></tr>
         <tr><td><span class="no">D-07</span>Rolling up quote costs</td><td data-l="Chose">One recursive query over the parts graph, with cycle guards</td><td data-l="Gave up">Simplicity; recursive SQL is harder to read than a loop in application code</td><td data-l="Why">A nested bill of materials is a graph. Walking it in the database is one round trip instead of one query per part, and the cycle guard stops a bad parent link from looping forever.</td></tr>
-        <tr><td><span class="no">D-08</span>Remote desktops</td><td data-l="Chose">Browser access over one HTTPS port</td><td data-l="Gave up">Native-client performance</td><td data-l="Why">Nothing to install on any laptop, one port to secure and audit, and no desktop port ever exposed to the network.</td></tr>
+        <tr><td><span class="no">D-08</span>Running the robot simulator</td><td data-l="Chose">Docker containers, reached through the browser over one HTTPS port</td><td data-l="Gave up">The vendor's standard virtual-machine setup and native-client performance</td><td data-l="Why">Company infrastructure did not allow engineer-run virtual machines. Containers needed no exception, nothing has to be installed on a laptop, and there is one port to secure and audit.</td></tr>
         <tr><td><span class="no">D-09</span>Many sites, one product</td><td data-l="Chose">One release with per-site configuration</td><td data-l="Gave up">Quick one-off customisation for a single site</td><td data-l="Why">Forks diverge and every fix has to be made several times. Configuration keeps every site on the same tested build.</td></tr>
       </tbody>
     </table>
@@ -1127,12 +1128,12 @@ function loopDemo(el, btn, cycle, gap){
   const osiL = [[7, "Application", "HTTP · WebSocket · RFB"], [6, "Presentation", "TLS"], [5, "Session", "upgrade · keep-alive"], [4, "Transport", "TCP"], [3, "Network", "IP · routing · VPN"], [2, "Data link", "Ethernet"], [1, "Physical", "site LAN"]];
   const hops = [
     { n: "Browser", t: "noVNC client", L: [7, 6, 5, 4], h: "noVNC in the browser", p: "A JavaScript VNC client. It opens a secure WebSocket and sends keyboard and mouse events as RFB messages inside binary frames.",
-      code: '<span class="c"># all the browser ever sends</span>\nGET /vnc/vm-12 HTTP/1.1\nHost: desk.example.internal\n<span class="k2">Upgrade</span>: websocket\n<span class="k2">Connection</span>: Upgrade\n\n<span class="s">&larr; 101 Switching Protocols</span>' },
-    { n: "nginx", t: "TLS · L7 proxy", L: [7, 6, 5, 4], h: "nginx terminates TLS and routes", p: "Decrypts on 443, picks the backend by host and path, and passes the WebSocket upgrade through. Long read timeouts keep an idle desktop alive.",
-      code: 'location /vnc/ {\n  proxy_pass http://127.0.0.1:6080/;\n  proxy_http_version 1.1;\n  proxy_set_header <span class="k2">Upgrade</span> $http_upgrade;\n  proxy_set_header <span class="k2">Connection</span> "upgrade";\n  proxy_read_timeout 3600s;\n}' },
+      code: '<span class="c"># all the browser ever sends</span>\nGET /ursim/ur10e/ HTTP/1.1\nHost: sim.example.internal\n<span class="k2">Upgrade</span>: websocket\n<span class="k2">Connection</span>: Upgrade\n\n<span class="s">&larr; 101 Switching Protocols</span>' },
+    { n: "nginx", t: "TLS · L7 proxy", L: [7, 6, 5, 4], h: "nginx terminates TLS and routes", p: "Decrypts on 443, picks the backend by host and path, and passes the WebSocket upgrade through. Long read timeouts keep an idle simulator session alive.",
+      code: 'location /ursim/ {\n  proxy_pass http://127.0.0.1:6080/;\n  proxy_http_version 1.1;\n  proxy_set_header <span class="k2">Upgrade</span> $http_upgrade;\n  proxy_set_header <span class="k2">Connection</span> "upgrade";\n  proxy_read_timeout 3600s;\n}' },
     { n: "websockify", t: "WS ↔ TCP", L: [7, 4], h: "websockify converts the layers", p: "The bridge. It strips the WebSocket framing from each message and writes the payload as a plain TCP byte stream to the VNC port, and the reverse on the way back.",
       code: '<span class="c"># WebSocket frames in, raw TCP out</span>\nwebsockify 127.0.0.1:6080 127.0.0.1:5900\n\n<span class="c"># frame: FIN=1 opcode=0x2 (binary) len=8</span>\n<span class="c"># &rarr; TCP: 04 01 00 00 00 00 ff 0d</span>\n<span class="c">#   RFB KeyEvent: down, Return</span>' },
-    { n: "VNC server", t: "RFB · TCP 5900", L: [7, 4], h: "The VM's VNC server", p: "Speaks RFB, the remote framebuffer protocol: screen updates out, key and pointer events in. It listens on loopback only, so nothing off the host can reach it.",
+    { n: "VNC server", t: "RFB · TCP 5900", L: [7, 4], h: "The simulator container's VNC server", p: "Speaks RFB, the remote framebuffer protocol: screen updates out, key and pointer events in. It listens on loopback only, so nothing off the host can reach it.",
       code: '<span class="c"># bound to loopback, invisible to the LAN</span>\nLISTEN 127.0.0.1:5900  (vnc)\nLISTEN 127.0.0.1:6080  (websockify)\nLISTEN 0.0.0.0:443     (nginx)\n\n"RFB 003.008"  <span class="s">&larr; handshake</span>' },
     { n: "Firewall", t: "L3 / L4 policy", L: [4, 3, 2, 1], h: "Firewall and tunnels", p: "Inbound policy allows 443 and nothing else from user networks. Administration runs over WireGuard or Tailscale, so management ports never face the LAN.",
       code: '<span class="c"># inbound policy, simplified</span>\nallow tcp any       &rarr; host:443\nallow udp admin-vpn &rarr; host:51820\ndeny  tcp any       &rarr; host:5900\ndeny  tcp any       &rarr; host:6080\ndeny  any any       &rarr; host:*' }
@@ -1183,7 +1184,7 @@ function loopDemo(el, btn, cycle, gap){
       ["git", "Push-to-deploy", "Gitea · webhooks", "Self-hosted Git that builds on push to main and deploys to both clusters.", "One pipeline for site and cloud, so a fix ships the same way everywhere.", ["k8s", "aws"]],
       ["k8s", "Kubernetes", "on site · Amazon EKS · Helm", "Every service containerised, on an on-site cluster and on Amazon EKS.", "The same images and charts run in both, with a values file per environment.", ["git", "aws", "obs", "api", "edge"]],
       ["aws", "AWS cloud", "EKS · ECR · S3 · RDS · IAM", "Elastic compute, the image registry, off-site backups and managed databases.", "Rent capacity for bursty work; keep site-critical systems on site.", ["k8s", "git"]],
-      ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and browser desktop.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
+      ["edge", "Edge & access", "nginx · TLS · websockify", "One HTTPS front door for every app and the robot simulator.", "Internal-CA wildcard certificate; raw TCP services are bridged, never exposed.", ["k8s", "auth"]],
       ["obs", "Monitoring", "Uptime Kuma · CloudWatch", "Health checks on site and CloudWatch alarms on AWS, feeding one status page the customer's staff can read.", "The first person to notice an outage should not be the customer.", ["k8s"]]]]
   ];
   const all = {}; tiers.forEach(t => t[1].forEach(n => all[n[0]] = { id: n[0], name: n[1], tech: n[2], what: n[3], why: n[4], l: n[5], tier: t[0] }));
