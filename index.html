@@ -8,7 +8,7 @@
 <meta name="author" content="Harsha Prakash Pakki">
 <meta name="theme-color" content="#f3f0e8">
 <meta property="og:title" content="Harsha Pakki — AI / Forward Deployed Engineer">
-<meta property="og:description" content="Legacy systems in, AI-powered operations out. Four case studies, a system design, and the hybrid platform underneath.">
+<meta property="og:description" content="Legacy systems in, AI-powered operations out. Five case studies, a system design, and the hybrid platform underneath.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harshapakki.github.io/">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@ input[type=range]{width:100%; accent-color:var(--red)}
 .stage.run{background:var(--fill)} .stage.run .si{border-color:var(--red); color:var(--red)}
 .stage.ok .si{border-color:var(--ok); background:var(--ok); color:var(--card)}
 .console{margin-top:12px; background:var(--term); border:1px solid var(--line); padding:11px 13px; font-family:var(--mono); font-size:.72rem; color:#a9b8cc; height:150px; overflow:auto; line-height:1.6}
-.console .ok{color:#6fe0a4} .console .c{color:#7cc8ff} .console .d{color:#62728a}
+.console.fit{height:auto; margin-top:0} .console .q{color:#eaf3ff} .console .no{color:#ff8f8f} .console .ok{color:#6fe0a4} .console .c{color:#7cc8ff} .console .d{color:#62728a}
 .net{display:grid; grid-template-columns:minmax(0,12.5rem) minmax(0,1fr); gap:16px; align-items:start}
 @media (max-width:820px){.net{grid-template-columns:1fr}}
 .osi{display:grid; border:1px solid var(--line)}
@@ -428,7 +428,7 @@ footer .tblock{font-size:.68rem}
 <section id="work">
   <div class="wrap">
     <div class="sheet-h"><span class="no">01 / 05</span><span class="lbl">Case studies</span><span class="rule"></span></div>
-    <h2>Four problems, from the shop floor up</h2>
+    <h2>Five problems, from the shop floor up</h2>
     <p class="intro">Each started with sitting next to the people doing the work. Results are in the customer's own numbers.</p>
 
     <article class="cs reveal">
@@ -563,10 +563,43 @@ footer .tblock{font-size:.68rem}
       </div>
     </div>
 
+    <article class="cs reveal">
+      <div>
+        <div class="tag">CASE E · AI AS A SHARED SERVICE</div>
+        <h3>Microsoft 365 Copilot as an AI service, with a legacy ERP as its data source</h3>
+        <dl class="pbr">
+          <dt>Problem</dt><dd>Staff already had Microsoft 365 Copilot, but it could not see the ERP or the shop floor, and internal apps had no approved way to call a model.</dd>
+          <dt>Built</dt><dd>A layer that turns each person's own Copilot into a standard, <b>OpenAI-compatible AI service</b>: a key per app, the model chosen per app in a control panel, named conversations per topic, a one-click installer and a tray app. A <b>drop-in client kit</b> gives any web app a chat call and an assistant that reads what is on screen and runs the actions the app lists. On top of it: an assistant inside the quoting system, plain-language questions over the <b>IBM i ERP</b>, and AI suggestions in the production scheduler.</dd>
+          <dt>Result</dt><dd>Every request runs on the user's own licence. The model writes SQL, the service checks it is read-only before it reaches the ERP, and answers must come from data read in that conversation. That rule caught and stopped a model answering from memory.
+            <div class="dim">answers matched direct ERP queries</div>
+            <div class="dim">live-board answers matched the board</div></dd>
+        </dl>
+        <div class="stack">Microsoft 365 Copilot · OpenAI-compatible API · tool calling · DB2 for i · Hermes · OpenCode</div>
+      </div>
+      <div class="fig" style="margin-top:0">
+        <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Checked before it reaches the ERP</span></div>
+        <div class="fig-b">
+          <div class="console fit">
+            <div class="q">› Which open orders for this part ship next week?</div>
+            <div class="d"># sources ticked by the user: app · ERP · live machine status</div>
+            <div class="c">→ app has no answer, falling back to the ERP</div>
+            <div class="c">→ model proposes: SELECT order_no, qty, ship_date FROM open_orders WHERE …</div>
+            <div class="ok">✓ guard: one statement, read-only</div>
+            <div class="c">→ run on IBM i · 4 rows</div>
+            <div class="ok">✓ answer built only from the rows read in this conversation</div>
+            <div class="d"># and when a step is not a read:</div>
+            <div class="c">→ model proposes: UPDATE open_orders SET …</div>
+            <div class="no">✗ guard: rejected, nothing sent to the ERP</div>
+          </div>
+          <p class="fnote">Extra sources are off by default and each user turns them on. Server addresses are never shown, and role checks apply to every call. The query here is illustrative.</p>
+        </div>
+      </div>
+    </article>
+
     <div class="sub-h" id="agentic"><span class="lbl">Agentic engineering</span><h3>Agents that can be trusted with real systems</h3></div>
     <p class="sub-p">An agent is only as good as the tools, context and limits it is given. I engineer all three, so an agent can act on an ERP or a codebase without being able to damage either.</p>
     <div class="fig" id="kgFig" style="margin:6px 0 22px">
-      <div class="fig-h"><span class="lbl">Fig. 6</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
+      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap">Unified knowledge graph: every repository as one graph, so an AI agent gets exact context instead of raw files</span>
         <button class="btn sm" id="runKg" aria-pressed="false">❚❚ Pause</button></div>
       <div class="fig-b">
         <div class="kg">
@@ -616,7 +649,7 @@ footer .tblock{font-size:.68rem}
     <h2 id="hybrid">One pipeline, two places to run: on site and on AWS</h2>
     <p class="intro">Core operational systems cannot depend on an internet link, but not everything belongs in the building. Each workload runs where its constraints put it: Kubernetes on site next to the ERP and the machines, AWS for elastic and off-site work, and one pipeline that ships to both.</p>
     <div class="fig" id="deployFig" style="margin:26px 0 22px">
-      <div class="fig-h"><span class="lbl">Fig. 7</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
+      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap"><span class="mono">git push origin main</span>, and it is live on site and on AWS. Nobody logs in to a server.</span>
         <button class="btn sm" id="runPipe" aria-pressed="false">❚❚ Pause</button></div>
       <div class="fig-b">
         <div class="pipe" id="pipe"></div>
@@ -654,7 +687,7 @@ footer .tblock{font-size:.68rem}
     <p class="sub-p">Engineers needed the Universal Robots simulator to write and test robot programs away from the machines. It is normally run as a virtual machine, and company infrastructure did not allow engineers to run their own. I packaged it in Docker instead, with one-click launchers for 11 robot models and programs kept on persistent storage.</p>
     <p class="sub-p">The simulator's teach-pendant screen is a Linux desktop application, so it has to reach the engineer through a browser. VNC speaks raw TCP and browsers speak HTTP; this is the bridge, with only HTTPS exposed.</p>
     <div class="fig reveal">
-      <div class="fig-h"><span class="lbl">Fig. 8</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
+      <div class="fig-h"><span class="lbl">Fig. 9</span><span class="cap">Each hop lights up the OSI layers it works at. Select one to stop on it.</span>
         <button class="btn sm" id="runPlat" aria-pressed="false">❚❚ Pause</button>
       </div>
       <div class="fig-b">
@@ -754,6 +787,7 @@ footer .tblock{font-size:.68rem}
               <li><b>Order automation across 12+ teams</b> and about 120 users, so an order moves itself from entry to invoicing.</li>
               <li>Site network, firewall and remote access, documented for handover.</li>
               <li><b>ML-assisted production scheduling</b>, a hardened HTTPS app platform with verified backups, and an AI training series for about 65 staff.</li>
+              <li><b>Microsoft 365 Copilot exposed as an OpenAI-compatible service</b> for internal apps, with guarded, read-only questions over the IBM i ERP.</li>
             </ul></div>
         </article>
         <article class="job">
@@ -792,7 +826,7 @@ footer .tblock{font-size:.68rem}
           <caption class="lbl">Bill of materials</caption>
           <tr><th>#</th><th>Part</th><th>What I use</th></tr>
           <tr><td>01</td><td>AI and ML</td><td>AI agents, multi-agent orchestration, MCP servers and tool design, context engineering with knowledge graphs, retrieval, LLM evaluation, model routing, vision pipelines, ML models trained and benchmarked on operational data, schedule optimisation</td></tr>
-          <tr><td>02</td><td>Agent frameworks</td><td>LangChain, LangGraph, Claude Agent SDK, Claude Code, Model Context Protocol, Microsoft Copilot Studio, Ollama for local models</td></tr>
+          <tr><td>02</td><td>Agent frameworks</td><td>LangChain, LangGraph, Claude Agent SDK, Claude Code, Model Context Protocol, Microsoft Copilot Studio, Microsoft 365 Copilot, Hermes, OpenCode, Ollama for local models</td></tr>
           <tr><td>03</td><td>Development</td><td>Full-stack delivery: APIs, web, mobile and machine control, with tests, code review and versioned releases</td></tr>
           <tr><td>04</td><td>Scalable systems</td><td>Built to grow and stay fast: distributed services, high availability, performance tuning, caching and rate limiting, with the right algorithm and data structure for each workload</td></tr>
           <tr><td>05</td><td>Languages</td><td>Python, C# / .NET, TypeScript, SQL. Rust <span class="new">NEW SERVICES</span> for protocol bridges and edge agents</td></tr>
